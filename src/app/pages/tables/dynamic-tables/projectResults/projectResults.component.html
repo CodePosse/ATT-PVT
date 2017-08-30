@@ -1,0 +1,47 @@
+<h2>Project Results</h2>
+
+
+<ngx-datatable
+    #table
+    class="material"
+    [headerHeight]="40"
+    [limit]="10"
+    [columnMode]="'force'"
+    [footerHeight]="50"
+    [rowHeight]="'auto'"
+    [rows]="rows"
+    [loadingIndicator]="loadingIndicator"
+
+    (activate)="onActivate($event)"
+    (select)='onSelect($event)'>
+    <!--<ngx-datatable-column
+        [width]="30"
+        [sortable]="false"
+        [canAutoResize]="false"
+        [draggable]="true"
+        [resizeable]="false"
+        [headerCheckboxable]="true"
+        [checkboxable]="true">
+      </ngx-datatable-column>
+    -->
+    <ngx-datatable-column name="name">
+      <ng-template ngx-datatable-cell-template let-value="value">
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="timeCreated">
+      <ng-template ngx-datatable-cell-template let-value="value">
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="totalPass">
+      <ng-template ngx-datatable-cell-template let-value="value">
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="totalFail">
+      <ng-template ngx-datatable-cell-template let-value="value">
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>  
+</ngx-datatable>

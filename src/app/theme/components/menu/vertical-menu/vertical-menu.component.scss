@@ -1,0 +1,31 @@
+//@import "../../../../theme/styles/mixins";
+.menu-wrapper {
+    .card {
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        a {
+            cursor: pointer;
+            padding: 10px 0;
+            font-size: 14px;
+            display: inline-block;
+            width: 100%;
+            outline: none;
+            i {
+                padding: 0 12px;
+            }
+            b {
+                float: right;
+                margin-right: 15px;
+                margin-top: 4px;
+                transition: transform 0.2s linear;
+            }
+            &.collapsed b {
+                transform: rotate(-180deg);
+            }
+        }
+    }
+    .collapsing {
+        transition: height .25s ease;
+    }
+}

@@ -1,0 +1,126 @@
+<div class="row justify-content-left">
+    <div class="col-xl-4 col-md-4 col-4">
+        <h3>{{title}}</h3>
+    </div>
+    <div class="col-xl-3 col-md-3 col-3" *ngIf="editable" >
+        <button class="btn btn-blue" (click)="isEditable()">Edit</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-1 col-md-2 col-sm-12">
+        <span class="badge tag blue">Step 1</span>
+    </div>
+    <div class="col-xl-11 col-md-10 col-11">
+        <div class="row">
+            <div class="col-xl-2 col-md-3 col-sm-11 margin-top5">
+                <h5>Project Name</h5>
+            </div>
+            <div class="col-xl-10 col-md-9 col-sm-1">
+                <hr>
+            </div>
+        </div>
+        <div class="col-xl-14 col-md-4 col-4">
+            <input class="form-control" [disabled]="state" placeholder="project name" [value]="projectName" (input)="projectName = $event.target.value">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12 col-md-12 col-12 section-buffer">
+        <p></p>
+    </div>
+    <div class="col-xl-1 col-md-2 col-sm-12">
+        <span class="badge tag blue">Step 2</span>
+    </div>
+    <div class="col-xl-11 col-md-10 col-sm-12">
+        <div class="row">
+            <div class="col-xl-2 col-md-3 col-sm-11 margin-top5">
+                <h5>Select Test Cases</h5>
+            </div>
+            <div class="col-xl-10 col-md-9 col-sm-1">
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div *ngFor="let item of testCases; let i = index" class="col-xl-4 col-md-6 col-sm-12">
+                <label class="custom-control custom-checkbox" >
+                    <input [disabled]="editable" class="custom-control-input checkbox-primary" name="{{item.testCase}}" [checked]="item.checked" type="checkbox"  (change)="AddOrRemoveTest(item.testCase, $event.target.checked)">
+                    <span class="custom-control-indicator"></span>
+                    <span >{{item.testCase}}</span>
+                </label>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12 col-md-12 col-12 section-buffer">
+        <p></p>
+    </div>
+    <div class="col-xl-1 col-md-2 col-sm-12">
+        <span class="badge tag blue">Step 3</span>
+    </div>
+    <div class="col-xl-11 col-md-10 col-sm-12">
+        <div class="row">
+            <div class="col-xl-2 col-md-3 col-sm-11 margin-top5">
+                <h5>Select Devices</h5>
+            </div>
+            <div class="col-xl-10 col-md-9 col-sm-1">
+                <hr>
+            </div>
+        </div>
+        <!--<i class="fa fa-circle red"></i>  <i class="fa fa-circle green"></i> <i class="fa fa-circle gray"></i>
+            -->
+        <ngx-datatable #table class="material" [headerHeight]="40" [limit]="10" [columnMode]="'fixed'" [footerHeight]="50" [rowHeight]="'auto'" [rows]="testDevices" [loadingIndicator]="loadingIndicator" [selected]="selected" [selectionType]="'checkbox'" (activate)="onActivate($event)"
+            (select)='onSelect($event)'>
+
+            <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="true" [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true">
+              <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="true" >
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="AvailabilityStatus">
+                <ng-template ngx-datatable-cell-template let-value="value">
+                    {{value}}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Model">
+                <ng-template ngx-datatable-cell-template let-value="value">
+                    {{value}}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Manufacturer">
+                <ng-template ngx-datatable-cell-template let-value="value">
+                    {{value}}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Site">
+                <ng-template ngx-datatable-cell-template let-value="value">
+                    {{value}}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="UDID">
+                <ng-template ngx-datatable-cell-template let-value="value">
+                    {{value}}
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12 col-md-12 col-12">
+        <hr>
+    </div>
+    <div class="col-xl-1 col-md-2 col-sm-12 margin-top10">
+        <span class="badge tag blue">Step 4</span>
+    </div>
+    <div class="col-xl-11 col-md-10 col-sm-12">
+        <div class="row justify-content-between">
+            <div class="col-xl-2 col-md-2 col-2">
+                <button class="btn btn-blue" (click)="submitForm()">{{btnName}}</button>
+            </div>
+            <div class="col-xl-1 col-md-1 col-1">
+                <a class="btn btn-secondary" href="javascript:void();">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>

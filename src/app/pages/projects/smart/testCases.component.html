@@ -1,0 +1,44 @@
+<h2>Test Cases</h2>
+
+<div class="input-group mb-2">
+    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+    <input class="form-control" type="text" placeholder="Type to filter the name column..." (keyup)="updateFilter($event)" />
+</div>
+
+<ngx-datatable #table class="material" [headerHeight]="40" [limit]="10" [columnMode]="'fixed'" [footerHeight]="50" [rowHeight]="'auto'" [rows]="rows" [loadingIndicator]="loadingIndicator" (activate)="onActivate($event)" (select)='onSelect($event)'>
+    <!--<ngx-datatable-column
+        [width]="30"
+        [sortable]="false"
+        [canAutoResize]="false"
+        [draggable]="true"
+        [resizeable]="false"
+        [headerCheckboxable]="true"
+        [checkboxable]="true">
+      </ngx-datatable-column>
+    -->
+    <ngx-datatable-column name="AvailabilityStatus">
+        <ng-template ngx-datatable-cell-template let-value="value">
+            {{value}}
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Model">
+        <ng-template ngx-datatable-cell-template let-value="value">
+            {{value}}
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Manufacturer">
+        <ng-template ngx-datatable-cell-template let-value="value">
+            {{value}}
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Site">
+        <ng-template ngx-datatable-cell-template let-value="value">
+            {{value}}
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="UDID">
+        <ng-template ngx-datatable-cell-template let-value="value">
+            {{value}}
+        </ng-template>
+    </ngx-datatable-column>
+</ngx-datatable>

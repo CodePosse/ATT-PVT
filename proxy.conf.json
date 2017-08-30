@@ -1,0 +1,7 @@
+{
+	"/automationmanager/*": {
+		"target": "http://54.183.148.229",
+		"secure": false,
+		"logLevel": "debug"
+	}
+}
