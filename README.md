@@ -2,9 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
 
-##installing
+## Installing
 
 From the startng folder beneath where this read.me you will need a console/terminal window you will type `npm install` and it will install all dependencies. when that completes type `npm start` and the site will start on an Angular server. To view it open a browser `http://localhost:4200/`.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

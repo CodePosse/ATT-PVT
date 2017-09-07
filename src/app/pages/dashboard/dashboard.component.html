@@ -2,39 +2,45 @@
     div.vertical-line {
         border-left: 1px solid #D8D8D8;
     }
+    
+    .sidebar-create {
+        display: none
+    }
+    
+    .card-deck.row {
+        justify-content: center;
+    }
 </style>
-<div class="row">
-    <div class="col">
-        <div class="card-deck">
-            <div class="card card-blue col-lg-3 rounded-10" [routerLink]="['/pages/projects']">
-                <div class="card-block  text-center">
-                    <h1 class="card-title">Create <br/> New Project</h1>
-                    <div><i aria-hidden="true" class="fa fa-plus-square-o"></i></div>
-                </div>
+
+
+<div class="card-deck row">
+    <div class="card card-blue col-lg-3 rounded-10 hasPointer" [routerLink]="['/pages/projects']">
+        <div class="card-block  text-center">
+            <h1 class="card-title">Create <br/> New Project</h1>
+            <div><i aria-hidden="true" class="fa fa-plus-square-o"></i></div>
+        </div>
+    </div>
+    <div *ngFor="let item of rows; let i = index" class="card col-lg-3 rounded-10 card-projects hasPointer" [routerLink]="['/pages/projects',item.name,item.timeCreated,'run']">
+        <div class="card-block text-center">
+            <h2 class="card-title">{{item.name}}</h2>
+            <h6>Last Run: {{item.timeCreated}}</h6>
+            <div class="col-xs-12">
+                <hr>
             </div>
-            <div *ngFor="let item of rows; let i = index" class="card col-lg-3 rounded-10 card-projects" [routerLink]="['/pages/projects',item.name,item.timeCreated,'run']">
-                <div class="card-block text-center">
-                    <h2 class="card-title">{{item.name}}</h2>
-                    <h6>Last Run: {{item.timeCreated}}</h6>
-                    <div class="col-xs-12">
-                        <hr>
-                    </div>
+        </div>
+        <div class="container">
+            <div class="row vdivide">
+                <div class="text-center col-lg-4 col-sm-6 col-4">
+                    <h3>{{item.testRuns}}</h3>
+                    <h6>Test Runs</h6>
                 </div>
-                <div class="container">
-                    <div class="row vdivide">
-                        <div class="text-center col-lg-4 col-sm-6 col-4">
-                            <h3>{{item.testRuns}}</h3>
-                            <h6>Test Runs</h6>
-                        </div>
-                        <div class="vertical-line text-center col-lg-4 col-sm-6 col-4">
-                            <h3>{{item.testCases}}</h3>
-                            <h6>Test Cases</h6>
-                        </div>
-                        <div class="vertical-line text-center col-lg-4 col-sm-6 col-4">
-                            <h3>{{item.devices}}</h3>
-                            <h6>Devices</h6>
-                        </div>
-                    </div>
+                <div class="vertical-line text-center col-lg-4 col-sm-6 col-4">
+                    <h3>{{item.testCases}}</h3>
+                    <h6>Test Cases</h6>
+                </div>
+                <div class="vertical-line text-center col-lg-4 col-sm-6 col-4">
+                    <h3>{{item.devices}}</h3>
+                    <h6>Devices</h6>
                 </div>
             </div>
         </div>

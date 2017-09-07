@@ -13,7 +13,6 @@
             font-size: 1.5rem;
             width: $sidebar-width - 30px;
             transform: translate3d(0, 0, 0);
-            background-color: $att_gray_dk;
         }
     }
     &.logo-visible {
@@ -81,6 +80,7 @@
     }
     &.open {
         -webkit-backface-visibility: hidden;
+        left: 5px;
         .line:nth-child(1),
         .line:nth-child(4) {
             top: 4px;

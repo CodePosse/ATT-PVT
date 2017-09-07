@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { Menu } from './menu.model';
 import { verticalMenuItems } from './menu';
+import { horizontalMenuItems } from './menu';
 
 @Injectable()
 export class MenuService {
@@ -17,12 +18,16 @@ export class MenuService {
     return verticalMenuItems;
   }
 
+  public getHorizontalMenuItems():Array<Menu> {
+    return horizontalMenuItems;
+  }
+
   public createMenu(menu:Array<Menu>, nativeElement, type){    
      if(type=='vertical'){
        this.createVerticalMenu(menu, nativeElement);
      }
      if(type=='horizontal'){
-       this.createVerticalMenu(menu, nativeElement);
+       this.createHorizontalMenu(menu, nativeElement);
      }
   }
 
@@ -38,7 +43,20 @@ export class MenuService {
     this.renderer2.appendChild(nativeElement, menu0); 
   }
 
-
+  public createHorizontalMenu(menu:Array<Menu>, nativeElement){
+    let nav = this.renderer2.createElement('div');
+    this.renderer2.setAttribute(nav, 'id', 'navigation');
+    let ul = this.renderer2.createElement('ul');
+    this.renderer2.addClass(ul, 'menu');
+    this.renderer2.appendChild(nav, ul);
+    menu.forEach((menuItem) => {
+        if(menuItem.parentId == 0){
+          let subMenu = this.createHorizontalMenuItem(menu, menuItem);
+          this.renderer2.appendChild(ul, subMenu);
+        }
+    });
+    this.renderer2.appendChild(nativeElement, nav); 
+  }
 
   public createVerticalMenuItem(menu:Array<Menu>, menuItem){
     let div = this.renderer2.createElement('div');
@@ -50,6 +68,10 @@ export class MenuService {
     this.renderer2.setAttribute(link, 'data-animation', 'false');
     this.renderer2.setAttribute(link, 'data-container', '.vertical-menu-tooltip-place');    
     this.renderer2.setAttribute(link, 'data-original-title', menuItem.title);
+    let icon = this.renderer2.createElement('i');
+    this.renderer2.addClass(icon, 'fa');
+    this.renderer2.addClass(icon, 'fa-'+menuItem.icon);
+    this.renderer2.appendChild(link, icon);
     let span = this.renderer2.createElement('span');
     this.renderer2.addClass(span, 'menu-title');
     this.renderer2.appendChild(link, span);
@@ -141,7 +163,7 @@ export class MenuService {
            subMenu = this.createVerticalMenuItem(menu, menuItem);
         }
         if(type=='horizontal'){
-           subMenu = this.createVerticalMenuItem(menu, menuItem);
+           subMenu = this.createHorizontalMenuItem(menu, menuItem);
         }      
         this.renderer2.appendChild(parentElement, subMenu);
       });
@@ -219,6 +241,9 @@ export class MenuService {
       let menu_wrapper = null;
       if(type=='vertical'){
         menu_wrapper = document.getElementById('vertical-menu');
+      }
+      if(type=='horizontal'){
+        menu_wrapper = document.getElementById('horizontal-menu');
       }
       while (menu_wrapper.firstChild) {
           menu_wrapper.removeChild(menu_wrapper.firstChild);

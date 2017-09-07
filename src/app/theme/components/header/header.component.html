@@ -1,10 +1,19 @@
 <nav class="navbar box-shadow app-header" [class.fixed-top]="settings.theme.navbarIsFixed" [class.logo-visible]="showInfoContent">
     <div class="d-flex flex-column w-100">
         <div class="d-flex justify-content-start align-items-center top-navbar">
+            <a class="logo" routerLink="/">
+                <img src="assets/img/logo.png" width="24">
+            </a>
+            <span class="navbar-text menu-icon transition ml-3 mr-3" [ngClass]="{'open': settings.theme.showMenu}" (click)="settings.theme.showMenu = !settings.theme.showMenu">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </span>
             <div class="d-flex justify-content-start favorites-container ml-5">
                 <ul class="list-inline mb-0">
-                    <li class="list-inline-item"><a href="/pages/dashboard">Resource Management</a></li>
-                    <li class="list-inline-item"><a href="/pages/tables/dynamic-tables/projectResults">Reporting</a></li>
+                    <li class="list-inline-item"><a href routerLink="/">Resource Management</a></li>
+                    <li class="list-inline-item"><a href routerLink="/pages/tables/dynamic-tables/projectResults">Reporting</a></li>
                 </ul>
             </div>
             <div class="top-rigth-icons ml-auto">
@@ -18,6 +27,5 @@
                 </span>
             </div>
         </div>
-
     </div>
 </nav>

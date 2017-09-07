@@ -24,6 +24,8 @@ export class ProjectsComponent implements OnInit {
   public form:FormGroup;
   public title = "";
   public targets = ['_blank', '_self'];
+  public settings: Settings;
+  
   testCases = [];
   testDevices = [];
   projectTestcases = [];
@@ -40,11 +42,10 @@ export class ProjectsComponent implements OnInit {
   editable = false;
   loadingIndicator: boolean = true;
   reorderable: boolean = true;
-  TestToRemove: TestCaseToRemove = new TestCaseToRemove
-
-
+  TestToRemove: TestCaseToRemove = new TestCaseToRemove;
   editing = {};
   rows = [];
+  
 
 
   @ViewChild(DatatableComponent) table: DatatableComponent;
@@ -75,7 +76,7 @@ export class ProjectsComponent implements OnInit {
   ]
 
   public menuItems:Array<Menu>;
-  public settings: Settings;
+  
 
   constructor(public fb:FormBuilder,
               public toastrService: ToastrService,
@@ -104,6 +105,7 @@ export class ProjectsComponent implements OnInit {
     this.route.params.subscribe( params => projectName=params['projectName'] );
     this.route.params.subscribe( params => createTime=params['createTime'] );
     this.route.params.subscribe( params => state=params['state'] );
+    this.settings.theme.showMenu = true;
 
 
 

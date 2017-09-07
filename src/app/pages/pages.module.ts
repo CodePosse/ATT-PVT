@@ -16,8 +16,11 @@ import { HeaderComponent } from '../theme/components/header/header.component';
 import { SidebarComponent } from '../theme/components/sidebar/sidebar.component';
 import { VerticalMenuComponent } from '../theme/components/menu/vertical-menu/vertical-menu.component';
 import { FullScreenComponent } from '../theme/components/fullscreen/fullscreen.component';
+import { ApplicationsComponent } from '../theme/components/applications/applications.component';
+import { SideChatComponent } from '../theme/components/side-chat/side-chat.component';
 import { BlankComponent } from './blank/blank.component';
 import { SearchComponent } from './search/search.component';
+
 
 @NgModule({
   imports: [
@@ -36,6 +39,8 @@ import { SearchComponent } from './search/search.component';
     SidebarComponent,
     VerticalMenuComponent,
     FullScreenComponent,
+    ApplicationsComponent,
+    SideChatComponent,
     BlankComponent,
     SearchComponent
   ]

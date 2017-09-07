@@ -6,12 +6,14 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { DragulaModule } from 'ng2-dragula';
 import { ResizableModule } from 'angular-resizable-element';
 import { DirectivesModule } from '../../theme/directives/directives.module';
-
+import { DragDropComponent } from './drag-drop/drag-drop.component';
 import { ToasterComponent } from './toaster/toaster.component';
 import { ResizableComponent } from './resizable/resizable.component';
 
+
 export const routes = [
-  { path: '', redirectTo: 'toaster', pathMatch: 'full'},
+  { path: '', redirectTo: 'drag-drop', pathMatch: 'full'},
+  { path: 'drag-drop', component: DragDropComponent, data: { breadcrumb: 'Drag and Drop' } },
   { path: 'resizable', component: ResizableComponent, data: { breadcrumb: 'Resizable' } },
   { path: 'toaster', component: ToasterComponent, data: { breadcrumb: 'Toaster' } }  
 ];
@@ -22,10 +24,12 @@ export const routes = [
     RouterModule.forChild(routes),
     FormsModule,
     PerfectScrollbarModule,
+    DragulaModule,
     ResizableModule,
     DirectivesModule
   ],
-  declarations: [ 
+  declarations: [
+    DragDropComponent, 
     ToasterComponent, 
     ResizableComponent
   ]

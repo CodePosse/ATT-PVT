@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
   public menuItems:Array<any>;
   constructor(public appSettings:AppSettings, public menuService:MenuService) {
       this.settings = this.appSettings.settings;
-
+      this.menuItems = this.menuService.getHorizontalMenuItems();
   }
   
   ngOnInit() {

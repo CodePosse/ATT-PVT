@@ -47,7 +47,9 @@ export class DynamicMenuComponent implements OnInit {
       if(this.settings.theme.menu == 'vertical'){
         this.menuItems = this.menuService.getVerticalMenuItems();
       } 
-
+      if(this.settings.theme.menu == 'horizontal'){
+        this.menuItems = this.menuService.getHorizontalMenuItems();
+      } 
   }
 
   ngOnInit() {

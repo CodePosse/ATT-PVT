@@ -23,15 +23,11 @@
 
 .form-control,
 .input-group-addon {
-    border-color: #b1b1b1
+    border-color: #b1b1b1;
 }
 
 .logo {
     color: $logo-color !important;
-    background-color: $att_gray_dk;
-    .ng {
-        color: $logo-ng-color;
-    }
 }
 
 .menu-icon .line {
@@ -187,13 +183,13 @@
             background-color: #f2f2f2;
             background: linear-gradient(to bottom, #fcfcfc 0, #f2f2f2 100%);
             color: #0568ae;
-            box-shadow: 0 5px 5px -5px rgba(0, 0, 0, .15);
+            box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.15);
         }
         .btn {
             background-color: transparent;
             background-clip: padding-box;
             border-radius: 8px;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .15);
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
             cursor: pointer;
             display: inline-block;
             font-family: Omnes-ATT-W02-Medium, Tahoma;
@@ -251,13 +247,13 @@
 //table status indicators
 .fa.fa-circle {
     &.green {
-        color: green
+        color: green;
     }
     &.gray {
-        color: $att_gray
+        color: $att_gray;
     }
     &.red {
-        color: red
+        color: red;
     }
 }
 
@@ -306,36 +302,43 @@
 }
 
 .section-buffer {
-    margin-top: 5px
+    margin-top: 5px;
 }
 
 .margin-top5 {
-    margin-top: 5px
+    margin-top: 5px;
 }
 
 .margin-top10 {
-    margin-top: 10px
+    margin-top: 10px;
+}
+
+.hasPointer {
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+    &:hover * {
+        color: $att_green;
+        transition: color 0.2s ease-in-out;
+    }
 }
 
 .card-blue {
     color: $att_blue;
-    transition: color .2s ease-in;
-    &:hover {
-        color: $att_blue_hilite;
-        cursor: pointer;
-    }
     border-color: currentColor;
+    &:hover {
+        border-color: currentColor;
+    }
     * {
         color: currentColor;
     }
     h1 {
         font-size: 2rem;
         font-family: Omnes-ATT-W02-Medium;
-        margin-top: 10px
+        margin-top: 10px;
     }
     .fa {
         font-size: 3.5rem;
-        margin-top: 20px
+        margin-top: 20px;
     }
 }
 
@@ -346,7 +349,7 @@
     }
     h2,
     h3 {
-        font-family: Omnes-ATT-W02-Medium
+        font-family: Omnes-ATT-W02-Medium;
     }
 }
 
@@ -355,11 +358,11 @@ ngx-datatable {
     color: $att_gray_dk;
     &.ngx-datatable.material {
         box-shadow: 0 0 0 transparent;
-        border: 1px solid $att_gray_hilite
+        border: 1px solid $att_gray_hilite;
     }
     .datatable-header {
         color: $att_gray_dk;
-        background-color: $att_gray_hilite
+        background-color: $att_gray_hilite;
     }
     .datatable-header-cell-wrapper,
     .datatable-header-cell-label {
@@ -367,7 +370,7 @@ ngx-datatable {
         color: $att_gray_dk;
     }
     .datatable-body-cell-label {
-        font-size: 1rem
+        font-size: 1rem;
     }
     .datatable-row-group {
         border-bottom: solid;
@@ -375,7 +378,7 @@ ngx-datatable {
         border-bottom-width: 1px;
     }
     .datatable-footer {
-        border: none
+        border: none;
     }
     .datatable-scroll,
     .datatable-row-center.datatable-row-group,
@@ -383,7 +386,7 @@ ngx-datatable {
     .datatable-body-row,
     .datatable-row-center,
     .datatable-header-inner {
-        width: 100% !important
+        width: 100% !important;
     }
 }
 
@@ -392,7 +395,7 @@ ngx-datatable {
 }
 
 ::placeholder {
-    color: #B1B1B1
+    color: #b1b1b1;
 }
 
 .favorites-container {
@@ -404,7 +407,7 @@ ngx-datatable {
     }
     ul li {
         padding: 5px 20px;
-        opacity: .8;
+        opacity: 0.8;
         &:hover {
             border-bottom: 3px solid yellow;
             opacity: 1;
@@ -416,7 +419,7 @@ ngx-datatable {
 }
 
 .advanced-pie.chart {
-    float: none
+    float: none;
 }
 
 .advanced-pie-legend-wrapper {
@@ -428,7 +431,7 @@ svg.ngx-charts {
     width: 100%;
     height: 130px;
     position: relative;
-    left: 30px
+    left: 30px;
 }
 
 .advanced-pie-legend .total-value {
@@ -450,7 +453,7 @@ ngx-charts-advanced-pie-chart>div {
 
 .legend-item {
     display: block !important;
-    font-size: .75rem;
+    font-size: 0.75rem;
     line-height: 1.2rem;
     margin-top: 10px;
     height: 20px;
@@ -460,5 +463,5 @@ ngx-charts-advanced-pie-chart>div {
 .item-percent,
 .item-value,
 .total-label {
-    display: none
+    display: none;
 }
