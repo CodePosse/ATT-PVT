@@ -20,6 +20,8 @@ import { ApplicationsComponent } from '../theme/components/applications/applicat
 import { SideChatComponent } from '../theme/components/side-chat/side-chat.component';
 import { BlankComponent } from './blank/blank.component';
 import { SearchComponent } from './search/search.component';
+import { TabsComponent } from 'app/pages/tabs/tabs.component';
+import { TabsModule } from 'ngx-bootstrap';
 
 
 @NgModule({
@@ -31,7 +33,8 @@ import { SearchComponent } from './search/search.component';
     NgbModule.forRoot(),
     MultiselectDropdownModule,
     PipesModule,
-    routing
+    routing,
+    TabsModule.forRoot(),
   ],
   declarations: [
     PagesComponent,
@@ -42,7 +45,8 @@ import { SearchComponent } from './search/search.component';
     ApplicationsComponent,
     SideChatComponent,
     BlankComponent,
-    SearchComponent
+    SearchComponent,
+    TabsComponent
   ]
 })
 export class PagesModule { }

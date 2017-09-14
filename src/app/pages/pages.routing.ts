@@ -1,6 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
-
+import { TabsComponent } from './tabs/tabs.component';
 import { PagesComponent } from './pages.component';
 import { BlankComponent } from './blank/blank.component';
 import { SearchComponent } from './search/search.component';
@@ -21,7 +21,7 @@ export const routes: Routes = [
             { path: 'blank', component: BlankComponent, data: { breadcrumb: 'Blank page' } },
             { path: 'projects', loadChildren: 'app/pages/projects/projects.module#ProjectsModule', data: { breadcrumb: 'Projects' } },
             { path: 'projects/:projectName/:createTime/:state', loadChildren: 'app/pages/projects/projects.module#ProjectsModule', data: { breadcrumb: 'Projects' } },
-
+            { path: 'tabs', component: TabsComponent,  },
             { path: 'search', component: SearchComponent, data: { breadcrumb: 'Search' } }
         ]
     }
