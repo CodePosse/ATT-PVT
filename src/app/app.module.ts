@@ -12,14 +12,14 @@ import { AppComponent } from './app.component';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
 
 import {HttpClientModule} from '@angular/common/http';
-//import { DevicesComponent } from './pages/devices/devices.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NotFoundComponent,
-    //DevicesComponent
+ 
   ],
   imports: [
     BrowserModule,
