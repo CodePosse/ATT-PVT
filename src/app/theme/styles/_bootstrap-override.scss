@@ -915,7 +915,7 @@ a.text-inverse:hover {
                 border-radius: 0;
                 cursor: default;
                 &.active {
-                    background-color: #fff;
+                    background-color: green;
                 }
                 &:not(.active):hover {
                     background-color: transparent;

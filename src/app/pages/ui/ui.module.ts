@@ -5,7 +5,7 @@ import { DirectivesModule } from '../../theme/directives/directives.module';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { CardsComponent } from './cards/cards.component';
 import { ComponentsComponent } from './components/components.component';
-import { TabsAccordionsComponent } from './tabs/tabs.component';
+import { TabsComponent } from './tabs/tabs.component';
 import { IconsComponent } from './icons/icons.component';
 import { ListGroupComponent } from './list-group/list-group.component';
 import { MediaObjectsComponent } from './media-objects/media-objects.component';
@@ -19,7 +19,7 @@ export const routes = [
   { path: 'icons', component: IconsComponent, data: { breadcrumb: 'Icons' } },
   { path: 'list-group', component: ListGroupComponent, data: { breadcrumb: 'List Group' } },
   { path: 'media-objects', component: MediaObjectsComponent, data: { breadcrumb: 'Media Objects' } },
-  { path: 'tabs', component: TabsAccordionsComponent, data: { breadcrumb: 'Tabs & Accordions' } },
+  { path: 'tabs', component: TabsComponent, data: { breadcrumb: 'Tabs' } },
   { path: 'typography', component: TypographyComponent, data: { breadcrumb: 'Typography' } }
 ];
 
@@ -33,7 +33,7 @@ export const routes = [
     ButtonsComponent,
     CardsComponent,
     ComponentsComponent,
-    TabsAccordionsComponent,
+    TabsComponent,
     IconsComponent,
     ListGroupComponent,
     MediaObjectsComponent,
