@@ -5,69 +5,69 @@
         <h4>
         </h4>
         <div class="table-responsive">
-            <table class="col-12">
-              <tr>
-                <td>
-                    Timestamp
-                </td>
-                <td>
-                    {{testRuns}}
-                </td>
-                <td>
-                    Test Runs
-                </td>
-                <td>
-                    {{passCount}}
-                </td>
-                <td>
-                    Pass
-                </td>
-              </tr>
-              <tr>
-                <td>
-                    {{createTime}}
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                    {{failCount}}
-                </td>
-                <td>
-                    Fail
-                </td>
-              </tr>
+            <div class="col-3"></div>
+            <table class="col-8">
+                <tr>
+                    <td width=300>
+                        <strong>Timestamp</strong>
+                    </td>
+                    <td width=20 align=right>
+                        <strong>{{testRuns}}</strong> &nbsp;
+                    </td>
+                    <td width=100>
+                        Test Runs
+                    </td>
+                    <td width=20 align=right>
+                        <strong>{{passCount}}</strong> &nbsp;
+                    </td>
+                    <td>
+                        Pass
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{createTime}}
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td align=right>
+                        <strong>{{failCount}}</strong> &nbsp;
+                    </td>
+                    <td>
+                        Fail
+                    </td>
+                </tr>
             </table>
             <br/>
             <br/>
             <table class="table">
-                <thead style="background-color:#f2f2f2;font-size: 1.25rem;
-              color: #333;">
+                <thead>
                     <tr>
                         <th *ngFor="let hdr of testCases; let i = index">{{hdr.testCaseName}}</th>
                     </tr>
                 </thead>
                 <tbody *ngFor="let row of devicesList">
-                  <tr (click) ="onClickRow(row.Device)">
-                    <td *ngFor="let column of testCases">
-                      <div *ngIf = "row[column.testCaseName] === 'PASS' && (column.testCaseName != 'Device' && column.testCaseName != 'Site')">
-                        <i class = "fa fa-check" style="color:green;"></i>
-                      </div>
-                      <div *ngIf = "row[column.testCaseName] !== 'PASS'  && (column.testCaseName != 'Device' && column.testCaseName != 'Site')">
-                        <i class = "fa fa-circle" style="color:red;"></i>
-                      </div>
-                      <div *ngIf = "(column.testCaseName == 'Device' || column.testCaseName == 'Site')">
-                        {{row[column.testCaseName]}}
-                      </div>
-                    </td>
-                  </tr>
+                    <tr (click)="onClickRow(row.Device)">
+                        <td *ngFor="let column of testCases">
+                            <div *ngIf="row[column.testCaseName] === 'PASS' && (column.testCaseName != 'Device' && column.testCaseName != 'Site')">
+                                <i class="fa fa-check" style="color:green;"></i>
+                            </div>
+                            <div *ngIf="row[column.testCaseName] !== 'PASS'  && (column.testCaseName != 'Device' && column.testCaseName != 'Site')">
+                                <i class="fa fa-circle" style="color:red;"></i>
+                            </div>
+                            <div *ngIf="(column.testCaseName == 'Device' || column.testCaseName == 'Site')">
+                                {{row[column.testCaseName]}}
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-<div *ngIf = "selectedRow" class="row tabs-results" >
+<div *ngIf="selectedRow" class="row tabs-results">
     <div class="col-lg-12 col-12">
         <tabset>
             <tab *ngFor="let tabz of testCases | slice:2" [heading]="tabz.testCaseName">

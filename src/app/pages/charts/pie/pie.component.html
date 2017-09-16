@@ -1,51 +1,42 @@
 <style>
-.sidebar-create {
-display: none;
-}
-
+    .sidebar-create {
+        display: none;
+    }
 </style>
 <div class="row">
-<div class="col-3">
-<div class="card-block widget-body">
+    <div class="col-3">
+        <div class="card-block widget-body">
+            <div style="display: block">
+                <canvas baseChart [data]="content" [labels]="tittle" [chartType]="doughnutChartType" [colors]="chartColors" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+            </div>
+        </div>
+        <div class="card-block widget-body">
+            <div class="container">
+                <div *ngFor="let item of data2">
+                    <div class="row d-flex justify-content-between">
+                        <div class="" style="width:10px;height:10px" [style.background-color]='item.colour'>
+                        </div>
+                        <div class="col-2">
+                            <h6>{{item.title}}</h6>
+                        </div>
 
-<div style="display: block">
-<canvas baseChart [data]="content" [labels]="tittle" [chartType]="doughnutChartType" [colors]="chartColors" (chartHover)="chartHovered($event)"
-(chartClick)="chartClicked($event)"></canvas>
-</div>
+                        <div class="col-2">
+                            <h6>{{item.content}}</h6>
+                        </div>
 
+                        <div class="col-5">
+                            <h6>{{item.Device}} ... {{item.title}}</h6>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9 col-md-9">
+        <h3>Lamont's Samsung S8</h3>
+        <iframe width="640" height="360" src="http://192.168.1.39:5000/screen" frameborder="0" allowfullscreen></iframe>
+        <h3>Lamont's iPhone</h3>
+        <iframe width="640" height="360" src="http://player.twitch.tv/?channel=lreevesiphone&amp;player=facebook&amp;autoplay=true" frameborder="0" allowfullscreen></iframe>
+    </div>
 </div>
-
-<div class="card-block widget-body">
-
-<div class="container">
-<div *ngFor="let item of data2">
-<div  class="row d-flex justify-content-between">
-<div class="" style="width:10px;height:10px"  [style.background-color]='item.colour'>
-</div>
-<div class="col-2">
-<h6>{{item.title}}</h6> 
-</div>
-
-<div class="col-2">
-<h6>{{item.content}}</h6> 
-</div>
-
-<div class="col-5">
-<h6>{{item.Device}} ... {{item.title}}</h6> 
-</div>
-
-</div>
-<hr >
-</div>
-
-</div>
-</div>              
-</div>
-<div class="col-lg-9 col-md-9">
-<h3>Lamont's Samsung S8</h3>
-<iframe width="640" height="360" src="http://192.168.1.39:5000/screen" frameborder="0" allowfullscreen></iframe>
-<h3>Lamont's iPhone</h3>
-<iframe width="640" height="360" src="http://player.twitch.tv/?channel=lreevesiphone&amp;player=facebook&amp;autoplay=true" frameborder="0" allowfullscreen></iframe>
-</div>
-</div>
-

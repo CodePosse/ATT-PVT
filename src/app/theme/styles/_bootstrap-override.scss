@@ -740,7 +740,7 @@ a.text-inverse:hover {
             border: none;
             cursor: default;
             &.active {
-                background-color: #fff;
+                background-color: red;
                 color: $dark-gray-color;
             }
             &:not(.active):hover {
@@ -772,7 +772,7 @@ a.text-inverse:hover {
             .nav-link {
                 color: rgba(#fff, 0.8);
                 &.active {
-                    background-color: $primary-color;
+                    background-color: #f2f2f2;
                     color: #fff;
                 }
                 &:not(.active):hover {
@@ -911,7 +911,7 @@ a.text-inverse:hover {
         .nav-item {
             .nav-link {
                 color: $dark-gray-color;
-                background-color: transparent;
+                background-color: #f2f2f2;
                 border-radius: 0;
                 cursor: default;
                 &.active {

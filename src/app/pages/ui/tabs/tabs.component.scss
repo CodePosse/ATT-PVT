@@ -1,19 +1,23 @@
-.tabs-results {
-    .nav-tabs {
-        font-size: 1.5rem;
-    }
-    .tab-content {
-        font-size: 1rem;
-        background-color: #f2f2f2 !important;
-        font-family: Courier New, Courier, monospace;
-        border-color: #e4e4e4 !important
-    }
-    .nav-item {
-        font-size: 1rem;
-        text-transform: capitalize;
-        &.active {
-            background-color: #F2f2f2 !important;
-            border-color: #e4e4e4 !important
-        }
+.nav-tabs {
+    font-size: 1.5rem;
+    border: none;
+}
+
+.tab-content {
+    font-size: 1rem;
+    background-color: #f2f2f2 !important;
+    font-family: Courier New, Courier, monospace;
+    border-color: #f2f2f2 !important
+}
+
+.nav-link {
+    font-size: 1rem;
+    font-family: Omnes-ATT-W02-Medium;
+    text-transform: capitalize;
+    border-color: #f2f2f2 !important;
+    color: #333;
+    &.active {
+        background-color: #F2f2f2 !important;
+        border-color: #f2f2f2 !important
     }
 }
