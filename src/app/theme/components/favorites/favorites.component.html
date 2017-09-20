@@ -1,0 +1,13 @@
+<div class="d-flex justify-content-start favorites-container ml-5 hidden-md-down" [class.show-list]="toggle">
+  
+    <ss-multiselect-dropdown id="favorites"
+        [options]="favoriteOptions" 
+        [texts]="favoriteTexts" 
+        [settings]="favoriteSettings"
+        (dropdownOpened)="onDropdownOpened()"
+        (dropdownClosed)="onDropdownClosed()" 
+        [(ngModel)]="favoriteModel"
+        (ngModelChange)="onChange()">
+    </ss-multiselect-dropdown>
+</div>
+

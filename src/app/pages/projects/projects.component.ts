@@ -25,7 +25,7 @@ export class ProjectsComponent implements OnInit {
   public title = "";
   public targets = ['_blank', '_self'];
   public settings: Settings;
-  
+
   testCases = [];
   testDevices = [];
   projectTestcases = [];
@@ -45,7 +45,7 @@ export class ProjectsComponent implements OnInit {
   TestToRemove: TestCaseToRemove = new TestCaseToRemove;
   editing = {};
   rows = [];
-  
+
 
 
   @ViewChild(DatatableComponent) table: DatatableComponent;
@@ -76,7 +76,7 @@ export class ProjectsComponent implements OnInit {
   ]
 
   public menuItems:Array<Menu>;
-  
+
 
   constructor(public fb:FormBuilder,
               public toastrService: ToastrService,
@@ -91,11 +91,6 @@ export class ProjectsComponent implements OnInit {
       if(this.settings.theme.menu == 'vertical'){
         this.menuItems = this.menuService.getVerticalMenuItems();
       }
-
-
-
-
-
   }
 
   ngOnInit() {
@@ -121,16 +116,6 @@ export class ProjectsComponent implements OnInit {
         this.state = state;
         this.btnName = "Execute";
       }
-
-      this.fetchProject((data) => {
-       console.log('Project Detail',);
-        console.log(data.devices);
-        console.log(data.testcases);
-        this.temp = [...data.devices];
-        this.projectDevices = data.devices;
-        this.projectTestcases = data.testcases;
-        setTimeout(() => { this.loadingIndicator = false; }, 1500);
-      });
 
     this.form = this.fb.group({
         title: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
@@ -169,36 +154,48 @@ export class ProjectsComponent implements OnInit {
         this.form.controls['hasSubMenu'].enable();
       }
     });
+       this.fetchDevices((data) => {
+      console.log("  this.fetchDevices");
+        console.log(data.devices);
+        this.temp = [...data.devices];
+        this.testDevices = data.devices;
+        setTimeout(() => { this.loadingIndicator = false; }, 1500);
+      });
 
       console.log("this.state:::", this.state, this.state.length)
-      //if (this.state == 'run')
-      //{
-        this.fetchProject((data) => {
-         console.log('Project Detail');
-          console.log(data.devices);
+      if (this.state == 'run')
+      {
+          this.fetchProject((data) => {
+          console.log('Project Detail');
+          console.log(data.testDevices);
           console.log(data.testcases);
+
           this.temp = [...data.devices];
           this.projectDevices = data.devices;
-          this.projectTestcases = data.testcases;
+          console.log(data.devices);
+          this.testDevices = this.setDeviceCheckBoxes()
+
+          var JSONString = JSON.stringify(data.testcases);
+          data.testcases = JSON.parse(JSONString.replace(/\"testCaseName\":/g, "\"testCase\":").
+                            replace(/\"selected\":/g, "\"checked\":"));
+
+          console.log(data.testcases);
+          this.testCases = data.testcases;
           setTimeout(() => { this.loadingIndicator = false; }, 30000);
         });
-      //}
+      }
+      else
+      {
+        this.fetchTestCases((data) => {
+          console.log("  this.fetchTestCases");
+          console.log(data.testCase);
+          this.temp = [...data.testCase];
+          this.testCases = data.testCase;
+          setTimeout(() => { this.loadingIndicator = false; }, 1500);
+        });
 
 
-    this.fetchTestCases((data) => {
-      console.log(data.testCase);
-      this.temp = [...data.testCase];
-      this.testCases = data.testCase;
-      setTimeout(() => { this.loadingIndicator = false; }, 1500);
-    });
-
-    this.fetchDevices((data) => {
-      console.log(data.devices);
-      this.temp = [...data.devices];
-      this.testDevices = data.devices;
-      setTimeout(() => { this.loadingIndicator = false; }, 1500);
-    });
-
+      }
   }
   /*********
     fetchTestCases
@@ -213,8 +210,6 @@ export class ProjectsComponent implements OnInit {
         for(var i=0; i<tempJsonObject.length; i++){
           var testCase = tempJsonObject[i];
           var isChecked = false;
-          if (this.checkLoadedCases(this.cleanUpTestCaseName(tempJsonObject[i].toString())))
-            isChecked = true;
           JsonObject.testCase.push({testCase:testCase, checked: isChecked});
         };
         data(JsonObject);
@@ -246,13 +241,32 @@ export class ProjectsComponent implements OnInit {
 
       for(var i=0; i<this.projectTestcases.length; i++)
       {
-          console.log(this.projectTestcases[i].toUpperCase() + ":::::" + item.toString().toUpperCase());
+        //  console.log(this.projectTestcases[i].toUpperCase() + ":::::" + item.toString().toUpperCase());
           if (this.projectTestcases[i].toUpperCase() == item.toUpperCase())
             return true;
       }
       return false;
     }
 
+    /*********
+      setDeviceCheckBoxes
+    **********/
+    setDeviceCheckBoxes()
+    {
+        for(var j=0; j<this.testDevices.length; j++)
+        {
+              for(var i=0; i<this.projectDevices.length; i++)
+              {
+                  if (this.testDevices[j].udid == this.projectDevices[i].udid)
+                  {
+                    this.testDevices[j]["checkedDevice"] = this.projectDevices[i].selected;
+                    console.log(this.testDevices);
+                  }
+              }
+
+          }
+        return this.testDevices;
+    }
     /*********
       fetchDevices
     **********/
@@ -335,16 +349,55 @@ export class ProjectsComponent implements OnInit {
       this.selected.push(...selected);
     }
 
+    /****************************************************************
+              onSelectTestCase(selectedTestCase)
+    *****************************************************************/
     onSelectTestCase(selectedTestCase) {
       console.log('Select Event', selectedTestCase, this.selectedTestCase);
       this.selectedTestCase.splice(0, this.selectedTestCase.length);
       this.selectedTestCase.push(selectedTestCase);
     }
 
+    /****************************************************************
+               onActivate(event)
+    *****************************************************************/
     onActivate(event) {
       console.log('Activate Event', event);
+      console.log(this.testDevices);
+      for(var j=0; j<this.testDevices.length; j++)
+      {
+          if (this.testDevices[j].udid == event.row.udid)
+          {
+            console.log("BEFORE::: " + this.testDevices[j]["checkedDevice"] );
+            this.testDevices[j]["checkedDevice"] = (event.value=='TRUE'?'FALSE':'TRUE');
+            console.log("AFTER::: " + this.testDevices[j]["checkedDevice"] );
+            console.log(this.testDevices);
+          }
+      }
+
     }
 
+    /****************************************************************
+               onActivate(event)
+    *****************************************************************/
+    onActivateTestCases(testCase, checked) {
+      console.log('Activate Event', event);
+      for(var j=0; j<this.testCases.length; j++)
+      {
+          if (this.testCases[j].testCase == testCase)
+          {
+            console.log("BEFORE::: " + this.testCases[j]["checked"] + "::" + checked);
+            this.testCases[j]["checked"] = (checked == 'true'?'FALSE':'TRUE');
+            console.log("AFTER::: " + this.testCases[j]["checked"] );
+            console.log(this.testCases);
+          }
+      }
+
+    }
+
+    /****************************************************************
+               parseTestCases(data)
+    *****************************************************************/
     parseTestCases(data)
     {
        var tempTestCases = "";
@@ -372,21 +425,21 @@ export class ProjectsComponent implements OnInit {
 
     }
     /****************************************************************
-               submitForm
-
-            createoreditprojects
+               cancel
     *****************************************************************/
-
+    cancel(){
+        this.editable=true;
+    }
+    /****************************************************************
+               submitForm()
+    *****************************************************************/
     submitForm() {
      this.requestObject = [];
-       //console.log("posting data....");
-       //console.log("this Project:", this.projectName);
-       //console.log ("selectedTestCase: ", this.TestToRemove.selectedTestCase);
-       //console.log ("Devices:",this.selected);
        this.requestObject.push({
                   project: {
                   name:this.projectName,
                   location:[{
+                  name:"LA",
                   devices:{
                         ios_udids:[],android_udids:[]
                   }
@@ -397,8 +450,10 @@ export class ProjectsComponent implements OnInit {
         console.log(JSONString);
 
       // ----------- Find false checks
+      console.log(this.testCases);
       var falseCases = [];
-      this.testCases.forEach(item => {
+      /*
+          this.testCases.forEach(item => {
               console.log(this.TestToRemove.selectedTestCase.indexOf(item.testCase));
               if (this.TestToRemove.selectedTestCase.indexOf(item.testCase) == -1)
               {
@@ -409,6 +464,20 @@ export class ProjectsComponent implements OnInit {
               else
                 console.log("TRUE:" + item.testCase);
         });
+        */
+
+        var tempTestCases = '';
+        var regex = new RegExp('\n', 'g');
+        this.testCases.forEach(item => {
+                if (tempTestCases == '')
+                  tempTestCases = '"' + item.testCase.replace(item.testCase[0], item.testCase[0].toLowerCase()).replace(/\s/g, '').replace('TV','Tv')  + '":' + item.checked.toString().toLowerCase();
+                else
+                  tempTestCases = tempTestCases + ',"' + item.testCase.replace(item.testCase[0], item.testCase[0].toLowerCase()).replace(/\s/g, '').replace('TV','Tv')  + '":' + item.checked.toString().toLowerCase();
+        });
+
+
+
+/*
       // ----------- Build TestCases
       var tempTestCases = '';
       var regex = new RegExp('\n', 'g');
@@ -426,7 +495,7 @@ export class ProjectsComponent implements OnInit {
               else
                 tempTestCases = tempTestCases + ',"' + item.replace(item[0], item[0].toLowerCase()).replace(/\s/g, '').replace('TV','Tv')  + '":true'
       });
-
+*/
       tempTestCases = '"testCases":{' + tempTestCases + '}';
       tempTestCases = tempTestCases.replace('purchaseandStreamPPVMovie','streamPpvMovie');
       var JSONString = JSON.stringify(this.requestObject);
@@ -437,17 +506,24 @@ export class ProjectsComponent implements OnInit {
       // ----------- Build Devices
       var tempSelectedAndriod = '';
       var tempSelectedIOS = '';
-      this.selected.forEach(item => {
-              if (item.deviceType == 'ios')
-                if (tempSelectedIOS == '')
-                  tempSelectedIOS = '"' + item.udid + '"';
-                else
-                  tempSelectedIOS = tempSelectedIOS + ',"' + item.udid + '"';
-              else
-                if (tempSelectedAndriod == '')
-                  tempSelectedAndriod = '"' + item.udid + '"'
-                else
-                  tempSelectedAndriod = tempSelectedAndriod + ',"' + item.udid + '"'
+      console.log(this.testDevices);
+      this.testDevices.forEach(item => {
+              if (item.checkedDevice == "TRUE")
+              {
+                  console.log(item.deviceType);
+                  if (item.deviceType == 'ios')
+                    if (tempSelectedIOS == '')
+                      tempSelectedIOS = '"' + item.udid + '"';
+                    else
+                      tempSelectedIOS = tempSelectedIOS + ',"' + item.udid + '"';
+                  else
+                    if (tempSelectedAndriod == '')
+                      tempSelectedAndriod = '"' + item.udid + '"'
+                    else
+                      tempSelectedAndriod = tempSelectedAndriod + ',"' + item.udid + '"'
+                  console.log("DEVICE SELECTED");
+                  console.log(item.udid);
+              }
       });
 
       if (tempSelectedIOS != '')
@@ -460,14 +536,16 @@ export class ProjectsComponent implements OnInit {
           tempSelectedAndriod = ',' + tempSelectedAndriod;
 
       //var JSONString = JSON.stringify(this.requestObject);
-
+      console.log("DEVICES SELECTED");
+      console.log(tempSelectedIOS);
+      console.log(tempSelectedAndriod);
       JSONString = JSONString.replace('"ios_udids":[]', tempSelectedIOS);
       JSONString = JSONString.replace(',"android_udids":[]', tempSelectedAndriod);
       JSONString = JSONString.replace('"android_udids":[]', tempSelectedAndriod);
       JSONString = JSONString.replace(',}', '}');
 
       console.log(JSONString);
-      console.log(JSON.parse(JSONString));
+      console.log(JSONString.replace('[','').replace('}}}]','}}}'));
 
 
       let headers = new Headers();
@@ -477,6 +555,7 @@ export class ProjectsComponent implements OnInit {
 
       if (this.state != 'run')
       {
+            console.log("JSON CREATE PROJECT POST");
             this.http.post('/automationmanager/createoreditprojects',
                 JSONString.replace('[','').replace('}}}]','}}}'),
                 {
@@ -486,8 +565,8 @@ export class ProjectsComponent implements OnInit {
                   .subscribe(
                     res => {
                       console.log(res);
-                      //this.router.navigate(['/pages/charts/pie']);
                       this.router.navigate(['/pages/charts/pie']);
+                      //this.router.navigate(['/pages/charts/pie']);
                     },
                     err => {
                       console.log("Error occured");
@@ -496,6 +575,7 @@ export class ProjectsComponent implements OnInit {
       }
       else
       {
+          console.log("JSON EDIT PROJECT POST");
           this.http.post('/automationmanager/reRunProject/',
               JSONString.replace('[','').replace('}}}]','}}}'),
               {

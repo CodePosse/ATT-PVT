@@ -5,6 +5,8 @@ import {Observable} from 'rxjs/observable';
 import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router'
+
 
 @Component({
   selector: 'app-projectResults',
@@ -26,7 +28,8 @@ export class projectResultsComponent {
     { prop: 'name' }
   ];
 
- constructor(private http: HttpClient) {
+ constructor(private http: HttpClient,
+ private router: Router) {
     this.fetch((data) => {
       console.log(data);
       this.temp = [...data];
@@ -34,6 +37,8 @@ export class projectResultsComponent {
       setTimeout(() => { this.loadingIndicator = false; }, 1500);
     });
   }
+
+
 /*********
   Fetch
 **********/
@@ -68,7 +73,9 @@ export class projectResultsComponent {
   }
 
   onActivate(event) {
-    console.log('Activate Event', event);
+      console.log(event, " :: ",event.row.timeCreated, " :: ", event.row.totalFail, " :: ",event.row.totalPass, " :: ",  )
+      this.router.navigate(['/pages/tabs/' + event.row.name + '/' + event.row.timeCreated+ '/' + event.row.totalFail+ '/' + event.row.totalPass]);
+
   }
 
 }

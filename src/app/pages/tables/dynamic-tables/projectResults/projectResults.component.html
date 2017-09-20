@@ -13,7 +13,7 @@
     [loadingIndicator]="loadingIndicator"
 
     (activate)="onActivate($event)"
-    (select)='onSelect($event)'>
+    (select)="onSelect($event)">
     <!--<ngx-datatable-column
         [width]="30"
         [sortable]="false"
@@ -43,5 +43,5 @@
       <ng-template ngx-datatable-cell-template let-value="value">
         {{value}}
       </ng-template>
-    </ngx-datatable-column>  
+    </ngx-datatable-column>
 </ngx-datatable>

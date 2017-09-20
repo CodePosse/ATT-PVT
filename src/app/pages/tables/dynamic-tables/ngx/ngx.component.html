@@ -18,6 +18,9 @@
     -->
     <ngx-datatable-column name="AvailabilityStatus">
         <ng-template ngx-datatable-cell-template let-value="value">
+          <i *ngIf = "value == 'Offline'" class="fa fa-phone-square red" style="color:red;"></i>
+          <i *ngIf = "value == 'Available'" class="fa fa-phone-square green" style="color:green;"></i>
+          <i *ngIf = "value == 'Busy'" class="fa fa-circle phone-square" style="color:gray;" > </i>
             {{value}}
         </ng-template>
     </ngx-datatable-column>

@@ -13,7 +13,7 @@
     <div class="col-xl-11 col-md-10 col-11">
         <div class="row">
             <div class="col-xl-2 col-md-3 col-sm-11 margin-top5">
-                <h5>Project Name</h5>
+                <h4><b>Project Name</b></h4>
             </div>
             <div class="col-xl-10 col-md-9 col-sm-1">
                 <hr>
@@ -33,17 +33,17 @@
     </div>
     <div class="col-xl-11 col-md-10 col-sm-12">
         <div class="row">
-            <div class="col-xl-2 col-md-3 col-sm-11 margin-top5">
-                <h5>Select Test Cases</h5>
+            <div class="col-xl-3 col-md-4 col-sm-11 margin-top5">
+                <h4><b>Select Test Cases</b></h4>
             </div>
-            <div class="col-xl-10 col-md-9 col-sm-1">
+            <div class="col-xl-9 col-md-8 col-sm-1">
                 <hr>
             </div>
         </div>
         <div class="row">
             <div *ngFor="let item of testCases; let i = index" class="col-xl-4 col-md-6 col-sm-12">
                 <label class="custom-control custom-checkbox" >
-                    <input [disabled]="editable" class="custom-control-input checkbox-primary" name="{{item.testCase}}" [checked]="item.checked" type="checkbox"  (change)="AddOrRemoveTest(item.testCase, $event.target.checked)">
+                    <input [disabled]="editable" (change)="onActivateTestCases(item.testCase, $event.target.checked)" class="custom-control-input checkbox-primary" name="{{item.testCase}}" [checked]="item.checked == 'TRUE'" type="checkbox"  (change)="AddOrRemoveTest(item.testCase, $event.target.checked)">
                     <span class="custom-control-indicator"></span>
                     <span >{{item.testCase}}</span>
                 </label>
@@ -62,7 +62,7 @@
     <div class="col-xl-11 col-md-10 col-sm-12">
         <div class="row">
             <div class="col-xl-2 col-md-3 col-sm-11 margin-top5">
-                <h5>Select Devices</h5>
+              <h4><b>Select Devices</b></h4>
             </div>
             <div class="col-xl-10 col-md-9 col-sm-1">
                 <hr>
@@ -70,16 +70,43 @@
         </div>
         <!--<i class="fa fa-circle red"></i>  <i class="fa fa-circle green"></i> <i class="fa fa-circle gray"></i>
             -->
-        <ngx-datatable #table class="material" [headerHeight]="40" [limit]="10" [columnMode]="'fixed'" [footerHeight]="50" [rowHeight]="'auto'" [rows]="testDevices" [loadingIndicator]="loadingIndicator" [selected]="selected" [selectionType]="'checkbox'" (activate)="onActivate($event)"
+        <ngx-datatable #table class="material"
+          [headerHeight]="40" [limit]="10" [columnMode]="'fixed'" [footerHeight]="50" [rowHeight]="'auto'" [rows]="testDevices" [loadingIndicator]="loadingIndicator" [selected]="selected"  (activate)="onActivate($event)"
             (select)='onSelect($event)'>
-
-            <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="true" [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true">
-              <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="true" >
-              </ng-template>
+          <!--  <ngx-datatable-column
+                [width]="30"
+                [sortable]="false"
+                [canAutoResize]="false"
+                [draggable]="true"
+                [resizeable]="false"
+                [headerCheckboxable]="true"
+                [checkboxable]="true">
+                true
+              </ngx-datatable-column>
+          -->
+          <ngx-datatable-column name="checkedDevice" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+            <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
+              <!--
+              <input type="checkbox" [disabled]="editable"  [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"/>
+            -->
+            </ng-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected" let-onCheckboxChangeFn="onCheckboxChangeFn">
+              <input type="checkbox" [disabled]="editable" [checked]="value == 'TRUE'" (change)="onCheckboxChangeFn($event)"/>
+            </ng-template>
+        </ngx-datatable-column>
+          <!--
+            <ngx-datatable-column name="checkedDevice">
+                <ng-template ngx-datatable-cell-template let-value="value" >
+                    <input [disabled]="editable" type="checkbox" [checked]= "value == 'TRUE'" (change)="selectFn(!allRowsSelected)"/>
+                </ng-template>
             </ngx-datatable-column>
-
+          -->
             <ngx-datatable-column name="AvailabilityStatus">
                 <ng-template ngx-datatable-cell-template let-value="value">
+
+                  <i *ngIf = "value == 'Offline'" class="fa fa-phone-square red" style="color:red;"></i>
+                  <i *ngIf = "value == 'Available'" class="fa fa-phone-square green" style="color:green;"></i>
+                  <i *ngIf = "value == 'Busy'" class="fa fa-circle phone-square" style="color:gray;" > </i>
                     {{value}}
                 </ng-template>
             </ngx-datatable-column>
@@ -119,7 +146,7 @@
                 <button class="btn btn-blue" (click)="submitForm()">{{btnName}}</button>
             </div>
             <div class="col-xl-1 col-md-1 col-1">
-                <a class="btn btn-secondary" href="javascript:void();">Cancel</a>
+                <button *ngIf="!editable" class="btn btn-secondary" (click)="cancel()">Cancel</button>
             </div>
         </div>
     </div>

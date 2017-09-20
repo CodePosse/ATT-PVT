@@ -20,7 +20,7 @@ import { ApplicationsComponent } from '../theme/components/applications/applicat
 import { SideChatComponent } from '../theme/components/side-chat/side-chat.component';
 import { BlankComponent } from './blank/blank.component';
 import { SearchComponent } from './search/search.component';
-import { TabsComponent } from 'app/pages/ui/tabs/tabs.component';
+import { TabsComponent } from 'app/pages/tabs/tabs.component';
 import { TabsModule } from 'ngx-bootstrap';
 
 
