@@ -14,6 +14,7 @@ import {Router} from '@angular/router'
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
+  styleUrls: ['./projects.compoenent.css'],
   encapsulation: ViewEncapsulation.None,
   providers: [ MenuService ]
 })
@@ -21,17 +22,242 @@ import {Router} from '@angular/router'
 
 
 export class ProjectsComponent implements OnInit {
+value1=26
+switch1step=true
+step_4=false
+step2_1=true
+step2_3=false
+step2_2=false
+step2_4=false
+switch_2_1=false
+  switch1class=true
+  switch2class=false
+  switch3class=false
+  switch4class=false
+  switch_part_1=false
+  switch_part_2=false
+  switch_part_3=false
+  switch_part_4=false
+  step_3=false
+  s_3=false
+  
+step1(){
+  this.value1=this.value1+6
+  this.switch1class=true
+  this.switch_part_1=true
+  this.switch1step=false
+
+
+}  
+step2(){
+
+console.log("hello");
+  this.step_3=true;
+ 
+  this.switch2class=true
+  this.switch_part_1=false
+  
+  this.switch3class=true
+    
+  
+
+}
+
+step3_cancel(){
+  this.value=26
+  this.switch2class=false;
+  this.switch3class=false;
+  this.step2_4=false
+  this.step2_1=false
+  
+  this.step_3=false;
+
+}
+step4_cancel(){
+  this.value1=50
+  this.switch3class=false
+  this.step_3=true
+  this.step_4=false
+  this.switch4class=false
+}
+step3(){
+  this.switch3class=true
+this.value1=this.value1+24
+this.switch4class=true;
+ this.step_3=false
+  this.step_4=true;
+  
+
+}
+step4(){
+  this.value1=this.value1+27
+    this.step_3=false;
+    this.step_4=true;
+    
+  
+  }
+Cancel2(){
+this.value1=26
+console.log("Helloaaaa");
+this.switch_part_1=false
+this.switch1step=true
+this.switch1class=true
+this.step2_1=true;
+this.step2_4=false
+this.switch2class=false;
+
+
+}
+step2_1_btn(){
+this.value1=this.value1+6
+this.step2_1=false
+this.step2_2=true
+ 
+ }
+
+step2_2_btn(){
+  
+  this.value1=this.value1+6
+  this.step2_2=false
+  this.step2_3=true
+  
+ }
+ step2_3_btn(){
+  this.switch2class=true
+  this.value1=this.value1+6
+  this.step2_3=false
+  this.step2_4=true
+  
+  
+ }
+ step2_4_btn(){
+  
+  this.value1=this.value1+6
+  this.switch_part_1=false
+  this.step_3=true
+ 
+ }
+ 
+ settings = {
+  columns: {
+    id: {
+      title: 'ID'
+    },
+    name: {
+      title: 'Full Name'
+    },
+    username: {
+      title: 'User Name'
+    },
+    email: {
+      title: 'Email'
+    }
+  }
+};
+
+
+
+ data = [
+  {
+    id: 1,
+    name: "Leanne Graham",
+    username: "Bret",
+    email: "Sincere@april.biz"
+  },
+  {
+    id: 2,
+    name: "Ervin Howell",
+    username: "Antonette",
+    email: "Shanna@melissa.tv"
+  },
+  
+  // ... list of items
+  
+  {
+    id: 11,
+    name: "Nicholas DuBuque",
+    username: "Nicholas.Stanton",
+    email: "Rey.Padberg@rosamond.biz"
+  }
+];
+
+
+ public selected1:string;
+ public states:string[] = ['Alabama', 'Alaska', 'Arizona', 'Arkansas',
+   'California', 'Colorado',
+   'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho',
+   'Illinois', 'Indiana', 'Iowa',
+   'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts',
+   'Michigan', 'Minnesota',
+   'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+   'New Jersey', 'New Mexico',
+   'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon',
+   'Pennsylvania', 'Rhode Island',
+   'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+   'Virginia', 'Washington',
+   'West Virginia', 'Wisconsin', 'Wyoming'];
+
+
+
+
+
+
+
+
+
+public items:Array<string> = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
+'Berlin', 'Birmingham', 'Bradford', 'Bremen', 'Brussels', 'Bucharest',
+'Budapest', 'Cologne', 'Copenhagen', 'Dortmund', 'Dresden', 'Dublin',
+'Düsseldorf', 'Essen', 'Frankfurt', 'Genoa', 'Glasgow', 'Gothenburg',
+'Hamburg', 'Hannover', 'Helsinki', 'Kraków', 'Leeds', 'Leipzig', 'Lisbon',
+'London', 'Madrid', 'Manchester', 'Marseille', 'Milan', 'Munich', 'Málaga',
+'Naples', 'Palermo', 'Paris', 'Poznań', 'Prague', 'Riga', 'Rome',
+'Rotterdam', 'Seville', 'Sheffield', 'Sofia', 'Stockholm', 'Stuttgart',
+'The Hague', 'Turin', 'Valencia', 'Vienna', 'Vilnius', 'Warsaw', 'Wrocław',
+'Zagreb', 'Zaragoza', 'Łódź'];
+
+private value:any = {};
+private _disabledV:string = '0';
+private disabled:boolean = false;
+
+private get disabledV():string {
+return this._disabledV;
+}
+
+private set disabledV(value:string) {
+this._disabledV = value;
+this.disabled = this._disabledV === '1';
+}
+
+public selected(value:any):void {
+console.log('Selected value is: ', value);
+}
+
+public removed(value:any):void {
+console.log('Removed value is: ', value);
+}
+
+public typed(value:any):void {
+console.log('New search input: ', value);
+}
+
+public refreshValue(value:any):void {
+this.value = value;
+}
+
+
+
   public form:FormGroup;
   public title = "";
   public targets = ['_blank', '_self'];
-  public settings: Settings;
+//  public settings: Settings;
 
   testCases = [];
   testDevices = [];
   projectTestcases = [];
   projectDevices = [];
   temp = [];
-  selected = [];
+ // selected = [];
   selectedTestCase = [];
   project = [];
   requestObject = [];
@@ -87,10 +313,10 @@ export class ProjectsComponent implements OnInit {
               private router: Router
               ) {
 
-      this.settings = this.appSettings.settings;
-      if(this.settings.theme.menu == 'vertical'){
-        this.menuItems = this.menuService.getVerticalMenuItems();
-      }
+   ///   this.settings = this.appSettings.settings;
+   //   if(this.settings.theme.menu == 'vertical'){
+     //   this.menuItems = this.menuService.getVerticalMenuItems();
+      //}
   }
 
   ngOnInit() {
@@ -100,7 +326,7 @@ export class ProjectsComponent implements OnInit {
     this.route.params.subscribe( params => projectName=params['projectName'] );
     this.route.params.subscribe( params => createTime=params['createTime'] );
     this.route.params.subscribe( params => state=params['state'] );
-    this.settings.theme.showMenu = true;
+   // this.settings.theme.showMenu = true;
 
 
 
@@ -314,18 +540,18 @@ export class ProjectsComponent implements OnInit {
     if (this.form.valid) {
       let lastId = this.menuItems[this.menuItems.length-1].id;
       let newMenuItem = new Menu(lastId+1, menu['title'], menu['routerLink'], menu['href'], menu['icon'], menu['target'], menu['hasSubMenu'], parseInt(menu['parentId']));
-      this.menuService.addNewMenuItem(this.menuItems, newMenuItem, this.settings.theme.menu);
+  //    this.menuService.addNewMenuItem(this.menuItems, newMenuItem, this.settings.theme.menu);
       this.toastrService.success('New menu item successfully added !', menu['title'] );
       this.form.reset({
         hasSubMenu:false,
         parentId:0
       });
     }
-    if(this.settings.theme.menuType=='mini'){
+    //if(this.settings.theme.menuType=='mini'){
         jQuery('.menu-item-link').tooltip('enable');
-    }else{
+    //}else{
         jQuery('.menu-item-link').tooltip('disable');
-    }
+    //}
   }
 
 
@@ -345,8 +571,8 @@ export class ProjectsComponent implements OnInit {
 
     onSelect({ selected }) {
       console.log('Select Event', selected, this.selected);
-      this.selected.splice(0, this.selected.length);
-      this.selected.push(...selected);
+     // this.selected.splice(0, this.selected.length);
+      //this.selected.push(...selected);
     }
 
     /****************************************************************

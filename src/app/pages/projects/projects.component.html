@@ -1,153 +1,236 @@
-<div class="row justify-content-left">
-    <div class="col-xl-4 col-md-4 col-4">
-        <h3>{{title}}</h3>
+<!-- a simple div with some links -->
+
+<!-- another version - flat style with animated hover effect -->
+
+<div style="width: 100% " class="breadcrumb flat">
+    <a style="width: 25%" [ngClass]="{'active':switch1class}">Step 1</a>
+    <a style="width: 25%" [ngClass]="{'active':switch2class}">Step 2</a>
+    <a style="width: 25%" [ngClass]="{'active':switch3class}">Step 3</a>
+    <a style="width: 25%" [ngClass]="{'active':switch4class}">Step 4</a>
+</div>
+<progress-bar [value]="value1" [max]="100"></progress-bar>
+
+
+<!-- Prefixfree -->
+
+<!--First STep -->
+<div *ngIf="switch1step" class="container">
+    <div class="row " style="margin-left:30%;margin-top: 5% ">
+        <input class="form-control col-sm-4" placeholder="Project Name">
     </div>
-    <div class="col-xl-3 col-md-3 col-3" *ngIf="editable" >
-        <button class="btn btn-blue" (click)="isEditable()">Edit</button>
+    <div class="fixedFoot row">
+        <div class="col-lg-10">&nbsp;</div>
+        <div class="col-lg-2">
+            <button (click)="step1()" class="btn btn-primary form-control">Next</button>
+        </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-xl-1 col-md-2 col-sm-12">
-        <span class="badge tag blue">Step 1</span>
-    </div>
-    <div class="col-xl-11 col-md-10 col-11">
+<!-- First step End -->
+
+<!--Second (1) STep -->
+<div *ngIf="switch_part_1" class="container">
+    <div *ngIf="step2_1">
+
         <div class="row">
-            <div class="col-xl-2 col-md-3 col-sm-11 margin-top5">
-                <h4><b>Project Name</b></h4>
-            </div>
-            <div class="col-xl-10 col-md-9 col-sm-1">
-                <hr>
-            </div>
+            <h4>Live Local <span class="label label-default"></span></h4>
         </div>
-        <div class="col-xl-14 col-md-4 col-4">
-            <input class="form-control" [disabled]="state" placeholder="project name" [value]="projectName" (input)="projectName = $event.target.value">
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xl-12 col-md-12 col-12 section-buffer">
-        <p></p>
-    </div>
-    <div class="col-xl-1 col-md-2 col-sm-12">
-        <span class="badge tag blue">Step 2</span>
-    </div>
-    <div class="col-xl-11 col-md-10 col-sm-12">
         <div class="row">
-            <div class="col-xl-3 col-md-4 col-sm-11 margin-top5">
-                <h4><b>Select Test Cases</b></h4>
-            </div>
-            <div class="col-xl-9 col-md-8 col-sm-1">
-                <hr>
+
+            <div class="btn-group col-sm-4" dropdown>
+                <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+                   Dropdown <span class="caret"></span>
+                </button>
+                <ul *dropdownMenu class="dropdown-menu" role="menu">
+                    <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+                    <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+                    <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li class="divider dropdown-divider"></li>
+                    <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
+                    </li>
+                </ul>
+
             </div>
         </div>
         <div class="row">
-            <div *ngFor="let item of testCases; let i = index" class="col-xl-4 col-md-6 col-sm-12">
-                <label class="custom-control custom-checkbox" >
-                    <input [disabled]="editable" (change)="onActivateTestCases(item.testCase, $event.target.checked)" class="custom-control-input checkbox-primary" name="{{item.testCase}}" [checked]="item.checked == 'TRUE'" type="checkbox"  (change)="AddOrRemoveTest(item.testCase, $event.target.checked)">
-                    <span class="custom-control-indicator"></span>
-                    <span >{{item.testCase}}</span>
-                </label>
+            <h4>Live National <span class="label label-default"></span></h4>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <input [(ngModel)]="selected1" [typeahead]="states" class="form-control">
             </div>
         </div>
 
-    </div>
-</div>
-<div class="row">
-    <div class="col-xl-12 col-md-12 col-12 section-buffer">
-        <p></p>
-    </div>
-    <div class="col-xl-1 col-md-2 col-sm-12">
-        <span class="badge tag blue">Step 3</span>
-    </div>
-    <div class="col-xl-11 col-md-10 col-sm-12">
-        <div class="row">
-            <div class="col-xl-2 col-md-3 col-sm-11 margin-top5">
-              <h4><b>Select Devices</b></h4>
-            </div>
-            <div class="col-xl-10 col-md-9 col-sm-1">
-                <hr>
-            </div>
-        </div>
-        <!--<i class="fa fa-circle red"></i>  <i class="fa fa-circle green"></i> <i class="fa fa-circle gray"></i>
-            -->
-        <ngx-datatable #table class="material"
-          [headerHeight]="40" [limit]="10" [columnMode]="'fixed'" [footerHeight]="50" [rowHeight]="'auto'" [rows]="testDevices" [loadingIndicator]="loadingIndicator" [selected]="selected"  (activate)="onActivate($event)"
-            (select)='onSelect($event)'>
-          <!--  <ngx-datatable-column
-                [width]="30"
-                [sortable]="false"
-                [canAutoResize]="false"
-                [draggable]="true"
-                [resizeable]="false"
-                [headerCheckboxable]="true"
-                [checkboxable]="true">
-                true
-              </ngx-datatable-column>
-          -->
-          <ngx-datatable-column name="checkedDevice" [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
-            <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
-              <!--
-              <input type="checkbox" [disabled]="editable"  [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"/>
-            -->
-            </ng-template>
-            <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected" let-onCheckboxChangeFn="onCheckboxChangeFn">
-              <input type="checkbox" [disabled]="editable" [checked]="value == 'TRUE'" (change)="onCheckboxChangeFn($event)"/>
-            </ng-template>
-        </ngx-datatable-column>
-          <!--
-            <ngx-datatable-column name="checkedDevice">
-                <ng-template ngx-datatable-cell-template let-value="value" >
-                    <input [disabled]="editable" type="checkbox" [checked]= "value == 'TRUE'" (change)="selectFn(!allRowsSelected)"/>
-                </ng-template>
-            </ngx-datatable-column>
-          -->
-            <ngx-datatable-column name="AvailabilityStatus">
-                <ng-template ngx-datatable-cell-template let-value="value">
 
-                  <i *ngIf = "value == 'Offline'" class="fa fa-phone-square red" style="color:red;"></i>
-                  <i *ngIf = "value == 'Available'" class="fa fa-phone-square green" style="color:green;"></i>
-                  <i *ngIf = "value == 'Busy'" class="fa fa-circle phone-square" style="color:gray;" > </i>
-                    {{value}}
-                </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Model">
-                <ng-template ngx-datatable-cell-template let-value="value">
-                    {{value}}
-                </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Manufacturer">
-                <ng-template ngx-datatable-cell-template let-value="value">
-                    {{value}}
-                </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Site">
-                <ng-template ngx-datatable-cell-template let-value="value">
-                    {{value}}
-                </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="UDID">
-                <ng-template ngx-datatable-cell-template let-value="value">
-                    {{value}}
-                </ng-template>
-            </ngx-datatable-column>
-        </ngx-datatable>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xl-12 col-md-12 col-12">
-        <hr>
-    </div>
-    <div class="col-xl-1 col-md-2 col-sm-12 margin-top10">
-        <span class="badge tag blue">Step 4</span>
-    </div>
-    <div class="col-xl-11 col-md-10 col-sm-12">
-        <div class="row justify-content-between">
-            <div class="col-xl-2 col-md-2 col-2">
-                <button class="btn btn-blue" (click)="submitForm()">{{btnName}}</button>
-            </div>
-            <div class="col-xl-1 col-md-1 col-1">
-                <button *ngIf="!editable" class="btn btn-secondary" (click)="cancel()">Cancel</button>
-            </div>
+        <div class="fixedFoot row">
+            <div class="col-lg-10"></div>
+            <div class="col-lg-2"> <button (click)="step2_1_btn()" class="btn btn-primary form-control">Next</button></div>
         </div>
     </div>
+
+
+    <!----step2 End-->
+
+    <!----step3-->
+    <div *ngIf="step2_2">
+
+        <div class="row">
+            <h3>Stream Free VOD <span class="label label-default"></span></h3>
+        </div>
+
+        <div class="row">
+            <h4>Movies <span class="label label-default"></span></h4>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-4">
+                <input [(ngModel)]="selected1" [typeahead]="states" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <h4>Movies <span class="label label-default"></span></h4>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <input [(ngModel)]="selected1" [typeahead]="states" class="form-control">
+            </div>
+            <div class="btn-group col-sm-6" dropdown>
+                <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+                           Dropdown <span class="caret"></span>
+                        </button>
+                <ul *dropdownMenu class="dropdown-menu" role="menu">
+                    <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+                    <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+                    <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li class="divider dropdown-divider"></li>
+                    <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
+                    </li>
+                </ul>
+
+            </div>
+
+
+
+        </div>
+
+
+        <div class="fixedFoot row">
+            <div class="col-lg-10"></div>
+            <div class="col-lg-2"><button (click)="step2_2_btn()" class="btn btn-primary form-control">Next</button></div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div *ngIf="step2_3">
+        <div class="row">
+            <h4>Purchase Movies <span class="label label-default"></span></h4>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-sm-6">
+                <input [(ngModel)]="selected1" [typeahead]="states" class="form-control">
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="fixedFoot row">
+
+            <div class="col-lg-10"></div>
+            <div class="col-lg-2"></div><button (click)="step2_3_btn()" class="btn btn-primary form-control">Next</button></div>
+    </div>
 </div>
+
+
+<!--third STep End -->
+
+
+
+<div *ngIf="step2_4">
+    <div class="row">
+        <h3>Stream Free VOD <span class="label label-default"></span></h3>
+    </div>
+
+    <div class="row">
+        <h4>Movies <span class="label label-default"></span></h4>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-4">
+            <input [(ngModel)]="selected1" [typeahead]="states" class="form-control">
+        </div>
+    </div>
+    <div class="row">
+        <h4>Movies <span class="label label-default"></span></h4>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <input [(ngModel)]="selected1" [typeahead]="states" class="form-control">
+        </div>
+        <div class="btn-group col-sm-6" dropdown>
+            <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+                           Dropdown <span class="caret"></span>
+                        </button>
+            <ul *dropdownMenu class="dropdown-menu" role="menu">
+                <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+                <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+                <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+                <li class="divider dropdown-divider"></li>
+                <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
+                </li>
+            </ul>
+
+        </div>
+
+
+
+    </div>
+
+
+    <div style="" class="fixedFoot row">
+        <button (click)="Cancel2()" class="btn btn-primary form-control col-sm-2">cancel</button>s
+        <div class="col-sm-8"></div>
+        <button (click)="step2()" class="btn btn-primary form-control col-sm-2">Next</button>
+    </div>
+</div>
+</div>
+
+<!--third STep End -->
+
+<div *ngIf="step_3" class="container">
+    <div>
+        <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
+    </div>
+    <div class="fixedFoot row">
+        <button (click)="step3_cancel()" class="btn btn-primary form-control col-sm-2">cancel</button>
+        <div class="col-sm-8"></div>
+        <button (click)="step3()" class="btn btn-primary form-control col-sm-2">Next</button>
+    </div>
+</div>
+
+
+<!--third (1) STep -->
+
+
+
+<div *ngIf="step_4" class="container">
+
+    <div class="fixedFoot row">
+        <button (click)="step4_cancel()" class="btn btn-primary form-control col-sm-2">cancel</button>
+        <div class="col-sm-8"></div>
+        <button (click)="step4()" class="btn btn-primary form-control col-sm-2">Next</button>
+    </div>
+</div>
+
+
+<!--third STep End -->

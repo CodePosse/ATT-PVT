@@ -37,30 +37,38 @@ export class PieComponent {
   loadingIndicator: boolean = true;
   reorderable: boolean = true;
   iphone = 'http://tinyurl.com';
+  projectNameAndTestCases =[];
+  testCases = [];
   projectName = '';
+  pieChartData =  {
+        chartType: 'PieChart',
+        dataTable: [
+          ['Device Results', 'Count Per Test'],
+          ['loading', 1],
+        ],
+        options: {title: 'Device Results', pieHole:0.4,legend: { position: 'bottom', alignment: 'end' },
+                            colors: ['#f6c7b6'],
+                            'animation': { duration: 1000, easing: 'out' }},
+    };
   sampleHTML = "<div><iframe width='640' height='360' src='https://youtu.be/kUTYSyd3LR0' frameborder='0' allowfullscreen></iframe></div>";
  urlIP = "player.twitch.tv/?channel=lreevesiphone&amp;player=facebook&amp;autoplay=true";
  urlAN = "29";
-  pieChartData =  {
-    chartType: 'PieChart',
-    dataTable: [
-      ['Device Results', 'Count Per Test'],
-      ['loading',     0],
-    ],
-    options: {title: 'Device Results', pieHole:0.4,legend: { position: 'bottom', alignment: 'end' },
-                        colors: ['red', 'gray', 'yellow', '#f6c7b6'],
-                        'animation': { duration: 1000, easing: 'out' }},
-  };
+
+
 
   constructor(public appSettings: AppSettings, private http: HttpClient, protected sanitizer: DomSanitizer, private safe:SafePipe) {
     Object.assign(this, {single});
     this.settings = this.appSettings.settings;
 
-    this.buildChart();
+
     this.fetchStatusList((data) => {
       console.log(data.executionStatus);
       this.executionStatus = data.executionStatus;
-
+      console.log(this.executionStatus[0].projectName)
+      this.projectNameAndTestCases = this.executionStatus[0].projectName.split("|");
+      console.log(this.projectNameAndTestCases.slice(1));
+      this.testCases =this.projectNameAndTestCases.slice(1);
+      this.projectName = this.projectNameAndTestCases[0];
       setTimeout(() => { this.loadingIndicator = false; }, 1500);
 
       this.deviceURLs= this.executionStatus
@@ -76,16 +84,8 @@ export class PieComponent {
         this.totalTest += this.executionSummary[i].Count;
         console.log(" Count:", this.totalTest)
       }
-
-      this.pieChartString = "<circle class='progress' cx='50' cy='50' r='40' fill='transparent' stroke-width='20' stroke='#000' stroke-dasharray='" + this.totalTest.toString() + "' stroke-dashoffset='0'/>";
-
-      for(var i=0; i<this.executionSummary.length; i++)
-      {
-        this.pieChartString += "<circle class='progress' cx='50' cy='50' r='40' fill='transparent' stroke-width='20' stroke='" + this.colorScheme.domain[i].toString() + "' stroke-dasharray='" + this.totalTest.toString() + "' stroke-dashoffset='" + this.executionSummary[i].Count.toString()+ "'/>";
-      }
+      this.buildChart();
     });
-
-
   };
 
   /*********
@@ -182,7 +182,17 @@ export class PieComponent {
   };
   ngOnInit() {
     this.settings.theme.showMenu = false
-    this.autoRefresh();
+    this.pieChartData =  {
+          chartType: 'PieChart',
+          dataTable: [
+            ['Device Results', 'Count Per Test'],
+            ['loading', 1],
+          ],
+          options: {title: 'Device Results', pieHole:0.4,legend: { position: 'bottom', alignment: 'end' },
+                              colors: ['#f6c7b6'],
+                              'animation': { duration: 1000, easing: 'out' }},
+      };
+    //this.autoRefresh();
   }
   ngOnDestroy() {
     clearInterval(this.timer);
@@ -202,7 +212,10 @@ export class PieComponent {
               this.fetchStatusList((data) => {
                 console.log(data.executionStatus);
                 this.executionStatus = data.executionStatus;
-                this.projectName = this.executionStatus[0].projectName;
+                console.log(this.executionStatus[0].projectName)
+                this.projectNameAndTestCases = this.executionStatus[0].projectName.split("|");
+                console.log(this.projectNameAndTestCases.slice(1));
+                this.projectName = this.projectNameAndTestCases[0];
                 setTimeout(() => { this.loadingIndicator = false; }, 1500);
 
               });
@@ -215,7 +228,7 @@ export class PieComponent {
 
               });
 
-              },30000);
+              },10000);
               }
   }
 

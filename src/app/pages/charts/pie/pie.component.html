@@ -14,23 +14,21 @@
             height: 200px;
             position: absolute;
             top: 80px;   /* chartArea top  */
-            left: 115px; /* chartArea left */
+            left: 215px; /* chartArea left */
      }
 </style>
 
 <div class="row">
-    <div class="col-lg-3 col-md-3 border-right">
+    <div class="col-lg-4 col-md-4 border-right">
           <h3>Project Name > {{projectName}}</h3>
           <hr/>
           <br/>
           <h5>Device Results</h5>
-          <div class="col-lg-9" style="width: 400px; height: 200px;">
+          <div class="col-lg-9" style="width: 450px; height: 200px;">
             <google-chart [data]="pieChartData" ></google-chart>
             <div class="overlay">
-          <!--  <div style="font-family:'Arial Black'; font-size: 24px;">{{totalTest}}</div>
-          -->
+              <div style="font-family:'Arial Black'; font-size: 24px;">{{totalTest}}</div>
             </div>
-
           </div>
           <div class="row">
           <div>
@@ -77,17 +75,16 @@
           <div>
             <div class="col-lg-12 section-buffer">
                <h5>Test Cases</h5>
-                <ul>
-                    <li><a href="/login" [routerLink]="['/login']">Login</a></li>
-                    <li><a href>Stream Live TV</a></li>
-                    <li><a href>Logout</a></li>
+                <ul *ngFor="let item of testCases; let i = index">
+                    <li><a href>{{item}}</a></li>
                 </ul>
 
             </div>
           </div>
         </div>
     </div>
-    <div class="col-lg-9 col-md-9">
+    <div class="col-lg-8 col-md-8">
+
       <div *ngFor="let devices of deviceURLs; let i = index" class="col-lg-12 col-md-12">
         <div  class="col-lg-6 col-md-2">
           <h4>{{devices.deviceModel}} - {{devices.deviceName}} </h4>
@@ -117,15 +114,12 @@
       </div>
       <!--
       <iframe src="https://player.twitch.tv/?channel=lreevesiphone"
-      frameborder="0" allowfullscreen="true"
-      scrolling="no" height="378" width="620">
-    </iframe>
-    <a href="https://www.twitch.tv/lreevesiphone?tt_medium=live_embed&tt_content=text_link" style="padding:2px 0px 4px; display:block; width:345px; font-weight:normal; font-size:10px; text-decoration:underline;">Watch live video from LreevesIphone on www.twitch.tv</a>
+        frameborder="0" allowfullscreen="true"
+        scrolling="no" height="378" width="620">
+      </iframe>
+      <a href="https://www.twitch.tv/lreevesiphone?tt_medium=live_embed&tt_content=text_link" style="padding:2px 0px 4px; display:block; width:345px; font-weight:normal; font-size:10px; text-decoration:underline;">Watch live video from LreevesIphone on www.twitch.tv</a>
 
-
-    <iframe width="640" height="360" [src]="cleanURL('http://player.twitch.tv/?channel=lreevesiphone&amp;autoplay=true')" frameborder="0" allowfullscreen></iframe>
-
-
+      <iframe width="640" height="360" [src]="cleanURL('http://player.twitch.tv/?channel=lreevesiphone&amp;autoplay=true')" frameborder="0" allowfullscreen></iframe>
 
         <h3>Lamont's Samsung S8</h3>
         <iframe width="640" height="360" src="http://192.168.1.39:5000/screen" frameborder="0" allowfullscreen></iframe>

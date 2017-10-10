@@ -1,6 +1,6 @@
 {
 	"/automationmanager/*": {
-		"target": "http://localhost:8080",
+		"target": "http://54.183.148.229/",
 		"secure": false,
 		"logLevel": "debug"
 	}

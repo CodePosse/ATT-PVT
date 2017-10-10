@@ -472,3 +472,10 @@ th {
     font-size: 1.25rem;
     border-top: none
 }
+
+.fixedFoot {
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+    width: 100%;
+}

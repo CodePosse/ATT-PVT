@@ -11,6 +11,11 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { DirectivesModule } from '../../theme/directives/directives.module';
 import { SmartComponent } from './smart/smart.component';
 import { NgxComponent } from './ngx/ngx.component';
+import {ProgressBarModule} from "ngx-progress-bar";
+import {SelectModule} from 'ng2-select';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 export const routes = [
   { path: '', component: ProjectsComponent, pathMatch: 'full' },
@@ -29,12 +34,18 @@ export const routes = [
     Ng2SmartTableModule,
     NgxDatatableModule,
     DirectivesModule,
-    NgbModule
+    ProgressBarModule,
+    NgbModule,
+    SelectModule,
+    BsDropdownModule.forRoot(),
+    TypeaheadModule.forRoot(),
+    
   ],
   declarations: [
     ProjectsComponent,
     SmartComponent,
-    NgxComponent
+    NgxComponent,
+    
   ]
 })
 export class ProjectsModule { }
