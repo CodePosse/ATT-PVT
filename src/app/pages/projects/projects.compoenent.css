@@ -83,7 +83,7 @@
 }
 
 .breadcrumb a:first-child {
-    padding-left: 20px
+    padding-left: 20px;
 }
 
 
@@ -122,7 +122,7 @@
 }
 
 .progress {
-    margin-bottom: 20px
+    margin-bottom: 20px;
 }
 
 .progress .progress-bar {
@@ -176,7 +176,7 @@
 }
 
 .wizardFoot div:not(.tags) .btn-gray {
-    padding: .4rem 1rem
+    padding: 0.4rem 1rem;
 }
 
 .tags a {
@@ -217,4 +217,24 @@
 .wizardFoot .tags a.btn-blue:after {
     left: 54px;
     transform: rotate(180deg);
+}
+
+.wizardFlow i.fa.fa-sort-down {
+    font-size: 2rem;
+    top: 25px;
+    left: -10px;
+    position: absolute;
+}
+
+.app.combined .collapse h5 {
+    font-family: "Omnes-ATT-W02-Medium";
+    border-bottom: 1px;
+    border-bottom-color: #999;
+    border-bottom-style: solid;
+}
+
+.border-bottom {
+    border-bottom: 1px;
+    border-bottom-color: #999;
+    border-bottom-style: solid;
 }
