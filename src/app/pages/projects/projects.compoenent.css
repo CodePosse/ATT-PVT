@@ -149,7 +149,8 @@
 .wizardFoot {
     bottom: 10px;
     position: fixed;
-    width: 73%;
+    width: 75%;
+    background-color: rgba(255, 255, 255, 0.75);
 }
 
 .app.combined .wizardFoot .btn-gray {
@@ -237,4 +238,10 @@
     border-bottom: 1px;
     border-bottom-color: #999;
     border-bottom-style: solid;
+}
+
+.editbox {
+    position: relative;
+    top: -25px;
+    float: right;
 }
