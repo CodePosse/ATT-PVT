@@ -16,10 +16,9 @@
     float: left;
     font-size: 12px;
     line-height: 36px;
-    text-align: center;
     color: white;
     /*need more margin on the left of links to accomodate the numbers*/
-    padding: 0 10px 0 60px;
+    padding: 0 10px 0 30px;
     background: #666;
     position: relative;
 }
@@ -83,6 +82,10 @@
     content: none;
 }
 
+.breadcrumb a:first-child {
+    padding-left: 20px
+}
+
 
 /*we will use the :before element to show numbers*/
 
@@ -114,7 +117,8 @@
 .flat a.active,
 .flat a:hover:after,
 .flat a.active:after {
-    background: #9eeb62;
+    background: #4ca90c;
+    color: #fff;
 }
 
 .progress {
@@ -122,7 +126,7 @@
 }
 
 .progress .progress-bar {
-    background: #9eeb62;
+    background: #4ca90c;
     height: 2px;
 }
 
@@ -130,14 +134,87 @@
     margin-top: 10px;
 }
 
-.wizardFlow h3 {
-    margin-top: 15px;
-}
-
 .wizardFlow h2 {
     margin-top: 20px;
 }
 
+.wizardFlow .custom-checkbox {
+    float: left;
+}
+
 .wizardFoot .p2 {
     width: 180px;
+}
+
+.wizardFoot {
+    bottom: 10px;
+    position: fixed;
+    width: 73%;
+}
+
+.app.combined .wizardFoot .btn-gray {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.app.combined .wizardFoot .btn {
+    border-radius: 5px;
+    border-width: 1px;
+    border-color: #e4e4e4;
+}
+
+.tags a {
+    float: left;
+    line-height: 24px;
+    position: relative;
+    font-size: 11px;
+}
+
+.wizardFoot .tags a.btn-blue {
+    color: #fff;
+    margin: 10px 10px 0 0;
+}
+
+.wizardFoot div:not(.tags) .btn-gray {
+    padding: .4rem 1rem
+}
+
+.tags a {
+    margin-left: 20px;
+    padding: 0 10px 0 12px;
+    background: #0089e0;
+    color: #fff;
+    text-decoration: none;
+    -moz-border-radius-bottomright: 4px;
+    -webkit-border-bottom-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    -moz-border-radius-topright: 4px;
+    -webkit-border-top-right-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.tags a.btn-gray {
+    background: #e4e4e4;
+}
+
+.tags a:after {
+    content: "";
+    float: left;
+    position: absolute;
+    top: 0;
+    left: -12px;
+    width: 0;
+    height: 0;
+    border-color: transparent #0089e0 transparent transparent;
+    border-style: solid;
+    border-width: 12px 12px 12px 0;
+}
+
+.tags a.btn-gray:after {
+    border-color: transparent #f2f2f2 transparent transparent;
+}
+
+.wizardFoot .tags a.btn-blue:after {
+    left: 54px;
+    transform: rotate(180deg);
 }
