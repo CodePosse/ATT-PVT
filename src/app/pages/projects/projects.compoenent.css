@@ -245,3 +245,16 @@
     top: -25px;
     float: right;
 }
+
+.rotate-left {
+    transform: rotate(-90deg);
+    font-size: 2rem;
+    left: 5px;
+    height: 1rem;
+}
+
+.rotate-right {
+    height: 1rem;
+    transform: rotate(90deg);
+    font-size: 2rem;
+}
