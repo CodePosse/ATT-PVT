@@ -45,14 +45,12 @@
 
 /*hover/active styles*/
 
-.breadcrumb a.active,
-.breadcrumb a:hover {
+.breadcrumb a.active {
     background: #333;
     background: linear-gradient(#333, #000);
 }
 
-.breadcrumb a.active:after,
-.breadcrumb a:hover:after {
+.breadcrumb a.active:after {
     background: #333;
     background: linear-gradient(135deg, #333, #000);
 }
@@ -113,9 +111,7 @@
     background: white;
 }
 
-.flat a:hover,
 .flat a.active,
-.flat a:hover:after,
 .flat a.active:after {
     background: #4ca90c;
     color: #fff;
@@ -159,7 +155,7 @@
 }
 
 .app.combined .wizardFoot .btn {
-    border-radius: 5px;
+    border-radius: 8px;
     border-width: 1px;
     border-color: #e4e4e4;
 }
@@ -186,6 +182,7 @@
     background: #0089e0;
     color: #fff;
     text-decoration: none;
+    border-radius: 8px;
     -moz-border-radius-bottomright: 4px;
     -webkit-border-bottom-right-radius: 4px;
     border-bottom-right-radius: 4px;
@@ -216,7 +213,7 @@
 }
 
 .wizardFoot .tags a.btn-blue:after {
-    left: 54px;
+    left: 55px;
     transform: rotate(180deg);
 }
 
@@ -257,4 +254,14 @@
     height: 1rem;
     transform: rotate(90deg);
     font-size: 2rem;
+}
+
+.wizardFlow .custom-checkbox .custom-control-input:checked~.custom-control-indicator {
+    background-image: none
+}
+
+.wizardFlow label {
+    font-size: 12px;
+    color: #565656;
+    font-weight: normal;
 }

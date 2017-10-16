@@ -1,17 +1,22 @@
 <h1>
     Project name</h1>
-
-<div style="width: 100% " class="breadcrumb flat"> <a style="width: 25%" [ngClass]="{'active':switch1class}">Step 1: Project Name</a> <a style="width: 25%" [ngClass]="{'active':switch2class}">Step 2: Select Test Cases</a> <a style="width: 25%" [ngClass]="{'active':switch3class}">Step 3: Select Devices</a>    <a style="width: 25%" [ngClass]="{'active':switch4class}">Step 4: Execute</a> </div>
+<div style="width: 100% " class="breadcrumb flat">
+    <a style="width: 25%" [ngClass]="{'active':switch1class}" id="s1">Step 1: Project Name</a>
+    <a style="width: 25%" [ngClass]="{'active':switch2class}" id="s2">Step 2: Select Test Cases</a>
+    <a style="width: 25%" [ngClass]="{'active':switch3class}" id="s3">Step 3: Select Devices</a>
+    <a style="width: 25%" [ngClass]="{'active':switch4class}" id="s4">Step 4: Execute</a>
+</div>
 <progress-bar [value]="value1" [max]="100"></progress-bar>
 <span class="wizardFlow"> 
     <!--First STep -->
-    <div *ngIf="switch1step" class="container">
-    
+    <div *ngIf="switch1step" class="container"> 
       <div class="row " style="margin-left:30%;margin-top: 5% ">
-        <input class="form-control col-sm-4" placeholder="Enter Your Project Name">
+            <div class="form-group col-sm-4">
+                    <label>Project Name</label>
+        <input class="form-control" placeholder="Enter Your Project Name"></div>
       </div>
       <div class="d-flex justify-content-start wizardFoot">
-        <div class="p-2">&nbsp;</div>
+        <div class="p-2"><a class="btn btn-gray form-control">Cancel</a></div>
         <div class="p-2">&nbsp;</div>
         <div class="ml-auto p-2">&nbsp;</div>
         <div class="ml-auto p-2 tags">
@@ -28,9 +33,9 @@
         </div>
         <div class="row margin-top10">
           <div class="col-xl-2 col-md-3 col-sm-11">
-                  <label class="custom-control custom-checkbox first">
-                    <input type="checkbox" class="firstcheck custom-control-input checkbox-info" onclick="$('.firstbox').toggle()">
-                    <span class="custom-control-indicator"></span>
+            <label class="custom-control custom-checkbox first">
+                <input type="checkbox" class="firstcheck custom-control-input checkbox-info">
+                <span class="custom-control-indicator"></span>
 </label>
 <h5>Live Local</h5>
 </div>
@@ -38,8 +43,9 @@
     <hr>
 </div>
 </div>
-<div class="row margin-left15 firstbox" style="display: none">
-    <div class="col-3">
+<div class="row margin-left15 firstbox">
+    <div class="form-group col-3">
+        <label>Channel</label>
         <select class="form-control" id="exampleSelect1">
               <option>ABC</option>
               <option>CBS</option>
@@ -51,10 +57,18 @@
     <div class="col-9">
         <table style="text-align:center; width:450px">
             <!--http://www.advchaweb.com/use-jquery-move-data-element/#codesyntax_2-->
+            <thead>
+                <tr>
+                    <th> <label>Region and Station</label></th>
+                    <th></th>
+                    <th>
+                        <label>Selected Channels</label></th>
+                </tr>
+            </thead>
             <tbody>
                 <tr>
                     <td width="200">
-                        <select id="left_list" name="left_list[]" multiple="" size="8" style="width:100%" class="form-control">
+                        <select id="left_list" name="left_list[]" multiple="" size="8" style="width:100%; overflow-y: auto;" class="form-control">
                       <option value="7">Atlanta GA - ABC WSB</option>
                       <option value="8">Austin TX - ABC KVUE</option>
                       <option value="19">Charlotte NC - ABC WSOC</option>
@@ -69,7 +83,7 @@
                             return !$('#right_list option:selected').remove().appendTo('#left_list');
                         });" id="move_left"><i aria-hidden="true" class="fa fa-sort-up rotate-left"></i></div>
                     </td>
-                    <td width="200"><select id="right_list" name="right_list[]" multiple="" size="8" style="width:100%" class="form-control">
+                    <td width="200"><select id="right_list" name="right_list[]" multiple="" size="8" style="width:100%; overflow-y: auto;" class="form-control">
                       <option value="17">Los Angeles CA - ABC KABC</option>
                       <option value="14">NY NY - ABC WNBC</option>
                     </select></td>
@@ -90,7 +104,7 @@
 </div>
 <div class="row margin-top20">
     <div class="col-xl-2 col-md-3 col-sm-11"><label class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input checkbox-info" onclick="$('.secondbox').toggle()">
+              <input type="checkbox" class="custom-control-input checkbox-info">
               <span class="custom-control-indicator"></span>
     </label>
         <h5>Live National</h5>
@@ -99,7 +113,7 @@
         <hr>
     </div>
 </div>
-<div class="row margin-left15 secondbox" style="display: none">
+<div class="row margin-left15 secondbox">
     <div class="col-sm-4">
         <input [(ngModel)]="selected1" [typeahead]="states" class="form-control" placeholder="Search Channel Here...">
     </div>
@@ -112,7 +126,7 @@
     <div class="p-2">
         <a (click)="Cancel2()" class="btn btn-gray form-control">Cancel</a>
     </div>
-    <div class="ml-auto p-2"><a class="btn btn-gray form-control">Save & Review</a></div>
+    <div class="ml-auto p-2"><a class="btn btn-gray form-control" style="background-color:#4cab48;color:#fff">Review & Execute</a></div>
     <div class="p-2 tags">
         <a (click)="step2_1_btn()" class="btn-lg btn-blue form-control">Next</a>
     </div>
@@ -126,7 +140,7 @@
     </div>
     <div class="row margin-top10">
         <div class="col-xl-2 col-md-3 col-sm-11"><label class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input checkbox-info"  onclick="$('.thirdbox').toggle()">
+              <input type="checkbox" class="custom-control-input checkbox-info">
               <span class="custom-control-indicator"></span>
     </label>
             <h5>Movies</h5>
@@ -135,14 +149,14 @@
             <hr>
         </div>
     </div>
-    <div class="row margin-left15 thirdbox" style="display: none">
+    <div class="row margin-left15 thirdbox">
         <div class="col-sm-4">
             <input [(ngModel)]="selected1" [typeahead]="states" class="form-control" placeholder="Search Movie Here">
         </div>
     </div>
     <div class="row margin-top20">
         <div class="col-xl-2 col-md-3 col-sm-11"><label class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input checkbox-info"  onclick="$('.fourthbox').toggle()">
+                <input type="checkbox" class="custom-control-input checkbox-info">
                 <span class="custom-control-indicator"></span>
       </label>
             <h5>TV Shows</h5>
@@ -151,34 +165,46 @@
             <hr>
         </div>
     </div>
-    <div class="row margin-left15 fourthbox" style="display: none">
+    <div class="row margin-left15 fourthbox">
         <div class="col-4">
             <div class="form-group">
                 <label for="selected1">Title</label>
                 <input [(ngModel)]="selected1" [typeahead]="states" class="form-control" placeholder="Search TV Show Here">
             </div>
         </div>
-        <div class="col-8">
+        <div class="col-3">
             <div class="form-group">
-                <label for="exampleSelect1">Season and Episode</label>
+                <label for="exampleSelect1">Season</label>
                 <select class="form-control" id="exampleSelect1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+                <option disabled>Select Season</option>
+                <option>Season 1</option>
+                <option>Season 2</option>
+                <option>Season 4</option>
+                <option>Season 9</option>
               </select>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="form-group">
+                <label for="exampleSelect1">Season</label>
+                <select class="form-control" id="exampleSelect1">
+                    <option>Select Episode</option>
+                    <option>A really interesting episode title</option>
+                    <option>Another interesting title</option>
+                    <option>A boring title</option>
+                    <option>Behind the Scenes</option>
+                  </select>
             </div>
         </div>
         <div class="col-12">&nbsp;</div>
     </div>
     <div class="d-flex justify-content-start wizardFoot">
-        <div class="p-2 tags"><a class="btn btn-gray form-control">back</a></div>
+        <div class="p-2 tags"><a class="btn btn-gray form-control">Back</a></div>
         <div class="p-2">
-            <a (click)="Cancel2()" class="btn btn-gray form-control">cancel</a>
+            <a (click)="Cancel2()" class="btn btn-gray form-control">Cancel</a>
         </div>
 
-        <div class="ml-auto p-2"><a class="btn btn-gray form-control">Save & Review</a></div>
+        <div class="ml-auto p-2"><a class="btn btn-gray form-control" style="background-color:#4cab48;color:#fff">Review & Execute</a></div>
         <div class="p-2 tags">
             <a (click)="step2_2_btn()" class="btn-lg btn-blue form-control">Next</a>
         </div>
@@ -198,12 +224,12 @@
         <div class="col-12">&nbsp;</div>
     </div>
     <div class="d-flex justify-content-start wizardFoot">
-        <div class="p-2 tags"><a class="btn btn-gray form-control">back</a></div>
+        <div class="p-2 tags"><a class="btn btn-gray form-control">Back</a></div>
         <div class="p-2">
-            <a (click)="Cancel2()" class="btn btn-gray form-control">cancel</a>
+            <a (click)="Cancel2()" class="btn btn-gray form-control">Cancel</a>
         </div>
 
-        <div class="ml-auto p-2"><a class="btn btn-gray form-control">Save & Review</a></div>
+        <div class="ml-auto p-2"><a class="btn btn-gray form-control" style="background-color:#4cab48;color:#fff">Review & Execute</a></div>
         <div class="p-2 tags">
             <a (click)="step2_3_btn()" class="btn-lg btn-blue form-control">Next</a>
         </div>
@@ -216,7 +242,7 @@
     </div>
     <div class="row margin-top10">
         <div class="col-xl-2 col-md-3 col-sm-11"><label class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input checkbox-info"  onclick="$('.sixthbox').toggle()">
+              <input type="checkbox" class="custom-control-input checkbox-info">
               <span class="custom-control-indicator"></span>
     </label>
             <h5>Movies</h5>
@@ -225,14 +251,14 @@
             <hr>
         </div>
     </div>
-    <div class="row margin-left15 sixthbox" style="display: none">
+    <div class="row margin-left15 sixthbox">
         <div class="col-sm-4">
             <input [(ngModel)]="selected1" [typeahead]="states" class="form-control" placeholder="Search Movie Here">
         </div>
     </div>
     <div class="row margin-top20">
         <div class="col-xl-2 col-md-3 col-sm-11"><label class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input checkbox-info"  onclick="$('.seventhbox').toggle()">
+              <input type="checkbox" class="custom-control-input checkbox-info">
               <span class="custom-control-indicator"></span>
     </label>
             <h5>TV Shows</h5>
@@ -241,34 +267,46 @@
             <hr>
         </div>
     </div>
-    <div class="row margin-left15 seventhbox" style="display: none">
+    <div class="row margin-left15 seventhbox">
         <div class="col-4">
             <div class="form-group">
                 <label for="selected1">Title</label>
                 <input [(ngModel)]="selected1" [typeahead]="states" class="form-control" placeholder="Search TV Show Here">
             </div>
         </div>
-        <div class="col-8">
+        <div class="col-3">
             <div class="form-group">
-                <label for="exampleSelect1">Season and Episode</label>
+                <label for="exampleSelect1">Season</label>
                 <select class="form-control" id="exampleSelect1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
+                    <option disabled>Select Season</option>
+                    <option>Season 1</option>
+                    <option>Season 2</option>
+                    <option>Season 4</option>
+                    <option>Season 9</option>
+                  </select>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="form-group">
+                <label for="exampleSelect1">Season</label>
+                <select class="form-control" id="exampleSelect1">
+                        <option>Select Episode</option>
+                        <option>A really interesting episode title</option>
+                        <option>Another interesting title</option>
+                        <option>A boring title</option>
+                        <option>Behind the Scenes</option>
+                      </select>
             </div>
         </div>
         <div class="col-12">&nbsp;</div>
     </div>
     <div class="d-flex justify-content-start wizardFoot">
-        <div class="p-2 tags"><a class="btn btn-gray form-control">back</a></div>
+        <div class="p-2 tags"><a class="btn btn-gray form-control">Back</a></div>
         <div class="p-2">
-            <a (click)="Cancel2()" class="btn btn-gray form-control">cancel</a>
+            <a (click)="Cancel2()" class="btn btn-gray form-control">Cancel</a>
         </div>
 
-        <div class="ml-auto p-2"><a class="btn btn-gray form-control">Save & Review</a></div>
+        <div class="ml-auto p-2"><a class="btn btn-gray form-control" style="background-color:#4cab48;color:#fff">Review & Execute</a></div>
         <div class="p-2 tags">
             <a (click)="step2()" class="btn-lg btn-blue form-control">Next</a>
         </div>
@@ -281,16 +319,47 @@
         <h3>Select Device(s)</h3>
     </div>
     <div class="row margin-top10">
-        <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
-        <div class="col-12">&nbsp;</div>
+        <div class="col-12">
+            <ngx-datatable #table class="material" [headerHeight]="40" [limit]="10" [columnMode]="'fixed'" [footerHeight]="50" [rowHeight]="'auto'" [rows]="rows" [loadingIndicator]="loadingIndicator" (activate)="onActivate($event)" (select)='onSelect($event)'>
+                <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="true" [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true">
+                </ngx-datatable-column>
+                <ngx-datatable-column name="AvailabilityStatus">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                        <i *ngIf="value == 'Offline'" class="fa fa-circle red" style="color:red;"></i>
+                        <i *ngIf="value == 'Available'" class="fa fa-circle green" style="color:green;"></i>
+                        <i *ngIf="value == 'Busy'" class="fa fa-circle" style="color:gray;"> </i> {{value}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Model">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                        {{value}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Manufacturer">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                        {{value}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Site">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                        {{value}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="UDID">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                        {{value}}
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+            &nbsp;</div>
     </div>
     <div class="d-flex justify-content-start wizardFoot">
-        <div class="p-2 tags"><a class="btn btn-gray form-control">back</a></div>
+        <div class="p-2 tags"><a class="btn btn-gray form-control">Back</a></div>
         <div class="p-2 ">
-            <a (click)="step3_cancel()" class="btn btn-gray form-control">cancel</a>
+            <a (click)="step3_cancel()" class="btn btn-gray form-control">Cancel</a>
         </div>
 
-        <div class="ml-auto p-2"><a class="btn btn-gray form-control">Save & Review</a></div>
+        <div class="ml-auto p-2"><a class="btn btn-gray form-control" style="background-color:#4cab48;color:#fff">Review & Execute</a></div>
         <div class="p-2 tags">
             <a (click)="step3()" class="btn-lg btn-blue form-control">Next</a>
         </div>
@@ -311,11 +380,11 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <a class="btn-lg btn-blue collapsed pad-left-35" data-toggle="collapse" href="#collapseTestcases" aria-expanded="false" aria-controls="collapseExample">
+            <a class="btn-lg btn-blue collapsed pad-left-35" data-toggle="collapse" href="#collapseTestcases" aria-controls="collapseExample">
                 <i aria-hidden="true" class="fa fa-sort-down"></i>
                 <h4 class="border-bottom"> Test Cases</h4>
             </a>
-            <div class="collapse pad-left-20" id="collapseTestcases" aria-expanded="false" style="">
+            <div class="pad-left-20" id="collapseTestcases" style="">
 
                 <h5>Stream Live TV</h5>
                 <a href="#" class="editbox">edit</a>
@@ -408,11 +477,11 @@
     <div class="row">&nbsp;</div>
     <div class="row">
         <div class="col-12">
-            <a class="btn-lg btn-blue collapsed pad-left-35" data-toggle="collapse" href="#collapseDevices" aria-expanded="false" aria-controls="collapseDevices">
+            <a class="btn-lg btn-blue collapsed pad-left-35" data-toggle="collapse" href="#collapseDevices" aria-controls="collapseDevices">
                 <i aria-hidden="true" class="fa fa-sort-down"></i>
                 <h4 class="border-bottom"> Devices</h4>
             </a>
-            <div class="collapse pad-left-20" id="collapseDevices" aria-expanded="false" style="">
+            <div class="pad-left-20" id="collapseDevices" style="">
                 <div class="col-12">
                     <table>
                         <thead>
@@ -438,12 +507,12 @@
         <div class="col-12">&nbsp;</div>
     </div>
     <div class="d-flex justify-content-start wizardFoot">
-        <div class="p-2 tags"><a class="btn btn-gray form-control">back</a></div>
+        <div class="p-2 tags"><a class="btn btn-gray form-control">Back</a></div>
         <div class="p-2 ">
-            <a (click)="step4_cancel()" class="btn btn-gray form-control">cancel</a>
+            <a (click)="step4_cancel()" class="btn btn-gray form-control">Cancel</a>
         </div>
 
-        <div class="ml-auto p-2"><a class="btn btn-gray form-control">Save & Review</a></div>
+        <div class="ml-auto p-2"><a class="btn btn-gray form-control" style="background-color:#4cab48;color:#fff">Review & Execute</a></div>
         <div class="p-2 tags">
             <a (click)="step4()" class="btn-lg btn-blue form-control">Next</a>
         </div>
