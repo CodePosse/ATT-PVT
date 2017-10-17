@@ -1,294 +1,465 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-import { Settings } from '../../app.settings.model';
-import { AppSettings } from '../../app.settings';
-import { Menu } from '../../theme/components/menu/menu.model';
-import { MenuService } from '../../theme/components/menu/menu.service';
-import 'rxjs/add/operator/debounceTime';
-import { HttpHeaders, HttpClient} from '@angular/common/http';
-import { DatatableComponent } from '@swimlane/ngx-datatable';
-import {ActivatedRoute} from "@angular/router";
-import {Router} from '@angular/router'
+import { Component, OnInit, ViewEncapsulation, ViewChild } from "@angular/core";
+import {
+  FormGroup,
+  FormControl,
+  FormBuilder,
+  Validators
+} from "@angular/forms";
+import { ToastrService } from "ngx-toastr";
+import { Settings } from "../../app.settings.model";
+import { AppSettings } from "../../app.settings";
+import { Menu } from "../../theme/components/menu/menu.model";
+import { MenuService } from "../../theme/components/menu/menu.service";
+import "rxjs/add/operator/debounceTime";
+import { HttpHeaders, HttpClient } from "@angular/common/http";
+import { DatatableComponent } from "@swimlane/ngx-datatable";
+import { ActivatedRoute } from "@angular/router";
+import { Router } from "@angular/router";
 
-
-
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/map'
-
+import { Observable } from "rxjs/Observable";
+import "rxjs/add/operator/debounceTime";
+import "rxjs/add/operator/map";
 
 @Component({
-  selector: 'app-projects',
-  templateUrl: './projects.component.html',
-  styleUrls: ['./projects.compoenent.css'],
+  selector: "app-projects",
+  templateUrl: "./projects.component.html",
+  styleUrls: ["./projects.compoenent.css"],
   encapsulation: ViewEncapsulation.None,
-  providers: [ MenuService ]
+  providers: [MenuService]
 })
-
-
-
 export class ProjectsComponent implements OnInit {
-value1=26
-switch1step=true
-step_4=false
-step2_1=true
-step2_3=false
-step2_2=false
-step2_4=false
-switch_2_1=false
-  switch1class=true
-  switch2class=false
-  switch3class=false
-  switch4class=false
-  switch_part_1=false
-  switch_part_2=false
-  switch_part_3=false
-  switch_part_4=false
-  step_3=false
-  s_3=false
+  value1 = 26;
+    step1_check = false;
+  step2_check = false;
+  step3_check = false;
+  switch1step = true;
+  step_4 = false;
+  step2_1 = true;
+  step2_3 = false;
+  step2_2 = false;
+  step2_4 = false;
+  switch_2_1 = false;
+  switch1class = true;
+  switch2class = false;
+  switch3class = false;
+  switch4class = false;
+  switch_part_1 = false;
+  switch_part_2 = false;
+  switch_part_3 = false;
+  switch_part_4 = false;
+  step_3 = false;
+  s_3 = false;
   statesWithFlags = [];
   liveNational = [];
   freeMovies = [];
   ppvMovies = [];
   tvShows = [];
 
+  searchFreeMovies = (textfreeMovies$: Observable<string>) =>
+    textfreeMovies$
+      .debounceTime(200)
+      .map(
+        termFreeMovies =>
+          termFreeMovies === ""
+            ? []
+            : this.freeMovies
+                .filter(
+                  vfreeMovies =>
+                    vfreeMovies.title
+                      .toLowerCase()
+                      .indexOf(termFreeMovies.toLowerCase()) > -1
+                )
+                .slice(0, 5)
+      );
 
+  formatterFreeMovies = (xfreeMovies: { title: string }) => xfreeMovies.title;
 
-    searchFreeMovies = (textfreeMovies$: Observable<string>) =>
-      textfreeMovies$
-        .debounceTime(200)
-        .map(termFreeMovies => termFreeMovies === '' ? []
-          : this.freeMovies.filter(vfreeMovies => vfreeMovies.title.toLowerCase().indexOf(termFreeMovies.toLowerCase()) > -1).slice(0, 5));
+  searchPPVMovies = (text$: Observable<string>) =>
+    text$
+      .debounceTime(200)
+      .map(
+        termPPVMovies =>
+          termPPVMovies === ""
+            ? []
+            : this.ppvMovies
+                .filter(
+                  v =>
+                    v.title.toLowerCase().indexOf(termPPVMovies.toLowerCase()) >
+                    -1
+                )
+                .slice(0, 5)
+      );
 
-    formatterFreeMovies = (xfreeMovies: {title: string}) => xfreeMovies.title;
+  formatterPPVMovies = (x: { title: string }) => x.title;
 
-    searchPPVMovies = (text$: Observable<string>) =>
-      text$
-        .debounceTime(200)
-        .map(termPPVMovies => termPPVMovies === '' ? []
-          : this.ppvMovies.filter(v => v.title.toLowerCase().indexOf(termPPVMovies.toLowerCase()) > -1).slice(0, 5));
+  searchTVShows = (textTV$: Observable<string>) =>
+    textTV$
+      .debounceTime(200)
+      .map(
+        termTVShows =>
+          termTVShows === ""
+            ? []
+            : this.tvShows
+                .filter(
+                  vTv =>
+                    vTv.title.toLowerCase().indexOf(termTVShows.toLowerCase()) >
+                    -1
+                )
+                .slice(0, 5)
+      );
 
-    formatterPPVMovies = (x: {title: string}) => x.title;
+  formatterTVShows = (tv: { title: string }) => tv.title;
 
-    searchTVShows = (textTV$: Observable<string>) =>
-      textTV$
-        .debounceTime(200)
-        .map(termTVShows => termTVShows=== '' ? []
-          : this.tvShows.filter(vTv => vTv.title.toLowerCase().indexOf(termTVShows.toLowerCase()) > -1).slice(0, 5));
-
-    formatterTVShows = (tv: {title: string}) => tv.title;
-
-step1(){
-  this.value1=this.value1+6
-  this.switch1class=true
-  this.switch_part_1=true
-  this.switch1step=false
-
-
-}
-step2(){
-
-console.log("hello");
-  this.step_3=true;
-
-  this.switch2class=true
-  this.switch_part_1=false
-
-  this.switch3class=true
-
-
-
-}
-
-step3_cancel(){
-  this.value=26
-  this.switch2class=false;
-  this.switch3class=false;
-  this.step2_4=false
-  this.step2_1=false
-
-  this.step_3=false;
-
-}
-step4_cancel(){
-  this.value1=50
-  this.switch3class=false
-  this.step_3=true
-  this.step_4=false
-  this.switch4class=false
-}
-step3(){
-  this.switch3class=true
-this.value1=this.value1+24
-this.switch4class=true;
- this.step_3=false
-  this.step_4=true;
-
-
-}
-step4(){
-  this.value1=this.value1+27
-    this.step_3=false;
-    this.step_4=true;
-
-
+  step1() {
+    this.value1 = this.value1 + 6;
+    this.switch1class = false;
+    this.switch2class = true;
+    this.switch_part_1 = true;
+    this.switch1step = false;
+    this.step1_check = true;
+    jQuery("ul.list-inline li:first").addClass("active");
   }
-Cancel2(){
-this.value1=26
-console.log("Helloaaaa");
-this.switch_part_1=false
-this.switch1step=true
-this.switch1class=true
-this.step2_1=true;
-this.step2_4=false
-this.switch2class=false;
+  step2() {
+    console.log("hello");
+    this.step_3 = true;
+    this.step2_check = true;
+    this.switch2class = false;
+    this.switch_part_1 = false;
 
+    this.switch3class = true;
+  }
 
-}
-step2_1_btn(){
-this.value1=this.value1+6
-this.step2_1=false
-this.step2_2=true
+  step3_back() {
+    this.value1 = 26 + 6;
+    this.switch2class = true;
+    this.switch3class = false;
+    this.step2_4 = false;
+    this.step2_1 = true;
+    this.step2_2 = false;
+    this.step_3 = false;
+    this.switch_part_1 = true;
+    this.step2_check = false;
+  }
 
- }
+  step3_cancel() {
+    this.value = 26;
+    this.switch2class = false;
+    this.switch3class = false;
+    this.step2_4 = false;
+    this.step2_1 = false;
 
-step2_2_btn(){
+    this.step_3 = false;
+  }
+  step4_cancel() {
+    this.value1 = 50;
+    this.switch3class = false;
+    this.step_3 = true;
+    this.step_4 = false;
+    this.switch4class = false;
+  }
+  step3() {
+    this.switch3class = false;
+    this.step3_check = true;
+    this.value1 = this.value1 + 24;
+    this.switch4class = true;
+    this.step_3 = false;
+    this.step_4 = true;
+  }
+  step4_back() {
+    this.value1 = this.value1 - 24;
+    this.step3_check = false;
+    this.step_3 = true;
+    this.step_4 = false;
+    this.switch3class = true;
+    this.switch4class = false;
+  }
+  step4() {
+    this.value1 = this.value1 + 27;
+    this.step_3 = false;
+    this.step_4 = true;
+  }
+  Cancel2() {
+    this.value1 = 26;
+    console.log("Hello");
+    this.switch_part_1 = false;
+    this.switch1step = true;
+    this.switch1class = true;
+    this.step2_1 = true;
+    this.step2_4 = false;
+    this.switch2class = false;
+  }
+  step2_1_btn() {
+    this.value1 = this.value1 + 6;
+    this.step2_1 = false;
+    this.step2_2 = true;
+  }
+  step2_1_btn_back() {
+    this.value1 = this.value1 - 6;
+    this.switch1class = true;
+    this.switch2class = false;
+    this.switch_part_1 = false;
+    this.switch1step = true;
+    this.step1_check = false;
+  }
 
-  this.value1=this.value1+6
-  this.step2_2=false
-  this.step2_3=true
+  step2_2_btn() {
+    this.value1 = this.value1 + 6;
+    this.step2_2 = false;
+    this.step2_3 = true;
+  }
 
- }
- step2_3_btn(){
-  this.switch2class=true
-  this.value1=this.value1+6
-  this.step2_3=false
-  this.step2_4=true
+  step2_2_btn_back() {
+    this.value1 = this.value1 - 6;
+    this.step2_1 = true;
+    this.step2_2 = false;
+  }
 
+  step2_3_btn() {
+    this.switch2class = true;
+    this.value1 = this.value1 + 6;
+    this.step2_3 = false;
+    this.step2_4 = true;
+  }
 
- }
- step2_4_btn(){
+  step2_3_btn_back() {
+    this.value1 = this.value1 - 6;
+    this.step2_2 = true;
+    this.step2_3 = false;
+  }
 
-  this.value1=this.value1+6
-  this.switch_part_1=false
-  this.step_3=true
+  step2_back() {
+    this.switch2class = false;
+    this.value1 = this.value1 - 6;
+    this.step2_3 = true;
+    this.step2_4 = false;
+  }
 
- }
+  step2_4_btn() {
+    this.value1 = this.value1 + 6;
+    this.switch_part_1 = false;
+    this.step_3 = true;
+  }
 
- settings = {
-  columns: {
-    id: {
-      title: 'ID'
-    },
-    name: {
-      title: 'Full Name'
-    },
-    username: {
-      title: 'User Name'
-    },
-    email: {
-      title: 'Email'
+  CancelAll() {
+    this.value1 = 26;
+    this.step1_check = false;
+    this.step2_check = false;
+    this.step3_check = false;
+    this.switch1step = true;
+    this.step_4 = false;
+    this.step2_1 = true;
+    this.step2_3 = false;
+    this.step2_2 = false;
+    this.step2_4 = false;
+    this.switch_2_1 = false;
+    this.switch1class = true;
+    this.switch2class = false;
+    this.switch3class = false;
+    this.switch4class = false;
+    this.switch_part_1 = false;
+    this.switch_part_2 = false;
+    this.switch_part_3 = false;
+    this.switch_part_4 = false;
+    this.step_3 = false;
+  }
+
+  settings = {
+    columns: {
+      id: {
+        title: "ID"
+      },
+      name: {
+        title: "Full Name"
+      },
+      username: {
+        title: "User Name"
+      },
+      email: {
+        title: "Email"
+      }
     }
+  };
+
+  data = [
+    {
+      id: 1,
+      name: "Leanne Graham",
+      username: "Bret",
+      email: "Sincere@april.biz"
+    },
+    {
+      id: 2,
+      name: "Ervin Howell",
+      username: "Antonette",
+      email: "Shanna@melissa.tv"
+    },
+
+    // ... list of items
+
+    {
+      id: 11,
+      name: "Nicholas DuBuque",
+      username: "Nicholas.Stanton",
+      email: "Rey.Padberg@rosamond.biz"
+    }
+  ];
+
+  public selected1: string;
+  public states: string[] = [
+    "Alabama",
+    "Alaska",
+    "Arizona",
+    "Arkansas",
+    "California",
+    "Colorado",
+    "Connecticut",
+    "Delaware",
+    "Florida",
+    "Georgia",
+    "Hawaii",
+    "Idaho",
+    "Illinois",
+    "Indiana",
+    "Iowa",
+    "Kansas",
+    "Kentucky",
+    "Louisiana",
+    "Maine",
+    "Maryland",
+    "Massachusetts",
+    "Michigan",
+    "Minnesota",
+    "Mississippi",
+    "Missouri",
+    "Montana",
+    "Nebraska",
+    "Nevada",
+    "New Hampshire",
+    "New Jersey",
+    "New Mexico",
+    "New York",
+    "North Dakota",
+    "North Carolina",
+    "Ohio",
+    "Oklahoma",
+    "Oregon",
+    "Pennsylvania",
+    "Rhode Island",
+    "South Carolina",
+    "South Dakota",
+    "Tennessee",
+    "Texas",
+    "Utah",
+    "Vermont",
+    "Virginia",
+    "Washington",
+    "West Virginia",
+    "Wisconsin",
+    "Wyoming"
+  ];
+
+  public items: Array<string> = [
+    "Amsterdam",
+    "Antwerp",
+    "Athens",
+    "Barcelona",
+    "Berlin",
+    "Birmingham",
+    "Bradford",
+    "Bremen",
+    "Brussels",
+    "Bucharest",
+    "Budapest",
+    "Cologne",
+    "Copenhagen",
+    "Dortmund",
+    "Dresden",
+    "Dublin",
+    "Düsseldorf",
+    "Essen",
+    "Frankfurt",
+    "Genoa",
+    "Glasgow",
+    "Gothenburg",
+    "Hamburg",
+    "Hannover",
+    "Helsinki",
+    "Kraków",
+    "Leeds",
+    "Leipzig",
+    "Lisbon",
+    "London",
+    "Madrid",
+    "Manchester",
+    "Marseille",
+    "Milan",
+    "Munich",
+    "Málaga",
+    "Naples",
+    "Palermo",
+    "Paris",
+    "Poznań",
+    "Prague",
+    "Riga",
+    "Rome",
+    "Rotterdam",
+    "Seville",
+    "Sheffield",
+    "Sofia",
+    "Stockholm",
+    "Stuttgart",
+    "The Hague",
+    "Turin",
+    "Valencia",
+    "Vienna",
+    "Vilnius",
+    "Warsaw",
+    "Wrocław",
+    "Zagreb",
+    "Zaragoza",
+    "Łódź"
+  ];
+
+  private value: any = {};
+  private _disabledV: string = "0";
+  private disabled: boolean = false;
+
+  private get disabledV(): string {
+    return this._disabledV;
   }
-};
 
-
-
- data = [
-  {
-    id: 1,
-    name: "Leanne Graham",
-    username: "Bret",
-    email: "Sincere@april.biz"
-  },
-  {
-    id: 2,
-    name: "Ervin Howell",
-    username: "Antonette",
-    email: "Shanna@melissa.tv"
-  },
-
-  // ... list of items
-
-  {
-    id: 11,
-    name: "Nicholas DuBuque",
-    username: "Nicholas.Stanton",
-    email: "Rey.Padberg@rosamond.biz"
+  private set disabledV(value: string) {
+    this._disabledV = value;
+    this.disabled = this._disabledV === "1";
   }
-];
 
+  public selected(value: any): void {
+    console.log("Selected value is: ", value);
+  }
 
- public selected1:string;
- public states:string[] = ['Alabama', 'Alaska', 'Arizona', 'Arkansas',
-   'California', 'Colorado',
-   'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho',
-   'Illinois', 'Indiana', 'Iowa',
-   'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts',
-   'Michigan', 'Minnesota',
-   'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
-   'New Jersey', 'New Mexico',
-   'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon',
-   'Pennsylvania', 'Rhode Island',
-   'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-   'Virginia', 'Washington',
-   'West Virginia', 'Wisconsin', 'Wyoming'];
+  public removed(value: any): void {
+    console.log("Removed value is: ", value);
+  }
 
+  public typed(value: any): void {
+    console.log("New search input: ", value);
+  }
 
-public items:Array<string> = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
-'Berlin', 'Birmingham', 'Bradford', 'Bremen', 'Brussels', 'Bucharest',
-'Budapest', 'Cologne', 'Copenhagen', 'Dortmund', 'Dresden', 'Dublin',
-'Düsseldorf', 'Essen', 'Frankfurt', 'Genoa', 'Glasgow', 'Gothenburg',
-'Hamburg', 'Hannover', 'Helsinki', 'Kraków', 'Leeds', 'Leipzig', 'Lisbon',
-'London', 'Madrid', 'Manchester', 'Marseille', 'Milan', 'Munich', 'Málaga',
-'Naples', 'Palermo', 'Paris', 'Poznań', 'Prague', 'Riga', 'Rome',
-'Rotterdam', 'Seville', 'Sheffield', 'Sofia', 'Stockholm', 'Stuttgart',
-'The Hague', 'Turin', 'Valencia', 'Vienna', 'Vilnius', 'Warsaw', 'Wrocław',
-'Zagreb', 'Zaragoza', 'Łódź'];
+  public refreshValue(value: any): void {
+    this.value = value;
+  }
 
-private value:any = {};
-private _disabledV:string = '0';
-private disabled:boolean = false;
-
-private get disabledV():string {
-return this._disabledV;
-}
-
-private set disabledV(value:string) {
-this._disabledV = value;
-this.disabled = this._disabledV === '1';
-}
-
-public selected(value:any):void {
-console.log('Selected value is: ', value);
-}
-
-public removed(value:any):void {
-console.log('Removed value is: ', value);
-}
-
-public typed(value:any):void {
-console.log('New search input: ', value);
-}
-
-public refreshValue(value:any):void {
-this.value = value;
-}
-
-
-
-  public form:FormGroup;
+  public form: FormGroup;
   public title = "";
-  public targets = ['_blank', '_self'];
-//  public settings: Settings;
+  public targets = ["_blank", "_self"];
+  //  public settings: Settings;
 
   testCases = [];
   testDevices = [];
   projectTestcases = [];
   projectDevices = [];
   temp = [];
- // selected = [];
+  // selected = [];
   selectedTestCase = [];
   project = [];
   requestObject = [];
@@ -299,505 +470,547 @@ this.value = value;
   editable = false;
   loadingIndicator: boolean = true;
   reorderable: boolean = true;
-  TestToRemove: TestCaseToRemove = new TestCaseToRemove;
+  TestToRemove: TestCaseToRemove = new TestCaseToRemove();
   editing = {};
   rows = [];
 
-
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
-  columns = [
-    { prop: 'name' },
-    { name: 'Gender' },
-    { name: 'Company' }
-  ];
+  columns = [{ prop: "name" }, { name: "Gender" }, { name: "Company" }];
 
   public icons = [
-    { name: 'address-card-o', unicode: '&#xf2bc'},
-    { name: 'bars', unicode: '&#xf0c9'},
-    { name: 'bell-o', unicode: '&#xf0a2'},
-    { name: 'calendar', unicode: '&#xf073'},
-    { name: 'circle', unicode: '&#xf111'},
-    { name: 'circle-o', unicode: '&#xf10c'},
-    { name: 'cog', unicode: '&#xf013'},
-    { name: 'comment', unicode: '&#xf075'},
-    { name: 'comment-o', unicode: '&#xf0e5'},
-    { name: 'credit-card', unicode: '&#xf09d'},
-    { name: 'desktop', unicode: '&#xf108'},
-    { name: 'exclamation-triangle', unicode: '&#xf071'},
-    { name: 'folder', unicode: '&#xf07b'},
-    { name: 'folder-o', unicode: '&#xf114'},
-    { name: 'heart', unicode: '&#xf004'},
-    { name: 'search', unicode:'&#xf002'}
-  ]
+    { name: "address-card-o", unicode: "&#xf2bc" },
+    { name: "bars", unicode: "&#xf0c9" },
+    { name: "bell-o", unicode: "&#xf0a2" },
+    { name: "calendar", unicode: "&#xf073" },
+    { name: "circle", unicode: "&#xf111" },
+    { name: "circle-o", unicode: "&#xf10c" },
+    { name: "cog", unicode: "&#xf013" },
+    { name: "comment", unicode: "&#xf075" },
+    { name: "comment-o", unicode: "&#xf0e5" },
+    { name: "credit-card", unicode: "&#xf09d" },
+    { name: "desktop", unicode: "&#xf108" },
+    { name: "exclamation-triangle", unicode: "&#xf071" },
+    { name: "folder", unicode: "&#xf07b" },
+    { name: "folder-o", unicode: "&#xf114" },
+    { name: "heart", unicode: "&#xf004" },
+    { name: "search", unicode: "&#xf002" }
+  ];
 
-  public menuItems:Array<Menu>;
+  public menuItems: Array<Menu>;
 
+  constructor(
+    public fb: FormBuilder,
+    public toastrService: ToastrService,
+    public appSettings: AppSettings,
+    private menuService: MenuService,
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    ///   this.settings = this.appSettings.settings;
+    //   if(this.settings.theme.menu == 'vertical'){
+    //   this.menuItems = this.menuService.getVerticalMenuItems();
+    //}
 
-  constructor(public fb:FormBuilder,
-              public toastrService: ToastrService,
-              public appSettings:AppSettings,
-              private menuService:MenuService,
-              private http: HttpClient,
-              private route: ActivatedRoute,
-              private router: Router
-              ) {
+    this.fetch(data => {
+      console.log(data.devices);
+      this.temp = [...data.devices];
+      this.rows = data.devices;
+      setTimeout(() => {
+        this.loadingIndicator = false;
+      }, 1500);
+    });
 
-   ///   this.settings = this.appSettings.settings;
-   //   if(this.settings.theme.menu == 'vertical'){
-     //   this.menuItems = this.menuService.getVerticalMenuItems();
-      //}
+    this.fetchLiveNational(data => {
+      console.log(data);
+      this.temp = [...data];
+      this.liveNational = data;
+      setTimeout(() => {
+        this.loadingIndicator = false;
+      }, 1500);
+    });
+    this.fetchFreeMovies(data => {
+      console.log(data);
+      this.temp = [...data];
+      this.freeMovies = data;
+      setTimeout(() => {
+        this.loadingIndicator = false;
+      }, 1500);
+    });
+    this.fetchPPVMovies(data => {
+      console.log(data);
+      this.temp = [...data];
+      this.ppvMovies = data;
+      setTimeout(() => {
+        this.loadingIndicator = false;
+      }, 1500);
+    });
 
-      this.fetch((data) => {
-        console.log(data.devices);
-        this.temp = [...data.devices];
-        this.rows = data.devices;
-        setTimeout(() => { this.loadingIndicator = false; }, 1500);
-      });
-
-      this.fetchLiveNational((data) => {
-        console.log(data);
-        this.temp = [...data];
-        this.liveNational = data;
-        setTimeout(() => { this.loadingIndicator = false; }, 1500);
-      });
-      this.fetchFreeMovies((data) => {
-        console.log(data);
-        this.temp = [...data];
-        this.freeMovies = data;
-        setTimeout(() => { this.loadingIndicator = false; }, 1500);
-      });
-      this.fetchPPVMovies((data) => {
-        console.log(data);
-        this.temp = [...data];
-        this.ppvMovies = data;
-        setTimeout(() => { this.loadingIndicator = false; }, 1500);
-      });
-
-      this.fetchTVShows((data) => {
-        console.log(data);
-        this.temp = [...data];
-        this.tvShows = data;
-        setTimeout(() => { this.loadingIndicator = false; }, 1500);
-      });
-
+    this.fetchTVShows(data => {
+      console.log(data);
+      this.temp = [...data];
+      this.tvShows = data;
+      setTimeout(() => {
+        this.loadingIndicator = false;
+      }, 1500);
+    });
   }
-
-
 
   /*********
     Fetch
   **********/
 
-    fetch(data) {
-      const req = new XMLHttpRequest();
-      req.open('GET', '/automationmanager/devices');
-      req.onload = () => {
-        data(JSON.parse(req.response));
-      };
-      req.send();
-    }
+  fetch(data) {
+    const req = new XMLHttpRequest();
+    req.open("GET", "/automationmanager/devices");
+    req.onload = () => {
+      data(JSON.parse(req.response));
+    };
+    req.send();
+  }
 
-    /*********
+  /*********
       Fetch Live National
     **********/
 
-    fetchLiveNational(data) {
-      const req = new XMLHttpRequest();
-      req.open('GET', '/automationmanager/movies/a/1');
-      req.onload = () => {
-        data(JSON.parse(req.response));
-      };
-      req.send();
-    }
+  fetchLiveNational(data) {
+    const req = new XMLHttpRequest();
+    req.open("GET", "/automationmanager/movies/a/1");
+    req.onload = () => {
+      data(JSON.parse(req.response));
+    };
+    req.send();
+  }
 
-    fetchFreeMovies(data) {
-      const req = new XMLHttpRequest();
-      req.open('GET', '/automationmanager/movies/a/1');
-      req.onload = () => {
-        data(JSON.parse(req.response));
-      };
-      req.send();
-    }
+  fetchFreeMovies(data) {
+    const req = new XMLHttpRequest();
+    req.open("GET", "/automationmanager/movies/a/1");
+    req.onload = () => {
+      data(JSON.parse(req.response));
+    };
+    req.send();
+  }
 
-    fetchPPVMovies(data) {
-      const req = new XMLHttpRequest();
-      req.open('GET', '/automationmanager/movies/a/0');
-      req.onload = () => {
-        data(JSON.parse(req.response));
-      };
-      req.send();
-    }
+  fetchPPVMovies(data) {
+    const req = new XMLHttpRequest();
+    req.open("GET", "/automationmanager/movies/a/0");
+    req.onload = () => {
+      data(JSON.parse(req.response));
+    };
+    req.send();
+  }
 
-    fetchTVShows(data) {
-      const req = new XMLHttpRequest();
-      req.open('GET', '/automationmanager/tvshows/a');
-      req.onload = () => {
-        data(JSON.parse(req.response));
-      };
-      req.send();
-    }
+  fetchTVShows(data) {
+    const req = new XMLHttpRequest();
+    req.open("GET", "/automationmanager/tvshows/a");
+    req.onload = () => {
+      data(JSON.parse(req.response));
+    };
+    req.send();
+  }
 
   ngOnInit() {
     var projectName = "";
     var createTime = "";
     var state = "";
-    this.route.params.subscribe( params => projectName=params['projectName'] );
-    this.route.params.subscribe( params => createTime=params['createTime'] );
-    this.route.params.subscribe( params => state=params['state'] );
-   // this.settings.theme.showMenu = true;
-
-
+    this.route.params.subscribe(
+      params => (projectName = params["projectName"])
+    );
+    this.route.params.subscribe(params => (createTime = params["createTime"]));
+    this.route.params.subscribe(params => (state = params["state"]));
+    // this.settings.theme.showMenu = true;
 
     console.log(projectName);
-    if (projectName==undefined)
-      this.title = 'Create a New Project';
-    else
-      {
-        this.title = 'Rerun Project';
-        this.projectName = projectName;
-        this.createTime = createTime;
-        this.editable =true;
-        this.state = state;
-        this.btnName = "Execute";
-      }
+    if (projectName == undefined) this.title = "Create a New Project";
+    else {
+      this.title = "Rerun Project";
+      this.projectName = projectName;
+      this.createTime = createTime;
+      this.editable = true;
+      this.state = state;
+      this.btnName = "Execute";
+    }
 
     this.form = this.fb.group({
-        title: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-        routerLink: null,
-        href: null,
-        icon: null,
-        target: null,
-        hasSubMenu: false,
-        parentId: 0
+      title: [
+        "",
+        Validators.compose([Validators.required, Validators.minLength(3)])
+      ],
+      routerLink: null,
+      href: null,
+      icon: null,
+      target: null,
+      hasSubMenu: false,
+      parentId: 0
     });
-
   }
 
   ngAfterViewInit() {
-
     this.form.valueChanges.debounceTime(500).subscribe(menu => {
-      if(menu.routerLink && menu.routerLink != ''){
-        this.form.controls['href'].setValue(null);
-        this.form.controls['href'].disable();
-        this.form.controls['target'].setValue(null);
-        this.form.controls['target'].disable();
-      }
-      else{
-        this.form.controls['href'].enable();
-        this.form.controls['target'].enable();
+      if (menu.routerLink && menu.routerLink != "") {
+        this.form.controls["href"].setValue(null);
+        this.form.controls["href"].disable();
+        this.form.controls["target"].setValue(null);
+        this.form.controls["target"].disable();
+      } else {
+        this.form.controls["href"].enable();
+        this.form.controls["target"].enable();
       }
 
-      if(menu.href && menu.href != ''){
-        this.form.controls['routerLink'].setValue(null);
-        this.form.controls['routerLink'].disable();
-        this.form.controls['hasSubMenu'].setValue(false);
-        this.form.controls['hasSubMenu'].disable();
-      }
-      else{
-        this.form.controls['routerLink'].enable();
-        this.form.controls['hasSubMenu'].enable();
+      if (menu.href && menu.href != "") {
+        this.form.controls["routerLink"].setValue(null);
+        this.form.controls["routerLink"].disable();
+        this.form.controls["hasSubMenu"].setValue(false);
+        this.form.controls["hasSubMenu"].disable();
+      } else {
+        this.form.controls["routerLink"].enable();
+        this.form.controls["hasSubMenu"].enable();
       }
     });
-       this.fetchDevices((data) => {
+    this.fetchDevices(data => {
       console.log("  this.fetchDevices");
-        console.log(data.devices);
+      console.log(data.devices);
+      this.temp = [...data.devices];
+      this.testDevices = data.devices;
+      setTimeout(() => {
+        this.loadingIndicator = false;
+      }, 1500);
+    });
+
+    console.log("this.state:::", this.state, this.state.length);
+    if (this.state == "run") {
+      this.fetchProject(data => {
+        console.log("Project Detail");
+        console.log(data.testDevices);
+        console.log(data.testcases);
+
         this.temp = [...data.devices];
-        this.testDevices = data.devices;
-        setTimeout(() => { this.loadingIndicator = false; }, 1500);
+        this.projectDevices = data.devices;
+        console.log(data.devices);
+        this.testDevices = this.setDeviceCheckBoxes();
+
+        var JSONString = JSON.stringify(data.testcases);
+        data.testcases = JSON.parse(
+          JSONString.replace(/\"testCaseName\":/g, '"testCase":').replace(
+            /\"selected\":/g,
+            '"checked":'
+          )
+        );
+
+        console.log(data.testcases);
+        this.testCases = data.testcases;
+        setTimeout(() => {
+          this.loadingIndicator = false;
+        }, 30000);
       });
-
-      console.log("this.state:::", this.state, this.state.length)
-      if (this.state == 'run')
-      {
-          this.fetchProject((data) => {
-          console.log('Project Detail');
-          console.log(data.testDevices);
-          console.log(data.testcases);
-
-          this.temp = [...data.devices];
-          this.projectDevices = data.devices;
-          console.log(data.devices);
-          this.testDevices = this.setDeviceCheckBoxes()
-
-          var JSONString = JSON.stringify(data.testcases);
-          data.testcases = JSON.parse(JSONString.replace(/\"testCaseName\":/g, "\"testCase\":").
-                            replace(/\"selected\":/g, "\"checked\":"));
-
-          console.log(data.testcases);
-          this.testCases = data.testcases;
-          setTimeout(() => { this.loadingIndicator = false; }, 30000);
-        });
-      }
-      else
-      {
-        this.fetchTestCases((data) => {
-          console.log("  this.fetchTestCases");
-          console.log(data.testCase);
-          this.temp = [...data.testCase];
-          this.testCases = data.testCase;
-          setTimeout(() => { this.loadingIndicator = false; }, 1500);
-        });
-
-
-      }
+    } else {
+      this.fetchTestCases(data => {
+        console.log("  this.fetchTestCases");
+        console.log(data.testCase);
+        this.temp = [...data.testCase];
+        this.testCases = data.testCase;
+        setTimeout(() => {
+          this.loadingIndicator = false;
+        }, 1500);
+      });
+    }
   }
   /*********
     fetchTestCases
   **********/
 
-    fetchTestCases(data) {
-      const req = new XMLHttpRequest();
-      req.open('GET', '/automationmanager/testcases');
-      req.onload = () => {
-        var tempJsonObject = JSON.parse(req.response);
-        var JsonObject = {testCase: []};
-        for(var i=0; i<tempJsonObject.length; i++){
-          var testCase = tempJsonObject[i];
-          var isChecked = false;
-          JsonObject.testCase.push({testCase:testCase, checked: isChecked});
-        };
-        data(JsonObject);
-      };
-      req.send();
-    }
+  fetchTestCases(data) {
+    const req = new XMLHttpRequest();
+    req.open("GET", "/automationmanager/testcases");
+    req.onload = () => {
+      var tempJsonObject = JSON.parse(req.response);
+      var JsonObject = { testCase: [] };
+      for (var i = 0; i < tempJsonObject.length; i++) {
+        var testCase = tempJsonObject[i];
+        var isChecked = false;
+        JsonObject.testCase.push({ testCase: testCase, checked: isChecked });
+      }
+      data(JsonObject);
+    };
+    req.send();
+  }
 
-
-    /*********
+  /*********
       isEditable
     **********/
-    isEditable()
-    {
-      this.title = 'Edit Project';
-      this.editable = false;
-      this.state = "";
-      this.btnName = "Save & Execute";
-    }
+  isEditable() {
+    this.title = "Edit Project";
+    this.editable = false;
+    this.state = "";
+    this.btnName = "Save & Execute";
+  }
 
-    /*********
+  /*********
       checkLoadedCases
     **********/
-    checkLoadedCases(item)
-    {
+  checkLoadedCases(item) {
     console.log("HEEEYYYYY");
     console.log(item);
     console.log(this.projectTestcases);
     console.log("DONE");
 
-      for(var i=0; i<this.projectTestcases.length; i++)
-      {
-        //  console.log(this.projectTestcases[i].toUpperCase() + ":::::" + item.toString().toUpperCase());
-          if (this.projectTestcases[i].toUpperCase() == item.toUpperCase())
-            return true;
-      }
-      return false;
+    for (var i = 0; i < this.projectTestcases.length; i++) {
+      //  console.log(this.projectTestcases[i].toUpperCase() + ":::::" + item.toString().toUpperCase());
+      if (this.projectTestcases[i].toUpperCase() == item.toUpperCase())
+        return true;
     }
+    return false;
+  }
 
-    /*********
+  /*********
       setDeviceCheckBoxes
     **********/
-    setDeviceCheckBoxes()
-    {
-        for(var j=0; j<this.testDevices.length; j++)
-        {
-              for(var i=0; i<this.projectDevices.length; i++)
-              {
-                  if (this.testDevices[j].udid == this.projectDevices[i].udid)
-                  {
-                    this.testDevices[j]["checkedDevice"] = this.projectDevices[i].selected;
-                    console.log(this.testDevices);
-                  }
-              }
-
-          }
-        return this.testDevices;
+  setDeviceCheckBoxes() {
+    for (var j = 0; j < this.testDevices.length; j++) {
+      for (var i = 0; i < this.projectDevices.length; i++) {
+        if (this.testDevices[j].udid == this.projectDevices[i].udid) {
+          this.testDevices[j]["checkedDevice"] = this.projectDevices[
+            i
+          ].selected;
+          console.log(this.testDevices);
+        }
+      }
     }
-    /*********
+    return this.testDevices;
+  }
+  /*********
       fetchDevices
     **********/
 
-      fetchDevices(data) {
-        const req = new XMLHttpRequest();
-        req.open('GET', '/automationmanager/devices');
-        req.onload = () => {
-          data(JSON.parse(req.response));
-        };
-        req.send();
-      }
-      /*********
+  fetchDevices(data) {
+    const req = new XMLHttpRequest();
+    req.open("GET", "/automationmanager/devices");
+    req.onload = () => {
+      data(JSON.parse(req.response));
+    };
+    req.send();
+  }
+  /*********
         fetchProject
       **********/
 
-        fetchProject(data) {
-          this.http.get('/automationmanager/getProject/' + this.projectName + '/' + this.createTime,
-                {
-                  headers: new HttpHeaders().set('content-type', 'application/json'),
-                }
-              )
-                .subscribe(
-                  res => {
-                    console.log(res);
-                    data(res);
-                  },
-                  err => {
-                    console.log("Error occured");
-                  }
-                );
+  fetchProject(data) {
+    this.http
+      .get(
+        "/automationmanager/getProject/" +
+          this.projectName +
+          "/" +
+          this.createTime,
+        {
+          headers: new HttpHeaders().set("content-type", "application/json")
         }
+      )
+      .subscribe(
+        res => {
+          console.log(res);
+          data(res);
+        },
+        err => {
+          console.log("Error occured");
+        }
+      );
+  }
 
- cleanUpTestCaseName(item)
- {
-     var regex = new RegExp('\n', 'g');
-     item =  item.replace(item[0], item[0].toLowerCase()).replace(/\s/g, '').replace('TV','Tv');
-     item = item.replace('purchaseandStreamPPVMovie','streamPpvMovie');
-     return item;
- }
+  cleanUpTestCaseName(item) {
+    var regex = new RegExp("\n", "g");
+    item = item
+      .replace(item[0], item[0].toLowerCase())
+      .replace(/\s/g, "")
+      .replace("TV", "Tv");
+    item = item.replace("purchaseandStreamPPVMovie", "streamPpvMovie");
+    return item;
+  }
   /****************************************************************
   **        onSubmit(menu:Object):void
   *****************************************************************/
-  public onSubmit(menu:Object):void {
+  public onSubmit(menu: Object): void {
     if (this.form.valid) {
-      let lastId = this.menuItems[this.menuItems.length-1].id;
-      let newMenuItem = new Menu(lastId+1, menu['title'], menu['routerLink'], menu['href'], menu['icon'], menu['target'], menu['hasSubMenu'], parseInt(menu['parentId']));
-  //    this.menuService.addNewMenuItem(this.menuItems, newMenuItem, this.settings.theme.menu);
-      this.toastrService.success('New menu item successfully added !', menu['title'] );
+      let lastId = this.menuItems[this.menuItems.length - 1].id;
+      let newMenuItem = new Menu(
+        lastId + 1,
+        menu["title"],
+        menu["routerLink"],
+        menu["href"],
+        menu["icon"],
+        menu["target"],
+        menu["hasSubMenu"],
+        parseInt(menu["parentId"])
+      );
+      //    this.menuService.addNewMenuItem(this.menuItems, newMenuItem, this.settings.theme.menu);
+      this.toastrService.success(
+        "New menu item successfully added !",
+        menu["title"]
+      );
       this.form.reset({
-        hasSubMenu:false,
-        parentId:0
+        hasSubMenu: false,
+        parentId: 0
       });
     }
     //if(this.settings.theme.menuType=='mini'){
-        jQuery('.menu-item-link').tooltip('enable');
+    jQuery(".menu-item-link").tooltip("enable");
     //}else{
-        jQuery('.menu-item-link').tooltip('disable');
+    jQuery(".menu-item-link").tooltip("disable");
     //}
   }
 
+  updateFilter(event) {
+    const val = event.target.value.toLowerCase();
+    const temp = this.temp.filter(function(d) {
+      return d.name.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+    this.rows = temp;
+    this.table.offset = 0;
+  }
 
-    updateFilter(event) {
-      const val = event.target.value.toLowerCase();
-      const temp = this.temp.filter(function(d) {
-        return d.name.toLowerCase().indexOf(val) !== -1 || !val;
-      });
-      this.rows = temp;
-      this.table.offset = 0;
-    }
+  updateValue(event, cell, cellValue, row) {
+    this.editing[row.$$index + "-" + cell] = false;
+    this.rows[row.$$index][cell] = event.target.value;
+  }
 
-    updateValue(event, cell, cellValue, row) {
-      this.editing[row.$$index + '-' + cell] = false;
-      this.rows[row.$$index][cell] = event.target.value;
-    }
+  onSelect({ selected }) {
+    console.log("Select Event", selected, this.selected);
+    // this.selected.splice(0, this.selected.length);
+    //this.selected.push(...selected);
+  }
 
-    onSelect({ selected }) {
-      console.log('Select Event', selected, this.selected);
-     // this.selected.splice(0, this.selected.length);
-      //this.selected.push(...selected);
-    }
-
-    /****************************************************************
+  /****************************************************************
               onSelectTestCase(selectedTestCase)
     *****************************************************************/
-    onSelectTestCase(selectedTestCase) {
-      console.log('Select Event', selectedTestCase, this.selectedTestCase);
-      this.selectedTestCase.splice(0, this.selectedTestCase.length);
-      this.selectedTestCase.push(selectedTestCase);
-    }
+  onSelectTestCase(selectedTestCase) {
+    console.log("Select Event", selectedTestCase, this.selectedTestCase);
+    this.selectedTestCase.splice(0, this.selectedTestCase.length);
+    this.selectedTestCase.push(selectedTestCase);
+  }
 
-    /****************************************************************
+  /****************************************************************
                onActivate(event)
     *****************************************************************/
-    onActivate(event) {
-      console.log('Activate Event', event);
-      console.log(this.testDevices);
-      for(var j=0; j<this.testDevices.length; j++)
-      {
-          if (this.testDevices[j].udid == event.row.udid)
-          {
-            console.log("BEFORE::: " + this.testDevices[j]["checkedDevice"] );
-            this.testDevices[j]["checkedDevice"] = (event.value=='TRUE'?'FALSE':'TRUE');
-            console.log("AFTER::: " + this.testDevices[j]["checkedDevice"] );
-            console.log(this.testDevices);
-          }
+  onActivate(event) {
+    console.log("Activate Event", event);
+    console.log(this.testDevices);
+    for (var j = 0; j < this.testDevices.length; j++) {
+      if (this.testDevices[j].udid == event.row.udid) {
+        console.log("BEFORE::: " + this.testDevices[j]["checkedDevice"]);
+        this.testDevices[j]["checkedDevice"] =
+          event.value == "TRUE" ? "FALSE" : "TRUE";
+        console.log("AFTER::: " + this.testDevices[j]["checkedDevice"]);
+        console.log(this.testDevices);
       }
-
     }
+  }
 
-    /****************************************************************
+  /****************************************************************
                onActivate(event)
     *****************************************************************/
-    onActivateTestCases(testCase, checked) {
-      console.log('Activate Event', event);
-      for(var j=0; j<this.testCases.length; j++)
-      {
-          if (this.testCases[j].testCase == testCase)
-          {
-            console.log("BEFORE::: " + this.testCases[j]["checked"] + "::" + checked);
-            this.testCases[j]["checked"] = (checked == 'true'?'FALSE':'TRUE');
-            console.log("AFTER::: " + this.testCases[j]["checked"] );
-            console.log(this.testCases);
-          }
+  onActivateTestCases(testCase, checked) {
+    console.log("Activate Event", event);
+    for (var j = 0; j < this.testCases.length; j++) {
+      if (this.testCases[j].testCase == testCase) {
+        console.log(
+          "BEFORE::: " + this.testCases[j]["checked"] + "::" + checked
+        );
+        this.testCases[j]["checked"] = checked == "true" ? "FALSE" : "TRUE";
+        console.log("AFTER::: " + this.testCases[j]["checked"]);
+        console.log(this.testCases);
       }
-
     }
+  }
 
-    /****************************************************************
+  /****************************************************************
                parseTestCases(data)
     *****************************************************************/
-    parseTestCases(data)
-    {
-       var tempTestCases = "";
-        data.forEach(item => {
-                if (tempTestCases == '')
-                  tempTestCases = '"' + item.replace(item[0], item[0].toLowerCase()).replace(/\s/g,"").replace('TV','Tv')  + '":false';
-                else
-                  tempTestCases = tempTestCases + ',"' + item.replace(item[0], item[0].toLowerCase()).replace(/\s/g, '').replace('TV','Tv')  + '":false'
-        });
-        //var tempTestCases = '';
-        var regex = new RegExp('\n', 'g');
-        this.TestToRemove.selectedTestCase.forEach(item => {
-                if (tempTestCases == '')
-                  tempTestCases = '"' + item.replace(item[0], item[0].toLowerCase()).replace(/\s/g,"").replace('TV','Tv')  + '":true';
-                else
-                  tempTestCases = tempTestCases + ',"' + item.replace(item[0], item[0].toLowerCase()).replace(/\s/g, '').replace('TV','Tv')  + '":true'
-        });
+  parseTestCases(data) {
+    var tempTestCases = "";
+    data.forEach(item => {
+      if (tempTestCases == "")
+        tempTestCases =
+          '"' +
+          item
+            .replace(item[0], item[0].toLowerCase())
+            .replace(/\s/g, "")
+            .replace("TV", "Tv") +
+          '":false';
+      else
+        tempTestCases =
+          tempTestCases +
+          ',"' +
+          item
+            .replace(item[0], item[0].toLowerCase())
+            .replace(/\s/g, "")
+            .replace("TV", "Tv") +
+          '":false';
+    });
+    //var tempTestCases = '';
+    var regex = new RegExp("\n", "g");
+    this.TestToRemove.selectedTestCase.forEach(item => {
+      if (tempTestCases == "")
+        tempTestCases =
+          '"' +
+          item
+            .replace(item[0], item[0].toLowerCase())
+            .replace(/\s/g, "")
+            .replace("TV", "Tv") +
+          '":true';
+      else
+        tempTestCases =
+          tempTestCases +
+          ',"' +
+          item
+            .replace(item[0], item[0].toLowerCase())
+            .replace(/\s/g, "")
+            .replace("TV", "Tv") +
+          '":true';
+    });
 
-        tempTestCases = '"testCases":{' + tempTestCases + '}';
-        tempTestCases = tempTestCases.replace('purchaseandStreamPPVMovie','streamPpvMovie');
-        var JSONString = JSON.stringify(this.requestObject);
-        JSONString = JSONString.replace('"testCases":{}', tempTestCases);
-        console.log(JSONString);
-        return JSONString;
-
-    }
-    /****************************************************************
+    tempTestCases = '"testCases":{' + tempTestCases + "}";
+    tempTestCases = tempTestCases.replace(
+      "purchaseandStreamPPVMovie",
+      "streamPpvMovie"
+    );
+    var JSONString = JSON.stringify(this.requestObject);
+    JSONString = JSONString.replace('"testCases":{}', tempTestCases);
+    console.log(JSONString);
+    return JSONString;
+  }
+  /****************************************************************
                cancel
     *****************************************************************/
-    cancel(){
-        this.editable=true;
-    }
-    /****************************************************************
+  cancel() {
+    this.editable = true;
+  }
+  /****************************************************************
                submitForm()
     *****************************************************************/
-    submitForm() {
-     this.requestObject = [];
-       this.requestObject.push({
-                  project: {
-                  name:this.projectName,
-                  location:[{
-                  name:"LA",
-                  devices:{
-                        ios_udids:[],android_udids:[]
-                  }
-                  }],
-                  testCases:{}
-                  }});
-        var JSONString = JSON.stringify(this.requestObject);
-        console.log(JSONString);
+  submitForm() {
+    this.requestObject = [];
+    this.requestObject.push({
+      project: {
+        name: this.projectName,
+        location: [
+          {
+            name: "LA",
+            devices: {
+              ios_udids: [],
+              android_udids: []
+            }
+          }
+        ],
+        testCases: {}
+      }
+    });
+    var JSONString = JSON.stringify(this.requestObject);
+    console.log(JSONString);
 
-      // ----------- Find false checks
-      console.log(this.testCases);
-      var falseCases = [];
-      /*
+    // ----------- Find false checks
+    console.log(this.testCases);
+    var falseCases = [];
+    /*
           this.testCases.forEach(item => {
               console.log(this.TestToRemove.selectedTestCase.indexOf(item.testCase));
               if (this.TestToRemove.selectedTestCase.indexOf(item.testCase) == -1)
@@ -811,18 +1024,31 @@ this.value = value;
         });
         */
 
-        var tempTestCases = '';
-        var regex = new RegExp('\n', 'g');
-        this.testCases.forEach(item => {
-                if (tempTestCases == '')
-                  tempTestCases = '"' + item.testCase.replace(item.testCase[0], item.testCase[0].toLowerCase()).replace(/\s/g, '').replace('TV','Tv')  + '":' + item.checked.toString().toLowerCase();
-                else
-                  tempTestCases = tempTestCases + ',"' + item.testCase.replace(item.testCase[0], item.testCase[0].toLowerCase()).replace(/\s/g, '').replace('TV','Tv')  + '":' + item.checked.toString().toLowerCase();
-        });
+    var tempTestCases = "";
+    var regex = new RegExp("\n", "g");
+    this.testCases.forEach(item => {
+      if (tempTestCases == "")
+        tempTestCases =
+          '"' +
+          item.testCase
+            .replace(item.testCase[0], item.testCase[0].toLowerCase())
+            .replace(/\s/g, "")
+            .replace("TV", "Tv") +
+          '":' +
+          item.checked.toString().toLowerCase();
+      else
+        tempTestCases =
+          tempTestCases +
+          ',"' +
+          item.testCase
+            .replace(item.testCase[0], item.testCase[0].toLowerCase())
+            .replace(/\s/g, "")
+            .replace("TV", "Tv") +
+          '":' +
+          item.checked.toString().toLowerCase();
+    });
 
-
-
-/*
+    /*
       // ----------- Build TestCases
       var tempTestCases = '';
       var regex = new RegExp('\n', 'g');
@@ -841,139 +1067,138 @@ this.value = value;
                 tempTestCases = tempTestCases + ',"' + item.replace(item[0], item[0].toLowerCase()).replace(/\s/g, '').replace('TV','Tv')  + '":true'
       });
 */
-      tempTestCases = '"testCases":{' + tempTestCases + '}';
-      tempTestCases = tempTestCases.replace('purchaseandStreamPPVMovie','streamPpvMovie');
-      var JSONString = JSON.stringify(this.requestObject);
-      JSONString = JSONString.replace('"testCases":{}', tempTestCases);
-      console.log(JSONString);
+    tempTestCases = '"testCases":{' + tempTestCases + "}";
+    tempTestCases = tempTestCases.replace(
+      "purchaseandStreamPPVMovie",
+      "streamPpvMovie"
+    );
+    var JSONString = JSON.stringify(this.requestObject);
+    JSONString = JSONString.replace('"testCases":{}', tempTestCases);
+    console.log(JSONString);
 
-
-      // ----------- Build Devices
-      var tempSelectedAndriod = '';
-      var tempSelectedIOS = '';
-      console.log(this.testDevices);
-      this.testDevices.forEach(item => {
-              if (item.checkedDevice == "TRUE")
-              {
-                  console.log(item.deviceType);
-                  if (item.deviceType == 'ios')
-                    if (tempSelectedIOS == '')
-                      tempSelectedIOS = '"' + item.udid + '"';
-                    else
-                      tempSelectedIOS = tempSelectedIOS + ',"' + item.udid + '"';
-                  else
-                    if (tempSelectedAndriod == '')
-                      tempSelectedAndriod = '"' + item.udid + '"'
-                    else
-                      tempSelectedAndriod = tempSelectedAndriod + ',"' + item.udid + '"'
-                  console.log("DEVICE SELECTED");
-                  console.log(item.udid);
-              }
-      });
-
-      if (tempSelectedIOS != '')
-          tempSelectedIOS = '"ios_udids":[' + tempSelectedIOS + "]";
-
-      if (tempSelectedAndriod != '')
-          tempSelectedAndriod = '"android_udids":[' + tempSelectedAndriod + "]";
-
-      if (tempSelectedIOS != '')
-          tempSelectedAndriod = ',' + tempSelectedAndriod;
-
-      //var JSONString = JSON.stringify(this.requestObject);
-      console.log("DEVICES SELECTED");
-      console.log(tempSelectedIOS);
-      console.log(tempSelectedAndriod);
-      JSONString = JSONString.replace('"ios_udids":[]', tempSelectedIOS);
-      JSONString = JSONString.replace(',"android_udids":[]', tempSelectedAndriod);
-      JSONString = JSONString.replace('"android_udids":[]', tempSelectedAndriod);
-      JSONString = JSONString.replace(',}', '}');
-
-      console.log(JSONString);
-      console.log(JSONString.replace('[','').replace('}}}]','}}}'));
-
-
-      let headers = new Headers();
-      headers.append('content-type', 'application/json');
-
-      JSONString = JSONString;
-
-      if (this.state != 'run')
-      {
-            console.log("JSON CREATE PROJECT POST");
-            this.http.post('/automationmanager/createoreditprojects',
-                JSONString.replace('[','').replace('}}}]','}}}'),
-                {
-                  headers: new HttpHeaders().set('content-type', 'application/json'),
-                }
-            )
-                  .subscribe(
-                    res => {
-                      console.log(res);
-                      this.router.navigate(['/pages/charts/pie']);
-                      //this.router.navigate(['/pages/charts/pie']);
-                    },
-                    err => {
-                      console.log("Error occured");
-                    }
-                  );
+    // ----------- Build Devices
+    var tempSelectedAndriod = "";
+    var tempSelectedIOS = "";
+    console.log(this.testDevices);
+    this.testDevices.forEach(item => {
+      if (item.checkedDevice == "TRUE") {
+        console.log(item.deviceType);
+        if (item.deviceType == "ios")
+          if (tempSelectedIOS == "") tempSelectedIOS = '"' + item.udid + '"';
+          else tempSelectedIOS = tempSelectedIOS + ',"' + item.udid + '"';
+        else if (tempSelectedAndriod == "")
+          tempSelectedAndriod = '"' + item.udid + '"';
+        else tempSelectedAndriod = tempSelectedAndriod + ',"' + item.udid + '"';
+        console.log("DEVICE SELECTED");
+        console.log(item.udid);
       }
-      else
-      {
-          console.log("JSON EDIT PROJECT POST");
-          this.http.post('/automationmanager/reRunProject/',
-              JSONString.replace('[','').replace('}}}]','}}}'),
-              {
-                headers: new HttpHeaders().set('content-type', 'application/json'),
-              }
-          )
-                .subscribe(
-                  res => {
-                    console.log(res);
-                    this.router.navigate(['/pages/charts/pie']);
-                  },
-                  err => {
-                    console.log("Error occured");
-                  }
-                );
+    });
 
+    if (tempSelectedIOS != "")
+      tempSelectedIOS = '"ios_udids":[' + tempSelectedIOS + "]";
 
-      }
-     }
-    AddOrRemoveTest (testCase, checked) {
-            if (checked==true){
-                this.TestToRemove.AddTest(testCase)
-            }else {
-                this.TestToRemove.RemoveTest(testCase)
-            }
-            console.log ("TestToRemove: ", this.TestToRemove, "this Project:", this.projectName)
-        }
+    if (tempSelectedAndriod != "")
+      tempSelectedAndriod = '"android_udids":[' + tempSelectedAndriod + "]";
+
+    if (tempSelectedIOS != "") tempSelectedAndriod = "," + tempSelectedAndriod;
+
+    //var JSONString = JSON.stringify(this.requestObject);
+    console.log("DEVICES SELECTED");
+    console.log(tempSelectedIOS);
+    console.log(tempSelectedAndriod);
+    JSONString = JSONString.replace('"ios_udids":[]', tempSelectedIOS);
+    JSONString = JSONString.replace(',"android_udids":[]', tempSelectedAndriod);
+    JSONString = JSONString.replace('"android_udids":[]', tempSelectedAndriod);
+    JSONString = JSONString.replace(",}", "}");
+
+    console.log(JSONString);
+    console.log(JSONString.replace("[", "").replace("}}}]", "}}}"));
+
+    let headers = new Headers();
+    headers.append("content-type", "application/json");
+
+    JSONString = JSONString;
+
+    if (this.state != "run") {
+      console.log("JSON CREATE PROJECT POST");
+      this.http
+        .post(
+          "/automationmanager/createoreditprojects",
+          JSONString.replace("[", "").replace("}}}]", "}}}"),
+          {
+            headers: new HttpHeaders().set("content-type", "application/json")
+          }
+        )
+        .subscribe(
+          res => {
+            console.log(res);
+            this.router.navigate(["/pages/charts/pie"]);
+            //this.router.navigate(['/pages/charts/pie']);
+          },
+          err => {
+            console.log("Error occured");
+          }
+        );
+    } else {
+      console.log("JSON EDIT PROJECT POST");
+      this.http
+        .post(
+          "/automationmanager/reRunProject/",
+          JSONString.replace("[", "").replace("}}}]", "}}}"),
+          {
+            headers: new HttpHeaders().set("content-type", "application/json")
+          }
+        )
+        .subscribe(
+          res => {
+            console.log(res);
+            this.router.navigate(["/pages/charts/pie"]);
+          },
+          err => {
+            console.log("Error occured");
+          }
+        );
+    }
+  }
+  AddOrRemoveTest(testCase, checked) {
+    if (checked == true) {
+      this.TestToRemove.AddTest(testCase);
+    } else {
+      this.TestToRemove.RemoveTest(testCase);
+    }
+    console.log(
+      "TestToRemove: ",
+      this.TestToRemove,
+      "this Project:",
+      this.projectName
+    );
+  }
 }
 class TestCaseToRemove {
-    selectedTestCase: any[];
-    constructor( ) {
-          this.selectedTestCase = [];
+  selectedTestCase: any[];
+  constructor() {
+    this.selectedTestCase = [];
+  }
+  InAction: boolean = false;
+  AddTest(selectedTestCase): void {
+    if (!this.TestExists(selectedTestCase)) {
+      this.selectedTestCase.push(selectedTestCase);
     }
-    InAction: boolean = false;
-    AddTest (selectedTestCase): void {
-        if (!this.TestExists(selectedTestCase)){
-            this.selectedTestCase.push(selectedTestCase);
-        }
+  }
+  RemoveTest(selectedTestCase): void {
+    for (var _i = 0; _i < this.selectedTestCase.length; _i++) {
+      if (this.selectedTestCase[_i].id == selectedTestCase) {
+        this.selectedTestCase.splice(_i, 1);
+      }
     }
-    RemoveTest (selectedTestCase): void {
-        for (var _i = 0; _i < this.selectedTestCase.length; _i++) {
-            if (this.selectedTestCase[_i].id==selectedTestCase){
-                this.selectedTestCase.splice( _i, 1 )
-            }
-        }
+  }
+  TestExists(selectedTestCase): boolean {
+    let exists = false;
+    for (var _i = 0; _i < this.selectedTestCase.length; _i++) {
+      if (this.selectedTestCase[_i] == selectedTestCase) {
+        exists = true;
+      }
     }
-    TestExists (selectedTestCase): boolean {
-        let exists = false;
-        for (var _i = 0; _i < this.selectedTestCase.length; _i++) {
-            if (this.selectedTestCase[_i] ==selectedTestCase){
-                exists = true;
-            }
-        }
-        return exists;
-    }
+    return exists;
+  }
 }

@@ -14,7 +14,7 @@ import { NgxComponent } from './ngx/ngx.component';
 import {ProgressBarModule} from "ngx-progress-bar";
 import {SelectModule} from 'ng2-select';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-
+import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awesome';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 export const routes = [
@@ -35,6 +35,7 @@ export const routes = [
     NgxDatatableModule,
     DirectivesModule,
     ProgressBarModule,
+    AngularFontAwesomeModule,
     NgbModule,
     SelectModule,
     BsDropdownModule.forRoot(),
@@ -47,5 +48,6 @@ export const routes = [
     NgxComponent,
     
   ]
+  
 })
 export class ProjectsModule { }

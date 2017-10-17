@@ -1,15 +1,18 @@
-<h1>
-    Project name</h1>
-<div style="width: 100% " class="breadcrumb flat">
-    <a style="width: 25%" [ngClass]="{'active':switch1class}" id="s1">Step 1: Project Name</a>
-    <a style="width: 25%" [ngClass]="{'active':switch2class}" id="s2">Step 2: Select Test Cases</a>
-    <a style="width: 25%" [ngClass]="{'active':switch3class}" id="s3">Step 3: Select Devices</a>
-    <a style="width: 25%" [ngClass]="{'active':switch4class}" id="s4">Step 4: Execute</a>
-</div>
+<h1> Project name</h1>
+<div style="width: 100% " class="breadcrumb flat"> <a style="width: 25%" [ngClass]="{'active':switch1class}">Step 1: Project Name
+  <fa *ngIf="step1_check" name="check" size="2x" style="color: green;    float: right;
+    margin-top: 6px;"  ></fa>
+  </a> <a style="width: 25%" [ngClass]="{'active':switch2class}">Step 2: Select Test Cases
+  <fa *ngIf="step2_check" name="check" size="2x" style="color: green;    float: right;
+    margin-top: 6px;"  ></fa>
+  </a> <a style="width: 25%" [ngClass]="{'active':switch3class}">Step 3: Select Devices
+  <fa *ngIf="step3_check"  name="check" size="2x" style="color: green;    float: right;
+    margin-top: 6px;"  ></fa>
+  </a> <a style="width: 25%" [ngClass]="{'active':switch4class}">Step 4: Execute</a> </div>
 <progress-bar [value]="value1" [max]="100"></progress-bar>
 <span class="wizardFlow"> 
-    <!--First STep -->
-    <div *ngIf="switch1step" class="container"> 
+<!--First STep -->
+<div *ngIf="switch1step" class="container"> 
       <div class="row " style="margin-left:30%;margin-top: 5% ">
             <div class="form-group col-sm-4">
                     <label>Project Name</label>
@@ -24,71 +27,66 @@
         </div>
       </div>
     </div>
-    <!-- First step End --> 
-    <!--Second (1) STep -->
-    <div *ngIf="switch_part_1" class="container">
-      <div *ngIf="step2_1">
-        <div class="row">
-          <h3>Stream Live TV</h3>
-        </div>
-        <div class="row margin-top10">
-          <div class="col-xl-2 col-md-3 col-sm-11">
-            <label class="custom-control custom-checkbox first">
-                <input type="checkbox" class="firstcheck custom-control-input checkbox-info">
-                <span class="custom-control-indicator"></span>
-</label>
-<h5>Live Local</h5>
-</div>
-<div class="col-xl-10 col-md-9 col-sm-1">
-    <hr>
-</div>
-</div>
-<div class="row margin-left15 firstbox">
-    <div class="form-group col-3">
+<!-- First step End --> 
+<!--Second (1) STep -->
+<div *ngIf="switch_part_1" class="container">
+  <div *ngIf="step2_1">
+    <div class="row">
+      <h3>Stream Live TV</h3>
+    </div>
+    <div class="row margin-top10">
+      <div class="col-xl-2 col-md-3 col-sm-11">
+        <label class="custom-control custom-checkbox first">
+          <input type="checkbox" class="firstcheck custom-control-input checkbox-info">
+          <span class="custom-control-indicator"></span> </label>
+        <h5>Live Local</h5>
+      </div>
+      <div class="col-xl-10 col-md-9 col-sm-1">
+        <hr>
+      </div>
+    </div>
+    <div class="row margin-left15 firstbox">
+      <div class="form-group col-3">
         <label>Channel</label>
         <select class="form-control" id="exampleSelect1">
-              <option>ABC</option>
-              <option>CBS</option>
-              <option>NBC</option>
-              <option>FOX</option>
-              <option>CW</option>
-            </select>
-    </div>
-    <div class="col-9">
+          <option>ABC</option>
+          <option>CBS</option>
+          <option>NBC</option>
+          <option>FOX</option>
+          <option>CW</option>
+        </select>
+      </div>
+      <div class="col-9">
         <table style="text-align:center; width:450px">
-            <!--http://www.advchaweb.com/use-jquery-move-data-element/#codesyntax_2-->
-            <thead>
-                <tr>
-                    <th> <label>Region and Station</label></th>
-                    <th></th>
-                    <th>
-                        <label>Selected Channels</label></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td width="200">
-                        <select id="left_list" name="left_list[]" multiple="" size="8" style="width:100%; overflow-y: auto;" class="form-control">
-                      <option value="7">Atlanta GA - ABC WSB</option>
-                      <option value="8">Austin TX - ABC KVUE</option>
-                      <option value="19">Charlotte NC - ABC WSOC</option>
-                      <option value="22">Austin TX - ABC KVUE</option>
-                    </select></td>
-                    <td width="30" align="center">
-                        <div onclick="$('#move_right').click(function() {
+          <!--http://www.advchaweb.com/use-jquery-move-data-element/#codesyntax_2-->
+          <thead>
+            <tr>
+              <th> <label>Region and Station</label></th>
+              <th></th>
+              <th> <label>Selected Channels</label></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td width="200"><select id="left_list" name="left_list[]" multiple="" size="8" style="width:100%; overflow-y: auto;" class="form-control">
+                <option value="7">Atlanta GA - ABC WSB</option>
+                <option value="8">Austin TX - ABC KVUE</option>
+                <option value="19">Charlotte NC - ABC WSOC</option>
+                <option value="22">Austin TX - ABC KVUE</option>
+              </select></td>
+              <td width="30" align="center"><div onclick="$('#move_right').click(function() {
                         return !$('#left_list option:selected').remove().appendTo('#right_list');
                     });" id="move_right"><i aria-hidden="true" class="fa fa-sort-up rotate-right"></i></div>
-                        <br>
-                        <div onclick="$('#move_left').click(function() {
+                <br>
+                <div onclick="$('#move_left').click(function() {
                             return !$('#right_list option:selected').remove().appendTo('#left_list');
-                        });" id="move_left"><i aria-hidden="true" class="fa fa-sort-up rotate-left"></i></div>
-                    </td>
-                    <td width="200"><select id="right_list" name="right_list[]" multiple="" size="8" style="width:100%; overflow-y: auto;" class="form-control">
-                      <option value="17">Los Angeles CA - ABC KABC</option>
-                      <option value="14">NY NY - ABC WNBC</option>
-                    </select></td>
-                </tr>
-            </tbody>
+                        });" id="move_left"><i aria-hidden="true" class="fa fa-sort-up rotate-left"></i></div></td>
+              <td width="200"><select id="right_list" name="right_list[]" multiple="" size="8" style="width:100%; overflow-y: auto;" class="form-control">
+                <option value="17">Los Angeles CA - ABC KABC</option>
+                <option value="14">NY NY - ABC WNBC</option>
+              </select></td>
+            </tr>
+          </tbody>
         </table>
         <script type="text/javascript">
             $().ready(function() {
@@ -99,71 +97,65 @@
                     return !$('#right_list option:selected').remove().appendTo('#left_list');
                 });
             });
-        </script>
-    </div>
-</div>
-<div class="row margin-top20">
-    <div class="col-xl-2 col-md-3 col-sm-11"><label class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input checkbox-info">
-              <span class="custom-control-indicator"></span>
-    </label>
-        <h5>Live National</h5>
-    </div>
-    <div class="col-xl-10 col-md-9 col-sm-1">
-        <hr>
-    </div>
-</div>
-<div class="row margin-left15 secondbox">
-    <div class="col-sm-4">
-        <input [(ngModel)]="selected1" [typeahead]="states" class="form-control" placeholder="Search Channel Here...">
-    </div>
-    <div class="col-12">&nbsp;</div>
-</div>
-<div class="d-flex justify-content-start wizardFoot">
-    <div class="p-2 tags">
-        <a class="btn btn-gray form-control">Back</a>
-    </div>
-    <div class="p-2">
-        <a (click)="Cancel2()" class="btn btn-gray form-control">Cancel</a>
-    </div>
-    <div class="ml-auto p-2"><a class="btn btn-gray form-control" style="background-color:#4cab48;color:#fff">Review & Execute</a></div>
-    <div class="p-2 tags">
-        <a (click)="step2_1_btn()" class="btn-lg btn-blue form-control">Next</a>
-    </div>
-</div>
-</div>
-<!----step2 End-->
-<!----step3-->
-<div *ngIf="step2_2">
-    <div class="row">
-        <h3>Stream Free VOD</h3>
-    </div>
-    <div class="row margin-top10">
-        <div class="col-xl-2 col-md-3 col-sm-11"><label class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input checkbox-info">
-              <span class="custom-control-indicator"></span>
-    </label>
-            <h5>Movies</h5>
-        </div>
-        <div class="col-xl-10 col-md-9 col-sm-1">
-            <hr>
-        </div>
-    </div>
-    <div class="row margin-left15 thirdbox">
-        <div class="col-sm-4">
-            <input [(ngModel)]="selected1" [typeahead]="states" class="form-control" placeholder="Search Movie Here">
-        </div>
+        </script> 
+      </div>
     </div>
     <div class="row margin-top20">
-        <div class="col-xl-2 col-md-3 col-sm-11"><label class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input checkbox-info">
-                <span class="custom-control-indicator"></span>
-      </label>
-            <h5>TV Shows</h5>
-        </div>
-        <div class="col-xl-10 col-md-9 col-sm-1">
-            <hr>
-        </div>
+      <div class="col-xl-2 col-md-3 col-sm-11">
+        <label class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input checkbox-info">
+          <span class="custom-control-indicator"></span> </label>
+        <h5>Live National</h5>
+      </div>
+      <div class="col-xl-10 col-md-9 col-sm-1">
+        <hr>
+      </div>
+    </div>
+    <div class="row margin-left15 secondbox">
+      <div class="col-sm-4">
+        <input [(ngModel)]="selected1" [typeahead]="states" class="form-control" placeholder="Search Channel Here...">
+      </div>
+      <div class="col-12">&nbsp;</div>
+    </div>
+    <div class="d-flex justify-content-start wizardFoot">
+      <div class="p-2 tags"> <a (click)="step2_1_btn_back()" class="btn btn-gray form-control">Back</a> </div>
+      <div class="p-2"> <a (click)="CancelAll()" class="btn btn-gray form-control">Cancel</a> </div>
+      <div class="ml-auto p-2"><a class="btn btn-gray form-control" style="background-color:#4cab48;color:#fff">Review & Execute</a></div>
+      <div class="p-2 tags"> <a (click)="step2_1_btn()" class="btn-lg btn-blue form-control">Next</a> </div>
+    </div>
+  </div>
+  <!----step2 End--> 
+  <!----step3-->
+  <div *ngIf="step2_2">
+    <div class="row">
+      <h3>Stream Free VOD</h3>
+    </div>
+    <div class="row margin-top10">
+      <div class="col-xl-2 col-md-3 col-sm-11">
+        <label class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input checkbox-info">
+          <span class="custom-control-indicator"></span> </label>
+        <h5>Movies</h5>
+      </div>
+      <div class="col-xl-10 col-md-9 col-sm-1">
+        <hr>
+      </div>
+    </div>
+    <div class="row margin-left15 thirdbox">
+      <div class="col-sm-4">
+        <input [(ngModel)]="selected1" [typeahead]="states" class="form-control" placeholder="Search Movie Here">
+      </div>
+    </div>
+    <div class="row margin-top20">
+      <div class="col-xl-2 col-md-3 col-sm-11">
+        <label class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input checkbox-info">
+          <span class="custom-control-indicator"></span> </label>
+        <h5>TV Shows</h5>
+      </div>
+      <div class="col-xl-10 col-md-9 col-sm-1">
+        <hr>
+      </div>
     </div>
     <div class="row margin-left15 fourthbox">
         <div class="col-4">
@@ -199,73 +191,60 @@
         <div class="col-12">&nbsp;</div>
     </div>
     <div class="d-flex justify-content-start wizardFoot">
-        <div class="p-2 tags"><a class="btn btn-gray form-control">Back</a></div>
-        <div class="p-2">
-            <a (click)="Cancel2()" class="btn btn-gray form-control">Cancel</a>
-        </div>
-
-        <div class="ml-auto p-2"><a class="btn btn-gray form-control" style="background-color:#4cab48;color:#fff">Review & Execute</a></div>
-        <div class="p-2 tags">
-            <a (click)="step2_2_btn()" class="btn-lg btn-blue form-control">Next</a>
-        </div>
+      <div class="p-2 tags"><a (click)="step2_2_btn_back()"  class="btn btn-gray form-control">Back</a></div>
+      <div class="p-2"> <a (click)="CancelAll()" class="btn btn-gray form-control">Cancel</a> </div>
+      <div class="ml-auto p-2"><a class="btn btn-gray form-control" style="background-color:#4cab48;color:#fff">Review & Execute</a></div>
+      <div class="p-2 tags"> <a (click)="step2_2_btn()" class="btn-lg btn-blue form-control">Next</a> </div>
     </div>
-</div>
-<div *ngIf="step2_3">
+  </div>
+  <div *ngIf="step2_3">
     <div class="row margin-top10">
-
-        <h3>Purchase and Stream PPV</h3>
-
-
+      <h3>Purchase and Stream PPV</h3>
     </div>
     <div class="row margin-left15">
-        <div class="col-sm-6">
-            <input [(ngModel)]="selected1" [typeahead]="states" class="form-control" placeholder="Search Movie Here">
-        </div>
-        <div class="col-12">&nbsp;</div>
+      <div class="col-sm-6">
+        <input [(ngModel)]="selected1" [typeahead]="states" class="form-control" placeholder="Search Movie Here">
+      </div>
+      <div class="col-12">&nbsp;</div>
     </div>
     <div class="d-flex justify-content-start wizardFoot">
-        <div class="p-2 tags"><a class="btn btn-gray form-control">Back</a></div>
-        <div class="p-2">
-            <a (click)="Cancel2()" class="btn btn-gray form-control">Cancel</a>
-        </div>
-
-        <div class="ml-auto p-2"><a class="btn btn-gray form-control" style="background-color:#4cab48;color:#fff">Review & Execute</a></div>
-        <div class="p-2 tags">
-            <a (click)="step2_3_btn()" class="btn-lg btn-blue form-control">Next</a>
-        </div>
+      <div class="p-2 tags"><a (click)="step2_3_btn_back()" class="btn btn-gray form-control">Back</a></div>
+      <div class="p-2"> <a (click)="CancelAll()" class="btn btn-gray form-control">Cancel</a> </div>
+      <div class="ml-auto p-2"><a class="btn btn-gray form-control" style="background-color:#4cab48;color:#fff">Review & Execute</a></div>
+      <div class="p-2 tags"> <a (click)="step2_3_btn()" class="btn-lg btn-blue form-control">Next</a> </div>
     </div>
-</div>
-<!--third STep End -->
-<div *ngIf="step2_4">
+  </div>
+  <!--third STep End -->
+  <div *ngIf="step2_4">
     <div class="row">
-        <h3>Remote Booking</h3>
+      <h3>Remote Booking</h3>
     </div>
     <div class="row margin-top10">
-        <div class="col-xl-2 col-md-3 col-sm-11"><label class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input checkbox-info">
-              <span class="custom-control-indicator"></span>
-    </label>
-            <h5>Movies</h5>
-        </div>
-        <div class="col-xl-10 col-md-9 col-sm-1">
-            <hr>
-        </div>
+      <div class="col-xl-2 col-md-3 col-sm-11">
+        <label class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input checkbox-info">
+          <span class="custom-control-indicator"></span> </label>
+        <h5>Movies</h5>
+      </div>
+      <div class="col-xl-10 col-md-9 col-sm-1">
+        <hr>
+      </div>
     </div>
     <div class="row margin-left15 sixthbox">
-        <div class="col-sm-4">
-            <input [(ngModel)]="selected1" [typeahead]="states" class="form-control" placeholder="Search Movie Here">
-        </div>
+      <div class="col-sm-4">
+        <input [(ngModel)]="selected1" [typeahead]="states" class="form-control" placeholder="Search Movie Here">
+      </div>
     </div>
     <div class="row margin-top20">
-        <div class="col-xl-2 col-md-3 col-sm-11"><label class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input checkbox-info">
-              <span class="custom-control-indicator"></span>
-    </label>
-            <h5>TV Shows</h5>
-        </div>
-        <div class="col-xl-10 col-md-9 col-sm-1">
-            <hr>
-        </div>
+      <div class="col-xl-2 col-md-3 col-sm-11">
+        <label class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input checkbox-info">
+          <span class="custom-control-indicator"></span> </label>
+        <h5>TV Shows</h5>
+      </div>
+      <div class="col-xl-10 col-md-9 col-sm-1">
+        <hr>
+      </div>
     </div>
     <div class="row margin-left15 seventhbox">
         <div class="col-4">
@@ -301,221 +280,180 @@
         <div class="col-12">&nbsp;</div>
     </div>
     <div class="d-flex justify-content-start wizardFoot">
-        <div class="p-2 tags"><a class="btn btn-gray form-control">Back</a></div>
-        <div class="p-2">
-            <a (click)="Cancel2()" class="btn btn-gray form-control">Cancel</a>
-        </div>
-
-        <div class="ml-auto p-2"><a class="btn btn-gray form-control" style="background-color:#4cab48;color:#fff">Review & Execute</a></div>
-        <div class="p-2 tags">
-            <a (click)="step2()" class="btn-lg btn-blue form-control">Next</a>
-        </div>
+      <div class="p-2 tags"><a (click)="step2_back()" class="btn btn-gray form-control">Back</a></div>
+      <div class="p-2"> <a (click)="CancelAll()" class="btn btn-gray form-control">Cancel</a> </div>
+      <div class="ml-auto p-2"><a class="btn btn-gray form-control" style="background-color:#4cab48;color:#fff">Review & Execute</a></div>
+      <div class="p-2 tags"> <a (click)="step2()" class="btn-lg btn-blue form-control">Next</a> </div>
     </div>
-</div>
+  </div>
 </div>
 <!--third STep End -->
 <div *ngIf="step_3" class="container">
-    <div class="row">
-        <h3>Select Device(s)</h3>
-    </div>
-    <div class="row margin-top10">
-        <div class="col-12">
-            <ngx-datatable #table class="material" [headerHeight]="40" [limit]="10" [columnMode]="'fixed'" [footerHeight]="50" [rowHeight]="'auto'" [rows]="rows" [loadingIndicator]="loadingIndicator" (activate)="onActivate($event)" (select)='onSelect($event)'>
-                <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="true" [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true">
-                </ngx-datatable-column>
-                <ngx-datatable-column name="AvailabilityStatus">
-                    <ng-template ngx-datatable-cell-template let-value="value">
-                        <i *ngIf="value == 'Offline'" class="fa fa-circle red" style="color:red;"></i>
-                        <i *ngIf="value == 'Available'" class="fa fa-circle green" style="color:green;"></i>
-                        <i *ngIf="value == 'Busy'" class="fa fa-circle" style="color:gray;"> </i> {{value}}
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="Model">
-                    <ng-template ngx-datatable-cell-template let-value="value">
-                        {{value}}
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="Manufacturer">
-                    <ng-template ngx-datatable-cell-template let-value="value">
-                        {{value}}
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="Site">
-                    <ng-template ngx-datatable-cell-template let-value="value">
-                        {{value}}
-                    </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="UDID">
-                    <ng-template ngx-datatable-cell-template let-value="value">
-                        {{value}}
-                    </ng-template>
-                </ngx-datatable-column>
-            </ngx-datatable>
-            &nbsp;</div>
-    </div>
-    <div class="d-flex justify-content-start wizardFoot">
-        <div class="p-2 tags"><a class="btn btn-gray form-control">Back</a></div>
-        <div class="p-2 ">
-            <a (click)="step3_cancel()" class="btn btn-gray form-control">Cancel</a>
-        </div>
-
-        <div class="ml-auto p-2"><a class="btn btn-gray form-control" style="background-color:#4cab48;color:#fff">Review & Execute</a></div>
-        <div class="p-2 tags">
-            <a (click)="step3()" class="btn-lg btn-blue form-control">Next</a>
-        </div>
-    </div>
+  <div class="row">
+    <h3>Select Device(s)</h3>
+  </div>
+  <div class="row margin-top10">
+    <div class="col-12">
+      <ngx-datatable #table class="material" [headerHeight]="40" [limit]="10" [columnMode]="'fixed'" [footerHeight]="50" [rowHeight]="'auto'" [rows]="rows" [loadingIndicator]="loadingIndicator" (activate)="onActivate($event)" (select)='onSelect($event)'>
+        <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="true" [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true"> </ngx-datatable-column>
+        <ngx-datatable-column name="AvailabilityStatus">
+          <ng-template ngx-datatable-cell-template let-value="value"> <i *ngIf="value == 'Offline'" class="fa fa-circle red" style="color:red;"></i> <i *ngIf="value == 'Available'" class="fa fa-circle green" style="color:green;"></i> <i *ngIf="value == 'Busy'" class="fa fa-circle" style="color:gray;"> </i> {{value}} </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Model">
+          <ng-template ngx-datatable-cell-template let-value="value"> {{value}} </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Manufacturer">
+          <ng-template ngx-datatable-cell-template let-value="value"> {{value}} </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Site">
+          <ng-template ngx-datatable-cell-template let-value="value"> {{value}} </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="UDID">
+          <ng-template ngx-datatable-cell-template let-value="value"> {{value}} </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+      &nbsp;</div>
+  </div>
+  <div class="d-flex justify-content-start wizardFoot">
+    <div class="p-2 tags"><a (click)="step3_back()" class="btn btn-gray form-control">Back</a></div>
+    <div class="p-2 "> <a (click)="CancelAll()" class="btn btn-gray form-control">Cancel</a> </div>
+    <div class="ml-auto p-2"><a class="btn btn-gray form-control" style="background-color:#4cab48;color:#fff">Review & Execute</a></div>
+    <div class="p-2 tags"> <a (click)="step3()" class="btn-lg btn-blue form-control">Next</a> </div>
+  </div>
 </div>
 <!--third (1) STep -->
 <div *ngIf="step_4" class="container">
-    <div class="row">
-        <h3>Review & Execute</h3>
+  <div class="row">
+    <h3>Review & Execute</h3>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <p>Please review your mobile automation launch details. You can go back to edit changes for each section.</p>
     </div>
-    <div class="row">
+  </div>
+  <div class="row border-bottom">
+    <h5 class="">Sample Project Name</h5>
+  </div>
+  <div class="row">
+    <div class="col-12"> <a class="btn-lg btn-blue collapsed pad-left-35" data-toggle="collapse" href="#collapseTestcases" aria-expanded="false" aria-controls="collapseExample"> <i aria-hidden="true" class="fa fa-sort-down"></i>
+      <h4 class="border-bottom"> Test Cases</h4>
+      </a>
+      <div class="pad-left-20" id="collapseTestcases" aria-expanded="false" style="">
+        <h5>Stream Live TV</h5>
+        <a href="#" class="editbox">edit</a>
+        <div class="d-flex justify-content-between pad-left-20">
+          <table>
+            <tr>
+              <td width="120">Live Local</td>
+              <td width="100">Dallas, TX</td>
+              <td width="100">ABC - WFAA</td>
+            </tr>
+            <tr>
+              <td width="100"></td>
+              <td width="100">Dallas, TX</td>
+              <td width="100">ABC - WFAA</td>
+            </tr>
+          </table>
+          <table>
+            <tr>
+              <td width="120">Live National</td>
+              <td width="100">ESPNU HD</td>
+              <td width="80">208</td>
+              <td width="100">ESPNUHD</td>
+            </tr>
+            <tr>
+              <td width="120"></td>
+              <td width="100">ESPN2 HD</td>
+              <td width="80">209</td>
+              <td width="100">ESPN2HD</td>
+            </tr>
+          </table>
+        </div>
+        <div class="row">&nbsp;</div>
+        <h5>Stream Free VOD</h5>
+        <a href="#" class="editbox">edit</a>
+        <div class="d-flex justify-content-between pad-left-20">
+          <table>
+            <tr>
+              <td width="120">Movies</td>
+              <td width="200">Remember the Titans</td>
+            </tr>
+          </table>
+          <table>
+            <tr>
+              <td width="120">TV Shows</td>
+              <td width="200">Game of Thrones</td>
+              <td>Season 01 - Episode 06 A Golden Crown</td>
+            </tr>
+          </table>
+        </div>
+        <div class="row">&nbsp;</div>
+        <h5>Purchase and Stream Movie</h5>
+        <a href="#" class="editbox">edit</a>
+        <div class="col-6">
+          <table>
+            <tr>
+              <td width="120">Movies</td>
+              <td width="200">Remember the Titans</td>
+            </tr>
+          </table>
+        </div>
+        <div class="row">&nbsp;</div>
+        <h5>Remote Booking</h5>
+        <a href="#" class="editbox">edit</a>
+        <div class="d-flex justify-content-between pad-left-20">
+          <table>
+            <tr>
+              <td width="120">Movies</td>
+              <td width="200">Remember the Titans</td>
+            </tr>
+          </table>
+          <table>
+            <tr>
+              <td width="120">TV Shows</td>
+              <td width="200">Game of Thrones</td>
+              <td>Season 01 - Episode 06 A Golden Crown</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">&nbsp;</div>
+  <div class="row">
+    <div class="col-12"> <a class="btn-lg btn-blue collapsed pad-left-35" data-toggle="collapse" href="#collapseDevices" aria-expanded="false" aria-controls="collapseDevices"> <i aria-hidden="true" class="fa fa-sort-down"></i>
+      <h4 class="border-bottom"> Devices</h4>
+      </a>
+      <div class="pad-left-20" id="collapseDevices" aria-expanded="false" style="">
         <div class="col-12">
-            <p>Please review your mobile automation launch details. You can go back to edit changes for each section.</p>
+          <table>
+            <thead>
+              <tr>
+                <th width="150"><strong>Model</strong></th>
+                <th width="150"><strong>Manufacturer</strong></th>
+                <th width="80"><strong>Site</strong></th>
+                <th width="150"><strong>UDID</strong></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>iPhone 7 Plus</td>
+                <td>Apple</td>
+                <td>LA</td>
+                <td>AbCd123EieIo</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
-    <div class="row border-bottom">
-        <h5 class="">Sample Project Name</h5>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <a class="btn-lg btn-blue collapsed pad-left-35" data-toggle="collapse" href="#collapseTestcases" aria-controls="collapseExample">
-                <i aria-hidden="true" class="fa fa-sort-down"></i>
-                <h4 class="border-bottom"> Test Cases</h4>
-            </a>
-            <div class="pad-left-20" id="collapseTestcases" style="">
-
-                <h5>Stream Live TV</h5>
-                <a href="#" class="editbox">edit</a>
-
-                <div class="d-flex justify-content-between pad-left-20">
-                    <table>
-                        <tr>
-                            <td width="120">Live Local</td>
-                            <td width="100">Dallas, TX</td>
-                            <td width="100">ABC - WFAA</td>
-                        </tr>
-                        <tr>
-                            <td width="100"></td>
-                            <td width="100">Dallas, TX</td>
-                            <td width="100">ABC - WFAA</td>
-                        </tr>
-                    </table>
-
-                    <table>
-                        <tr>
-                            <td width="120">Live National</td>
-                            <td width="100">ESPNU HD</td>
-                            <td width="80">208</td>
-                            <td width="100">ESPNUHD</td>
-                        </tr>
-                        <tr>
-                            <td width="120"></td>
-                            <td width="100">ESPN2 HD</td>
-                            <td width="80">209</td>
-                            <td width="100">ESPN2HD</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="row">&nbsp;</div>
-
-
-                <h5>Stream Free VOD</h5>
-                <a href="#" class="editbox">edit</a>
-                <div class="d-flex justify-content-between pad-left-20">
-                    <table>
-                        <tr>
-                            <td width="120">Movies</td>
-                            <td width="200">Remember the Titans</td>
-                        </tr>
-                    </table>
-
-                    <table>
-                        <tr>
-                            <td width="120">TV Shows</td>
-                            <td width="200">Game of Thrones</td>
-                            <td>Season 01 - Episode 06 A Golden Crown</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="row">&nbsp;</div>
-
-                <h5>Purchase and Stream Movie</h5>
-                <a href="#" class="editbox">edit</a>
-                <div class="col-6">
-                    <table>
-                        <tr>
-                            <td width="120">Movies</td>
-                            <td width="200">Remember the Titans</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="row">&nbsp;</div>
-
-                <h5>Remote Booking</h5>
-                <a href="#" class="editbox">edit</a>
-                <div class="d-flex justify-content-between pad-left-20">
-                    <table>
-                        <tr>
-                            <td width="120">Movies</td>
-                            <td width="200">Remember the Titans</td>
-                        </tr>
-                    </table>
-
-                    <table>
-                        <tr>
-                            <td width="120">TV Shows</td>
-                            <td width="200">Game of Thrones</td>
-                            <td>Season 01 - Episode 06 A Golden Crown</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">&nbsp;</div>
-    <div class="row">
-        <div class="col-12">
-            <a class="btn-lg btn-blue collapsed pad-left-35" data-toggle="collapse" href="#collapseDevices" aria-controls="collapseDevices">
-                <i aria-hidden="true" class="fa fa-sort-down"></i>
-                <h4 class="border-bottom"> Devices</h4>
-            </a>
-            <div class="pad-left-20" id="collapseDevices" style="">
-                <div class="col-12">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th width="150"><strong>Model</strong></th>
-                                <th width="150"><strong>Manufacturer</strong></th>
-                                <th width="80"><strong>Site</strong></th>
-                                <th width="150"><strong>UDID</strong></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>iPhone 7 Plus</td>
-                                <td>Apple</td>
-                                <td>LA</td>
-                                <td>AbCd123EieIo</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-12">&nbsp;</div>
-    </div>
-    <div class="d-flex justify-content-start wizardFoot">
-        <div class="p-2 tags"><a class="btn btn-gray form-control">Back</a></div>
-        <div class="p-2 ">
-            <a (click)="step4_cancel()" class="btn btn-gray form-control">Cancel</a>
-        </div>
-
-        <div class="ml-auto p-2"><a class="btn btn-gray form-control" style="background-color:#4cab48;color:#fff">Review & Execute</a></div>
-        <div class="p-2 tags">
-            <a (click)="step4()" class="btn-lg btn-blue form-control">Next</a>
-        </div>
-    </div>
+    <div class="col-12">&nbsp;</div>
+  </div>
+  <div class="d-flex justify-content-start wizardFoot">
+    <div class="p-2 tags"><a (click)="step4_back()" class="btn btn-gray form-control">Back</a></div>
+    <div class="p-2 "> <a (click)="CancelAll()" class="btn btn-gray form-control">Cancel</a> </div>
+    <div class="ml-auto p-2"><a class="btn btn-gray form-control" style="background-color:#4cab48;color:#fff">Review & Execute</a></div>
+    <div class="p-2 tags"> <a (click)="step4()" class="btn-lg btn-blue form-control">Next</a> </div>
+  </div>
 </div>
 <!--third STep End -->
