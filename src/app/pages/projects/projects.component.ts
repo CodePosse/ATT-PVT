@@ -29,7 +29,7 @@ import "rxjs/add/operator/map";
 })
 export class ProjectsComponent implements OnInit {
   value1 = 26;
-    step1_check = false;
+  step1_check = false;
   step2_check = false;
   step3_check = false;
   switch1step = true;
