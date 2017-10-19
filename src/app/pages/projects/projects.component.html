@@ -1,4 +1,4 @@
-<h1>&nbsp;</h1>
+<h2 style=" margin-bottom: 10px;">Create New Project</h2>
 <div style="width: 100% " class="breadcrumb flat"> <a style="width: 25%" [ngClass]="{'active':switch1class}">Step 1: Project Name
   <fa *ngIf="step1_check" name="check" size="2x" style="color: green;    float: right;
     margin-top: 6px;"  ></fa>
@@ -15,7 +15,7 @@
 <div *ngIf="switch1step" class="container"> 
       <div class="row">
             <div class="form-group col-4">
-                    <h3>Project Name</h3>
+                    <h4>Project Name</h4>
         <input class="form-control" placeholder="Enter Your Project Name"></div>
       </div>
       <div class="d-flex justify-content-start wizardFoot">
@@ -32,21 +32,21 @@
 <div *ngIf="switch_part_1" class="container">
   <div *ngIf="step2_1">
     <div class="row">
-      <h3>Stream Live TV</h3>
+      <h4>Stream Live TV</h4>
     </div>
     <div class="row margin-top10">
       <div class="col-xl-2 col-md-3 col-sm-11">
-        <h5><i class="fa fa-square-o blue" aria-hidden="true"></i> Live Local</h5>
+        <h5><i class="fa fa-square-o" aria-hidden="true"></i> Live Local</h5>
       </div>
       <div class="col-xl-10 col-md-9 col-sm-1">
         <hr>
       </div>
     </div>
     <div class="row margin-left15 firstbox">
-      <div class="form-group col-3">
+      <div class="form-group col-md-3">
         <label>Channel</label>
         <select class="form-control" id="exampleSelect1">
-          <option disabled>Select Network</option>
+          <option disabled="disabled">Select Network</option>
           <option>ABC</option>
           <option>CBS</option>
           <option>NBC</option>
@@ -54,7 +54,7 @@
           <option>CW</option>
         </select>
       </div>
-      <div class="col-9">
+      <div class="col-md-9">
         <table style="text-align:center; width:450px">
           <!--http://www.advchaweb.com/use-jquery-move-data-element/#codesyntax_2-->
           <thead>
@@ -101,15 +101,15 @@
     <div class="row margin-top20">
       <div class="col-xl-2 col-md-3 col-sm-11">
    
-        <h5><i class="fa fa-square-o blue" aria-hidden="true"></i> Live National</h5>
+        <h5><i class="fa fa-square-o" aria-hidden="true"></i> Live National</h5>
       </div>
       <div class="col-xl-10 col-md-9 col-sm-1">
         <hr>
       </div>
     </div>
-    <div class="row margin-left15 secondbox">
+    <div class="row margin-left15 margin-top5">
       <div class="col-sm-4">
-        <input [(ngModel)]="selected1" [typeahead]="states" class="form-control" placeholder="Search Channel Here...">
+        <input [(ngModel)]="selected1" [typeahead]="states" class="form-control" placeholder="Search Channel Here">
       </div>
       <div class="col-12">&nbsp;</div>
     </div>
@@ -124,18 +124,18 @@
   <!----step3-->
   <div *ngIf="step2_2">
     <div class="row">
-      <h3>Stream Free VOD</h3>
+      <h4>Stream Free VOD</h4>
     </div>
     <div class="row margin-top10">
       <div class="col-xl-2 col-md-3 col-sm-11">
 
-        <h5><i class="fa fa-square-o blue" aria-hidden="true"></i> Movies</h5>
+        <h5><i class="fa fa-square-o" aria-hidden="true"></i> Movies</h5>
       </div>
       <div class="col-xl-10 col-md-9 col-sm-1">
         <hr>
       </div>
     </div>
-    <div class="row margin-left15 thirdbox">
+    <div class="row margin-left15 margin-top5">
       <div class="col-sm-4">
         <input [(ngModel)]="selected1" [typeahead]="states" class="form-control" placeholder="Search Movie Here">
       </div>
@@ -143,7 +143,7 @@
     <div class="row margin-top20">
       <div class="col-xl-2 col-md-3 col-sm-11">
 
-        <h5><i class="fa fa-square-o blue" aria-hidden="true"></i> TV Shows</h5>
+        <h5><i class="fa fa-square-o" aria-hidden="true"></i> TV Shows</h5>
       </div>
       <div class="col-xl-10 col-md-9 col-sm-1">
         <hr>
@@ -160,7 +160,7 @@
             <div class="form-group">
                 <label for="exampleSelect1">Season</label>
                 <select class="form-control" id="exampleSelect1">
-                <option disabled>Select Season</option>
+                <option disabled="disabled">Select Season</option>
                 <option>Season 1</option>
                 <option>Season 2</option>
                 <option>Season 4</option>
@@ -170,7 +170,7 @@
         </div>
         <div class="col-5">
             <div class="form-group">
-                <label for="exampleSelect1">Season</label>
+                <label for="exampleSelect1">Episode</label>
                 <select class="form-control" id="exampleSelect1">
                     <option>Select Episode</option>
                     <option>A really interesting episode title</option>
@@ -191,18 +191,18 @@
   </div>
   <div *ngIf="step2_3">
     <div class="row margin-top10">
-      <h3>Purchase and Stream PPV</h3>
+      <h4>Purchase and Stream PPV</h4>
     </div>
     <div class="row margin-top10">
         <div class="col-xl-2 col-md-3 col-sm-11">
   
-          <h5><i class="fa fa-square-o blue" aria-hidden="true"></i> Movies</h5>
+          <h5><i class="fa fa-square-o" aria-hidden="true"></i> Movies</h5>
         </div>
         <div class="col-xl-10 col-md-9 col-sm-1">
           <hr>
         </div>
       </div>
-      <div class="row margin-left15 thirdbox">
+      <div class="row margin-left15 margin-top5">
         <div class="col-sm-4">
           <input [(ngModel)]="selected1" [typeahead]="states" class="form-control" placeholder="Search Movie Here">
         </div>
@@ -220,20 +220,17 @@
   <!--third STep End -->
   <div *ngIf="step2_4">
     <div class="row">
-      <h3>Remote Booking</h3>
+      <h4>Remote Booking</h4>
     </div>
     <div class="row margin-top10">
       <div class="col-xl-2 col-md-3 col-sm-11">
-        <label class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input checkbox-info">
-          <span class="custom-control-indicator"></span> </label>
-<h5>Movies</h5>
+<h5><i class="fa fa-square-o" aria-hidden="true"></i> Movies</h5>
 </div>
 <div class="col-xl-10 col-md-9 col-sm-1">
     <hr>
 </div>
 </div>
-<div class="row margin-left15 sixthbox">
+<div class="row margin-left15 margin-top5">
     <div class="col-sm-4">
         <input [(ngModel)]="selected1" [typeahead]="states" class="form-control" placeholder="Search Movie Here">
     </div>
@@ -241,7 +238,7 @@
 <div class="row margin-top20">
     <div class="col-xl-2 col-md-3 col-sm-11">
 
-        <h5><i class="fa fa-square-o blue" aria-hidden="true"></i> TV Shows</h5>
+        <h5><i class="fa fa-square-o" aria-hidden="true"></i> TV Shows</h5>
     </div>
     <div class="col-xl-10 col-md-9 col-sm-1">
         <hr>
@@ -257,8 +254,8 @@
     <div class="col-3">
         <div class="form-group">
             <label for="exampleSelect1">Season</label>
-            <select class="form-control" id="exampleSelect1">
-                    <option disabled>Select Season</option>
+            <select class="form-control" id="exampleSelect1" style="width:200px">
+                    <option disabled="disabled">Select Season</option>
                     <option>Season 1</option>
                     <option>Season 2</option>
                     <option>Season 4</option>
@@ -268,7 +265,7 @@
     </div>
     <div class="col-5">
         <div class="form-group">
-            <label for="exampleSelect1">Season</label>
+            <label for="exampleSelect1">Episode</label>
             <select class="form-control" id="exampleSelect1">
                         <option>Select Episode</option>
                         <option>A really interesting episode title</option>
@@ -291,14 +288,14 @@
 <!--third STep End -->
 <div *ngIf="step_3" class="container">
     <div class="row">
-        <h3>Select Device(s)</h3>
+        <h4>Select Device(s)</h4>
     </div>
     <div class="row margin-top10">
         <div class="col-12">
-            <ngx-datatable #table class="material" [headerHeight]="40" [limit]="10" [columnMode]="'fixed'" [footerHeight]="50" [rowHeight]="'auto'" [rows]="rows" [loadingIndicator]="loadingIndicator" (activate)="onActivate($event)" (select)='onSelect($event)'>
+            <ngx-datatable #table class="material" [limit]="10" [columnMode]="'fixed'" [footerHeight]="30" [rowHeight]="'auto'" [rows]="rows" [loadingIndicator]="loadingIndicator" (activate)="onActivate($event)" (select)='onSelect($event)'>
                 <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="true" [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true"> </ngx-datatable-column>
                 <ngx-datatable-column name="AvailabilityStatus">
-                    <ng-template ngx-datatable-cell-template let-value="value"> <i *ngIf="value == 'Offline'" class="fa fa-circle red" style="color:red;"></i> <i *ngIf="value == 'Available'" class="fa fa-circle green" style="color:green;"></i> <i *ngIf="value == 'Busy'" class="fa fa-circle" style="color:gray;"> </i>                        {{value}} </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value"> <i *ngIf="value == 'Offline'" class="fa fa-circle red" style="color:red;"></i> <i *ngIf="value == 'Available'" class="fa fa-circle green" style="color:green;"></i> <i *ngIf="value == 'Busy'" class="fa fa-circle" style="color:gray;"></i>    &nbsp; &nbsp;                    {{value}} </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Model">
                     <ng-template ngx-datatable-cell-template let-value="value"> {{value}} </ng-template>
@@ -325,25 +322,25 @@
 <!--third (1) STep -->
 <div *ngIf="step_4" class="container">
     <div class="row">
-        <h3>Review & Execute</h3>
+        <h4>Review & Execute</h4>
     </div>
     <div class="row">
         <div class="col-12">
             <p>Please review your mobile automation launch details. You can go back to edit changes for each section.</p>
         </div>
     </div>
-    <div class="row border-bottom">
-        <h5 class="">Sample Project Name</h5>
+    <div class="row">
+        <h5 style="width:100%" class="border-bottom">Sample Project Name <a href="#" class="editbox" style="top:0;font-size:12px">edit</a></h5>
     </div>
     <div class="row">
         <div class="col-12">
-            <a class="btn-lg btn-blue collapsed pad-left-35" data-toggle="collapse" href="#collapseTestcases" aria-expanded="false" aria-controls="collapseExample"> <i aria-hidden="true" class="fa fa-sort-down"></i>
-                <h4 class="border-bottom"> Test Cases</h4>
+            <a class="btn-lg collapsed pad-left-35" data-toggle="collapse" href="#collapseTestcasesX" aria-expanded="false" aria-controls="collapseExample"> <i aria-hidden="true" class="fa fa-sort-down"></i>
+                <h5 class="border-bottom"> Test Cases</h5>
             </a>
             <div class="pad-left-20" id="collapseTestcases" aria-expanded="false" style="">
-                <h5 class="border-bottom">Stream Live TV</h5>
+                <h5 class="border-bottom"><div class="lineClear"></div><i class="fa fa-square-o" aria-hidden="true"></i>Stream Live TV</h5>
                 <a href="#" class="editbox">edit</a>
-                <div class="d-flex justify-content-between pad-left-20">
+                <div class="d-flex justify-content-between pad-left-25">
                     <table>
                         <tr>
                             <td width="120">Live Local</td>
@@ -372,9 +369,9 @@
                     </table>
                 </div>
                 <div class="row">&nbsp;</div>
-                <h5 class="border-bottom">Stream Free VOD</h5>
+                <h5 class="border-bottom"><div class="lineClear"></div><i class="fa fa-square" aria-hidden="true"></i>Stream Free VOD</h5>
                 <a href="#" class="editbox">edit</a>
-                <div class="d-flex justify-content-between pad-left-20">
+                <div class="d-flex justify-content-between pad-left-25">
                     <table>
                         <tr>
                             <td width="120">Movies</td>
@@ -390,7 +387,7 @@
                     </table>
                 </div>
                 <div class="row">&nbsp;</div>
-                <h5 class="border-bottom">Purchase and Stream Movie</h5>
+                <h5 class="border-bottom"><div class="lineClear"></div><i class="fa fa-square-o" aria-hidden="true"></i>Purchase and Stream Movie</h5>
                 <a href="#" class="editbox">edit</a>
                 <div class="col-6">
                     <table>
@@ -401,9 +398,9 @@
                     </table>
                 </div>
                 <div class="row">&nbsp;</div>
-                <h5 class="border-bottom">Remote Booking</h5>
+                <h5 class="border-bottom"><div class="lineClear"></div><i class="fa fa-square-o" aria-hidden="true"></i>Remote Booking</h5>
                 <a href="#" class="editbox">edit</a>
-                <div class="d-flex justify-content-between pad-left-20">
+                <div class="d-flex justify-content-between pad-left-25">
                     <table>
                         <tr>
                             <td width="120">Movies</td>
@@ -421,46 +418,67 @@
             </div>
         </div>
     </div>
-    <div class="row">&nbsp;</div>
+   
     <div class="row">
         <div class="col-12">
-            <a class="btn-lg btn-blue collapsed pad-left-35" data-toggle="collapse" href="#collapseDevices" aria-expanded="false" aria-controls="collapseDevices"> <i aria-hidden="true" class="fa fa-sort-down"></i>
-                <h4 class="border-bottom"> Devices</h4>
+            <a class="btn-lg collapsed pad-left-35" data-toggle="collapse" href="#collapseDevicesX" aria-expanded="false" aria-controls="collapseDevices"> <i aria-hidden="true" class="fa fa-sort-down"></i>
+                <h5 class="border-bottom"> Devices</h5>
             </a>
             <div class="pad-left-20" id="collapseDevices" aria-expanded="false" style="">
                 <div class="col-12">
-                    <table>
+                    <table border="0" cellpadding="0" cellspacing="0">
                         <thead>
-                            <tr>
-                                <th width="100"><strong>Status</strong></th>
-                                <th width="50"><strong>O/S</strong></th>
-                                <th width="100"><strong>Model</strong></th>
-                                <th width="100"><strong>Manufacturer</strong></th>
-                                <th width="80"><strong>Site</strong></th>
-                                <th width="150"><strong>UDID</strong></th>
-                            </tr>
+                          <tr>
+                            <th width="100" class="border-bottom"><h5>Status</h5></th>
+                            <th width="50" class="border-bottom"><h5>O/S</h5></th>
+                            <th width="100" class="border-bottom"><h5>Model</h5></th>
+                            <th width="120" class="border-bottom"><h5>Manufacturer</h5></th>
+                            <th width="80" class="border-bottom"><h5>Site</h5></th>
+                            <th width="100" class="border-bottom"><h5>UDID</h5></th>
+                          </tr>
                         </thead>
+                        
                         <tbody>
-                            <tr>
-                                <td style="color:red;"><i class="fa fa-circle red"></i> Offline </td>
-                                <td><i class="fa fa-apple red" aria-hidden="true"></i></td>
-                                <td>iPhone 7 Plus</td>
-                                <td>Apple</td>
-                                <td>LA</td>
-                                <td>AbCd123EieIo</td>
-                            </tr>
+                          <tr>
+                            <td style="color:red;" ><i class="fa fa-circle red"></i> &nbsp; Offline </td>
+                            <td><i class="fa fa-apple red" aria-hidden="true"></i></td>
+                            <td>iPhone 7 Plus</td>
+                            <td>Apple</td>
+                            <td>LA</td>
+                            <td>AbCd123EieIo</td>
+                          </tr>
+                          <tr>
+                            <td style="color:green;" ><i class="fa fa-circle green"></i> &nbsp; Online </td>
+                            <td><i class="fa fa-android" aria-hidden="true"></i></td>
+                            <td>Note 8</td>
+                            <td>Samsung</td>
+                            <td>NY</td>
+                            <td>ou812</td>
+                          </tr>
                         </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-12">&nbsp;</div>
-    </div>
-    <div class="d-flex justify-content-start wizardFoot">
-        <div class="p-2 tags"><a (click)="step4_back()" class="btn btn-gray form-control">Back</a></div>
-        <div class="p-2 "> <a (click)="CancelAll()" class="btn btn-gray form-control">Cancel</a> </div>
-        <div class="ml-auto p-2"></div>
-        <div class="p-2"> <a (click)="step4()" class="btn btn-blue form-control">Save & Execute</a> </div>
-    </div>
+                    
+</table>
+</div>
+</div>
+</div>
+<div class="col-12">
+    <p>&nbsp;</p>
+</div>
+<div class="col-12">
+    <p>&nbsp;</p>
+</div>
+</div>
+<div class="col-12">
+    <p>&nbsp;</p>
+</div>
+<div class="col-12">
+    <p>&nbsp;</p>
+</div>
+<div class="d-flex justify-content-start wizardFoot">
+    <div class="p-2 tags"><a (click)="step4_back()" class="btn btn-gray form-control">Back</a></div>
+    <div class="p-2 "> <a (click)="CancelAll()" class="btn btn-gray form-control">Cancel</a> </div>
+    <div class="ml-auto p-2"></div>
+    <div class="p-2"> <a (click)="step4()" class="btn btn-blue form-control">Save & Execute</a> </div>
+</div>
 </div>
 <!--third STep End -->

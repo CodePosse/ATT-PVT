@@ -159,9 +159,12 @@
 }
 
 .app.combined .wizardFoot .btn {
-    border-radius: 8px;
+    border-radius: 5px;
     border-width: 1px;
     border-color: #e4e4e4;
+    font-family: "Omnes-ATT-W02";
+    font-size: 11px;
+    border-color: transparent;
 }
 
 .tags a {
@@ -169,6 +172,7 @@
     line-height: 24px;
     position: relative;
     font-size: 11px;
+    border: none;
 }
 
 .wizardFoot .tags a.btn-blue {
@@ -204,7 +208,7 @@
     float: left;
     position: absolute;
     top: 0;
-    left: -12px;
+    left: -10px;
     width: 0;
     height: 0;
     border-color: transparent #0089e0 transparent transparent;
@@ -217,15 +221,16 @@
 }
 
 .wizardFoot .tags a.btn-blue:after {
-    left: 55px;
+    left: 53px;
     transform: rotate(180deg);
 }
 
 .wizardFlow i.fa.fa-sort-down {
     font-size: 2rem;
-    top: 25px;
+    top: 12px;
     left: -10px;
     position: absolute;
+    color: #666766;
 }
 
 .app.combined .collapse h5 {
@@ -237,7 +242,7 @@
 
 .border-bottom {
     border-bottom: 1px;
-    border-bottom-color: #b2b2b2;
+    border-bottom-color: #f4f4f4;
     border-bottom-style: solid;
 }
 
@@ -268,6 +273,7 @@
     font-size: 13px;
     color: #565656;
     font-weight: normal;
+    text-transform: none;
 }
 
 .wizardFlow .fa-square,
@@ -281,5 +287,77 @@
 }
 
 .wizardFlow td {
-    color: #999
+    color: #666766;
+    font-size: 12px;
+}
+
+.wizardFlow hr {
+    margin-top: .75rem
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-family: Omnes-ATT-W02;
+}
+
+input.form-control {
+    padding: 0.5rem 0.75rem 0.25rem;
+    line-height: 1.5rem;
+}
+
+.app.combined ngx-datatable .datatable-row-group {
+    border-bottom-color: #f2f2f2;
+}
+
+.ngx-datatable.material .datatable-footer .page-count {
+    font-size: 1rem;
+    line-height: 30px;
+    height: 30px;
+}
+
+.datatable-checkbox input[type='checkbox'] {
+    margin-top: 3px;
+}
+
+ngx-datatable .datatable-header-cell-label {
+    font-size: 1.125rem;
+}
+
+.main-content {
+    overflow: visible
+}
+
+select option:disabled,
+option::disabled,
+option.disabled {
+    color: #f4f4f4 !important;
+}
+
+#collapseDevices h5 {
+    line-height: .5rem;
+}
+
+#collapseDevices td {
+    padding-top: 10px
+}
+
+.fa-square-o {
+    font-size: 1.25rem;
+    color: #666766
+}
+
+.fa-square {
+    font-size: 1.125rem;
+    color: #0089e0
+}
+
+.lineClear {
+    background-color: #fff;
+    width: 20px;
+    height: 4px;
+    position: relative;
+    top: 18px;
 }
