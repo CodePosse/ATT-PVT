@@ -125,7 +125,7 @@ export class ProjectsComponent implements OnInit {
     this.step2_check = true;
     this.switch2class = false;
     this.switch_part_1 = false;
-
+    this.value1 = this.value1 + 26;
     this.switch3class = true;
   }
 
