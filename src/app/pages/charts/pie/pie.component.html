@@ -1,130 +1,71 @@
-<style>
-    .sidebar-create {
-        display: none;
-    }
-    .border-right {
-      border-right: 1px solid lightgray;
-    }
-    .chartWithOverlay {
-        position: relative;
-        width: 700px;
-     }
-     .overlay {
-            width: 500px;
-            height: 200px;
-            position: absolute;
-            top: 80px;   /* chartArea top  */
-            left: 215px; /* chartArea left */
-     }
-</style>
-
 <div class="row">
-    <div class="col-lg-4 col-md-4 border-right">
-          <h3>Project Name > {{projectName}}</h3>
-          <hr/>
-          <br/>
-          <h5>Device Results</h5>
-          <div class="col-lg-9" style="width: 450px; height: 200px;">
-            <google-chart [data]="pieChartData" ></google-chart>
-            <div class="overlay">
-              <div style="font-family:'Arial Black'; font-size: 24px;">{{totalTest}}</div>
+    <div class="col-12 mb-4">
+        <div widget class="card border-0 box-shadow">
+            <div class="card-header transparent border-0 text-muted">
+                <h5 class="mb-0">Pie Chart</h5>
+                <div class="widget-controls"> 
+                    <a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
+                    <a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
+                    <a data-widgster="close" href="#" class="transition"><i class="fa fa-times"></i></a>
+                </div>        
             </div>
-          </div>
-          <div class="row">
-          <div>
-            <div class="col-lg-12 text-center section-buffer">
-                <a class="btn btn-red" href="/pages/projects" [routerLink]="['/pages/projects']">Stop All</a>
+            <div class="card-body widget-body">              
+                <div class="w-100 h-300p">
+                    <ngx-charts-pie-chart
+                        [scheme]="colorScheme"
+                        [results]="single"
+                        [legend]="showLegend"
+                        [explodeSlices]="explodeSlices"
+                        [labels]="showLabels"
+                        [doughnut]="doughnut"
+                        [gradient]="gradient"
+                        (select)="onSelect($event)">
+                    </ngx-charts-pie-chart>          
+                </div>
             </div>
-
-          </div>
-          <div class="col-lg-12">
-              <hr/>
-              <table class="table">
-                <tbody>
-                  <tr *ngFor="let item of executionStatus; let i = index">
-                    <td *ngIf = "item.testResultStatus == 'Complete'" style="background-color:green;">
-                      {{item.deviceName}}
-                    </td>
-                    <td *ngIf = "item.testResultStatus == 'FAILED'" style="background-color:red;">
-                      {{item.deviceName}}
-                    </td>
-                    <td *ngIf = "item.testResultStatus == 'SKIP'" style="background-color:green;" >
-                      {{item.deviceName}}
-                    </td>
-                    <td *ngIf = "item.testResultStatus != 'SKIP' && item.testResultStatus != 'FAILED' && item.testResultStatus != 'Complete'" style="background-color:lightblue;" >
-                      {{item.deviceName}}
-                    </td>
-                    <td *ngIf = "item.testResultStatus == 'Complete'" style="background-color:green;"  align="right">
-                      <span class="badge badge-default badge-pill " style="background-color:black;">{{item.testResultStatus}}</span>
-                    </td>
-                    <td *ngIf = "item.testResultStatus == 'FAILED'" style="background-color:red;"  align="right">
-                      <span class="badge badge-default badge-pill" style="background-color:black;">{{item.testResultStatus}}</span>
-                    </td>
-                    <td *ngIf = "item.testResultStatus == 'SKIP'" style="background-color:green;"  align="right">
-                      <span class="badge badge-default badge-pill" style="background-color:black;">{{item.testResultStatus}}</span>
-                    </td>
-                    <td *ngIf = "item.testResultStatus != 'SKIP' && item.testResultStatus != 'FAILED' && item.testResultStatus != 'Complete'" style="background-color:lightblue;"  align="right">
-                      <span class="badge badge-default badge-pill" style="background-color:black;">{{item.testResultStatus}}</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <hr/>
-          </div>
-
-          <div>
-            <div class="col-lg-12 section-buffer">
-               <h5>Test Cases</h5>
-                <ul *ngFor="let item of testCases; let i = index">
-                    <li><a href>{{item}}</a></li>
-                </ul>
-
-            </div>
-          </div>
         </div>
     </div>
-    <div class="col-lg-8 col-md-8">
-
-      <div *ngFor="let devices of deviceURLs; let i = index" class="col-lg-12 col-md-12">
-        <div  class="col-lg-6 col-md-2">
-          <h4>{{devices.deviceModel}} - {{devices.deviceName}} </h4>
-          <!--RajaiPhone	a3e707a4198ed3e2fc4d1b28be07657fe086c4c6
-          -->
-          <iframe *ngIf = "devices.deviceUDID.indexOf('a3e707a4198ed3e2fc4d1b28be07657fe086c4c6') != -1" width="640" height="360" src="http://player.twitch.tv/?channel=lreevesiphone&amp;autoplay=true" frameborder="0" allowfullscreen></iframe>
-          <!--Nexus 6	ZX1G325RX8
-          -->
-          <iframe *ngIf = "devices.deviceUDID.indexOf('ZX1G325RX8') !=  -1" width="640" height="360" src="http://192.168.1.223:5000/screen" frameborder="0" allowfullscreen></iframe>
-          <!--Galaxy S6	1015faad1e850e05
-          -->
-          <iframe *ngIf = "devices.deviceUDID.indexOf('1015faad1e850e05') !=  -1" width="640" height="360" src="http://192.168.1.223:5000/screen" frameborder="0" allowfullscreen></iframe>
-          <!--Galaxy S8+	98895443364a4a4a35
-          -->
-          <iframe *ngIf = "devices.deviceUDID.indexOf('98895443364a4a4a35') !=  -1" width="640" height="360" src="http://192.168.1.43:5000/screen" frameborder="0" allowfullscreen></iframe>
-          <!--Automation	8cfb7bac48e7d6f83229b0a8cf5730b52fe742f2
-          -->
-          <iframe *ngIf = "devices.deviceUDID.indexOf('8cfb7bac48e7d6f83229b0a8cf5730b52fe742f2') !=  -1" width="640" height="360" src="http://192.168.1.223:5000/screen" frameborder="0" allowfullscreen></iframe>
-          <!--Galaxy S7	97eae31a
-          -->
-          <iframe *ngIf = "devices.deviceUDID.indexOf('97eae31a') !=  -1" width="640" height="360" src="http://192.168.1.5:5000/screen" frameborder="0" allowfullscreen></iframe>
-          <!--Iphone7plus	59acc255724fe759c30d8980d417f147d34ec211
-          -->
-          <iframe *ngIf = "devices.deviceUDID.indexOf('59acc255724fe759c30d8980d417f147d34ec211')  != -1" width="640" height="360" src="http://player.twitch.tv/?channel=lreevesiphone&amp;autoplay=true" frameborder="0" allowfullscreen></iframe>
-
+    <div class="col-12 mb-4">
+        <div widget class="card border-0 box-shadow">
+            <div class="card-header transparent border-0 text-muted">
+                <h5 class="mb-0">Advanced Pie Chart</h5>
+                <div class="widget-controls"> 
+                    <a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
+                    <a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
+                    <a data-widgster="close" href="#" class="transition"><i class="fa fa-times"></i></a>
+                </div>        
+            </div>
+            <div class="card-body widget-body">              
+                <div class="w-100 h-300p">
+                    <ngx-charts-advanced-pie-chart
+                        [scheme]="colorScheme"
+                        [results]="single"
+                        [gradient]="gradient"
+                        (select)="onSelect($event)">
+                    </ngx-charts-advanced-pie-chart>       
+                </div>
+            </div>
         </div>
-      </div>
-      <!--
-      <iframe src="https://player.twitch.tv/?channel=lreevesiphone"
-        frameborder="0" allowfullscreen="true"
-        scrolling="no" height="378" width="620">
-      </iframe>
-      <a href="https://www.twitch.tv/lreevesiphone?tt_medium=live_embed&tt_content=text_link" style="padding:2px 0px 4px; display:block; width:345px; font-weight:normal; font-size:10px; text-decoration:underline;">Watch live video from LreevesIphone on www.twitch.tv</a>
-
-      <iframe width="640" height="360" [src]="cleanURL('http://player.twitch.tv/?channel=lreevesiphone&amp;autoplay=true')" frameborder="0" allowfullscreen></iframe>
-
-        <h3>Lamont's Samsung S8</h3>
-        <iframe width="640" height="360" src="http://192.168.1.39:5000/screen" frameborder="0" allowfullscreen></iframe>
-        <h3>Lamont's iPhone</h3>
-        <iframe width="640" height="360" src="http://player.twitch.tv/?channel=lreevesiphone&amp;player=facebook&amp;autoplay=true" frameborder="0" allowfullscreen></iframe>
-      -->
     </div>
+    <div class="col-12 mb-4">
+        <div widget class="card border-0 box-shadow">
+            <div class="card-header transparent border-0 text-muted">
+                <h5 class="mb-0">Pie Grid Chart</h5>
+                <div class="widget-controls"> 
+                    <a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
+                    <a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
+                    <a data-widgster="close" href="#" class="transition"><i class="fa fa-times"></i></a>
+                </div>        
+            </div>
+            <div class="card-body widget-body">              
+                <div class="w-100 h-300p">
+                    <ngx-charts-pie-grid
+                        [scheme]="colorScheme"
+                        [results]="single"
+                        (select)="onSelect($event)">
+                    </ngx-charts-pie-grid>      
+                </div>
+            </div>
+        </div>
+    </div>    
 </div>

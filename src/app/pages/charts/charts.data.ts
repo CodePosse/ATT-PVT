@@ -1,23 +1,27 @@
 export const single = [
   {
-    name: 'Iphone 1',
-    value: 1
+    name: 'Germany',
+    value: 40632
   },
   {
-    name: 'Iphone 2',
-    value: 1
+    name: 'United States',
+    value: 49737
   },
   {
-    name: 'Iphone 3',
-    value: 1
+    name: 'France',
+    value: 36745
   },
   {
-    name: 'Iphone 4',
-    value: 1
+    name: 'United Kingdom',
+    value: 36240
   },
   {
-    name: 'Galaxy S7',
-    value: 1
+    name: 'Spain',
+    value: 33000
+  },
+  {
+    name: 'Italy',
+    value: 35800
   }
 ];
 

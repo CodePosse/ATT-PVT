@@ -1,10 +1,6 @@
-import {Injectable} from '@angular/core';
-import {HttpEvent, HttpInterceptor, HttpHandler, HttpRequest} from '@angular/common/http';
-import {Observable} from 'rxjs/observable';
-
 import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
-import { HttpClient} from '@angular/common/http';
+
 
 @Component({
   selector: 'app-ngx',
@@ -23,24 +19,22 @@ export class NgxComponent {
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
   columns = [
-    { prop: 'name' }
+    { prop: 'name' },
+    { name: 'Gender' },
+    { name: 'Company' }
   ];
 
- constructor(private http: HttpClient) {
+ constructor() {
     this.fetch((data) => {
-      console.log(data.devices);
-      this.temp = [...data.devices];
-      this.rows = data.devices;
+      this.temp = [...data];
+      this.rows = data;
       setTimeout(() => { this.loadingIndicator = false; }, 1500);
     });
   }
-/*********
-  Fetch
-**********/
 
   fetch(data) {
     const req = new XMLHttpRequest();
-    req.open('GET', '/automationmanager/devices');
+    req.open('GET', 'assets/data/company.json');
     req.onload = () => {
       data(JSON.parse(req.response));
     };

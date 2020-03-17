@@ -1,5 +1,5 @@
 import { Component, OnInit, VERSION, ViewEncapsulation } from '@angular/core';
-import { ToastrService, ToastrConfig } from 'ngx-toastr';
+import { ToastrService, GlobalConfig } from 'ngx-toastr';
 
 const quotes = [
   {
@@ -35,7 +35,7 @@ const types = ['success', 'error', 'info', 'warning'];
   encapsulation: ViewEncapsulation.None
 })
 export class ToasterComponent implements OnInit {
-  options: ToastrConfig;
+  options: GlobalConfig;
   title = '';
   type = types[0];
   message = '';

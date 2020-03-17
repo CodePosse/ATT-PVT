@@ -11,24 +11,22 @@ import { AppSettings } from './app.settings';
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
 
-import {HttpClientModule} from '@angular/common/http';
-import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'
     }),
     CalendarModule.forRoot(),
-    routing,
-    Ng2GoogleChartsModule,
+    routing
   ],
   providers: [ AppSettings ],
   bootstrap: [ AppComponent ]

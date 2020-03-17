@@ -42,8 +42,8 @@ $chat-item-show-width: 230px;
     }
     .chat-list{
          padding-bottom: $top-navbar-height + $chat-person-search-media-height; 
-        .ps__scrollbar-y-rail{
-            z-index: 99999999;
+        .ps__rail-y{
+            z-index: 9999999;
         }
         .media{
             cursor: pointer;
@@ -68,8 +68,8 @@ $chat-item-show-width: 230px;
                 text-overflow: ellipsis;
                 overflow: hidden;
             } 
-            .ps__scrollbar-y-rail{
-                z-index: 99999999;
+            .ps__rail-y{
+                z-index: 9999999;
             }
         } 
         .media{
@@ -128,7 +128,7 @@ $chat-item-show-width: 230px;
         }
         .chat-list{
             padding-bottom: $top-navbar-height + $chat-person-search-media-height; 
-            .ps__scrollbar-y-rail{
+            .ps__rail-y{
                 z-index: 0;
             }
         }

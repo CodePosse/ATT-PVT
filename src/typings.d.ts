@@ -10,4 +10,4 @@ interface Document {
     mozFullScreenElement:any;
     msFullscreenElement:any;
 }
-declare var L:any;
+declare var L:any;  //leaflet

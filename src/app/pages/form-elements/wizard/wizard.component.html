@@ -15,7 +15,7 @@
                     <a data-widgster="close" href="#" class="transition"><i class="fa fa-times"></i></a>
                 </div>        
             </div>
-            <div *ngIf="!confirmed" class="card-block widget-body">
+            <div *ngIf="!confirmed" class="card-body widget-body">
                 <div class="row">
                     <div *ngFor="let step of steps; let last = last" class="col-md-3 col-sm-6 col-12 step text-center">
                         <div class="d-flex justify-content-center align-items-center text-white pl-2 pr-2 mb-2 rounded step-content" [class.bg-success]="step.valid" [class.bg-danger]="step.active" [class.confirmed]="confirmed">
@@ -262,7 +262,7 @@
 
             </div>
 
-            <div *ngIf="confirmed" class="card-block widget-body">
+            <div *ngIf="confirmed" class="card-body widget-body">
                
                 <div class="col bg-light p-5">
                     <div class="d-flex justify-content-center align-items-center flex-column bg-light confirmed-content">

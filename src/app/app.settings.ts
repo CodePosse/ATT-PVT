@@ -4,7 +4,7 @@ import { Settings } from './app.settings.model';
 @Injectable()
 export class AppSettings {
     public settings = new Settings(
-        'AT&T PVT',
+        'StartNG',
         'Angular Admin Template with Bootstrap 4',
         {
             menu: 'vertical', //horizontal , vertical
@@ -15,7 +15,7 @@ export class AppSettings {
             sidebarIsFixed: true,
             showSideChat: false,
             sideChatIsHoverable: true,
-            skin:'combined'        
+            skin:'combined'  //light , dark, blue, green, combined, purple, orange, brown, grey, pink          
         }
     )
 }
