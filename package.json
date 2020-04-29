@@ -38,7 +38,7 @@
     "flag-icon-css": "2.9.0",
     "font-awesome": "4.7.0",
     "intl": "1.2.5",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "leaflet-map": "0.2.1",
     "ng2-ckeditor": "1.1.13",
     "ng2-completer": "1.6.3",
